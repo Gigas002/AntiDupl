@@ -7,28 +7,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <AssemblyVersion>2.3.10.12</AssemblyVersion>
     <FileVersion>2.3.10.12</FileVersion>
-    <Platforms>AnyCPU;x86;x64</Platforms>
+    <Platforms>x64</Platforms>
     <Company>ErmIg</Company>
     <Copyright>ErmIg © 2002-2018</Copyright>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <StartupObject>AntiDupl.NET.Program</StartupObject>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>TRACE</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>..\..\..\bin\Release\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -38,18 +21,7 @@
     <OutputPath>..\..\..\bin\Debug\</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
