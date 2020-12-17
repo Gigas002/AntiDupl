@@ -24,14 +24,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="$(SolutionDir)\Antidupl.NET\External.cmd $(SolutionDir)\Antidupl.NET" />
-  </Target>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="$(SolutionDir)\..\..\cmd\CopyData.cmd $(SolutionDir)\..\.. $(SolutionDir)\..\..\bin\$(ConfigurationName)" />
-  </Target>
-
   <ItemGroup>
     <None Remove="Icon.ico" />
   </ItemGroup>
