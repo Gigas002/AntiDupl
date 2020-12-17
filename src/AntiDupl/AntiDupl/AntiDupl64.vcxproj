@@ -19,6 +19,11 @@
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>true</VcpkgEnabled>
+    <VcpkgManifestInstall>true</VcpkgManifestInstall>
+    <VcpkgAutoLink>true</VcpkgAutoLink>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ItemDefinitionGroup>
     <ClCompile>
@@ -34,17 +39,8 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\3rd\LibOpenJpeg\LibOpenJpeg64.vcxproj">
-      <Project>{b6080b9d-6f8c-417c-af11-9853c47ba665}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rd\libwebp\libwebp64.vcxproj">
-      <Project>{8398ec77-8b40-4616-82cc-efbf76138461}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\3rd\Simd\Simd_64.vcxproj">
       <Project>{1622c4ef-06a4-4daa-9631-5d71b32858a3}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rd\TurboJpeg\TurboJpeg64.vcxproj">
-      <Project>{49457768-4766-49df-b566-9aad8a83ff2c}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
