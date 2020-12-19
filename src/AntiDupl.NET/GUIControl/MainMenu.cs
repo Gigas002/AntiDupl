@@ -103,7 +103,7 @@ namespace AntiDupl.NET
             m_file_profileSaveAsMenuItem = InitFactory.MenuItem.Create("ProfileSaveAsMenu", null, ProfileSaveAsAction);
             m_file_loadProfileOnLoading = InitFactory.MenuItem.Create(null, null, LoadProfileOnLoadingAction, m_options.loadProfileOnLoading);
             m_file_saveProfileOnClosing = InitFactory.MenuItem.Create(null, null, SaveProfileOnClosingAction, m_options.saveProfileOnClosing);
-            
+
             m_fileMenuItem = new ToolStripMenuItem();
             m_fileMenuItem.DropDownItems.Add(m_file_profileOpenMenuItem);
             m_fileMenuItem.DropDownItems.Add(m_file_profileSaveAsMenuItem);
@@ -132,7 +132,7 @@ namespace AntiDupl.NET
             m_view_stretchSmallImageMenuItem = InitFactory.MenuItem.Create(null, null, ViewItemCheckChangeAction, m_options.resultsOptions.StretchSmallImages);
             m_view_proportionalImageViewMenuItem = InitFactory.MenuItem.Create(null, null, ViewItemCheckChangeAction, m_options.resultsOptions.ProportionalImageSize);
             m_view_showNeighbourImageMenuItem = InitFactory.MenuItem.Create(null, null, ViewItemCheckChangeAction, m_options.resultsOptions.ShowNeighboursImages);
- 
+
             m_viewMenuItem = new ToolStripMenuItem();
             m_viewMenuItem.DropDownItems.Add(m_view_toolMenuItem);
             m_viewMenuItem.DropDownItems.Add(m_view_statusMenuItem);
@@ -215,7 +215,7 @@ namespace AntiDupl.NET
             m_view_proportionalImageViewMenuItem.Text = s.MainMenu_View_ProportionalImageSizeMenuItem_Text;
             if (m_options.hotKeyOptions.keys.Length > (int)HotKeyOptions.Action.ShowNeighbours &&
                 m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours] != null)
-                    m_view_showNeighbourImageMenuItem.Text = s.MainMenu_View_ShowNeighbourImageMenuItem_Text + String.Format(" ({0})", m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours].ToString().Replace(',', '+'));
+                m_view_showNeighbourImageMenuItem.Text = s.MainMenu_View_ShowNeighbourImageMenuItem_Text + String.Format(" ({0})", m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours].ToString().Replace(',', '+'));
             else
                 m_view_showNeighbourImageMenuItem.Text = s.MainMenu_View_ShowNeighbourImageMenuItem_Text;
 
@@ -229,7 +229,7 @@ namespace AntiDupl.NET
             m_search_useImageDataBaseMenuItem.Text = s.MainMenu_Search_UseImageDataBaseMenuItem_Text;
             m_search_checkResultsAtLoadingMenuItem.Text = s.MainMenu_Search_CheckResultsAtLoadingMenuItem_Text;
             m_search_checkMistakesAtLoadingMenuItem.Text = s.MainMenu_Search_CheckMistakesAtLoadingMenuItem_Text;
-            
+
             m_helpMenuItem.Text = s.MainMenu_HelpMenuItem_Text;
             m_help_helpMenuItem.Text = s.MainMenu_Help_HelpMenuItem_Text;
             m_help_aboutProgramMenuItem.Text = s.MainMenu_Help_AboutProgramMenuItem_Text;
@@ -264,13 +264,13 @@ namespace AntiDupl.NET
 
         private void OnSelectColumnsClick(object sender, EventArgs e)
         {
-            if(m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 SelectVerticalColumnsForm form =
                     new SelectVerticalColumnsForm(m_mainSplitContainer.resultsListView, m_options);
                 form.ShowDialog();
             }
-            if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
             {
                 SelectHorizontalColumnsForm form =
                     new SelectHorizontalColumnsForm(m_mainSplitContainer.resultsListView, m_options);
@@ -319,7 +319,7 @@ namespace AntiDupl.NET
             m_mainSplitContainer.resultsListView.SetRowSelection(true);
             m_mainSplitContainer.resultsListView.Invalidate();
         }
-        
+
         public void ProfileSaveAsAction(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
@@ -459,7 +459,7 @@ namespace AntiDupl.NET
         private void OnCheckingForUpdatesClick(object sender, EventArgs e)
         {
             m_options.checkingForUpdates = m_help_checkingForUpdatesMenuItem.Checked;
-            if(m_options.checkingForUpdates)
+            if (m_options.checkingForUpdates)
             {
                 m_newVersionMenuItem = new NewVersionMenuItem(m_options);
             }

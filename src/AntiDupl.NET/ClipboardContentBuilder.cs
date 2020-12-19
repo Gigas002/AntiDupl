@@ -43,15 +43,15 @@ namespace AntiDupl.NET
         public void Add(CoreResult result)
         {
             m_insertTab = false;
-            switch (m_options.viewMode)
+            switch (m_options.ViewMode)
             {
                 case ViewMode.VerticalPairTable:
-                    AddCommon(result, m_options.columnOptionsVertical);
-                    AddVertical(result, m_options.columnOptionsVertical);
+                    AddCommon(result, m_options.ColumnOptionsVertical);
+                    AddVertical(result, m_options.ColumnOptionsVertical);
                     break;
                 case ViewMode.HorizontalPairTable:
-                    AddCommon(result, m_options.columnOptionsHorizontal);
-                    AddHorizontal(result, m_options.columnOptionsHorizontal);
+                    AddCommon(result, m_options.ColumnOptionsHorizontal);
+                    AddHorizontal(result, m_options.ColumnOptionsHorizontal);
                     break;
             }
             m_builder.AppendLine("");
@@ -62,73 +62,73 @@ namespace AntiDupl.NET
             return m_builder.ToString();
         }
 
-        private void AddCommon(CoreResult result, ResultsOptions.ColumnOptions[] options)
+        private void AddCommon(CoreResult result, ColumnOptions[] options)
         {
-            if (options[(int)TypeVertical.Type].visible)
+            if (options[(int)TypeVertical.Type].Visible)
                 Append(result.type);
-            if (options[(int)TypeVertical.Group].visible)
+            if (options[(int)TypeVertical.Group].Visible)
                 Append(result.group);
-            if (options[(int)TypeVertical.Difference].visible)
+            if (options[(int)TypeVertical.Difference].Visible)
                 Append(result.difference.ToString("F2"));
-            if (options[(int)TypeVertical.Defect].visible)
+            if (options[(int)TypeVertical.Defect].Visible)
                 Append(result.defect);
-            if (options[(int)TypeVertical.Transform].visible)
+            if (options[(int)TypeVertical.Transform].Visible)
                 Append(result.transform);
-            if (options[(int)TypeVertical.Hint].visible)
+            if (options[(int)TypeVertical.Hint].Visible)
                 Append(result.hint);
         }
 
-        private void AddVertical(CoreResult result, ResultsOptions.ColumnOptions[] options)
+        private void AddVertical(CoreResult result, ColumnOptions[] options)
         {
-            if (options[(int)TypeVertical.FileName].visible ||
-                options[(int)TypeVertical.FileDirectory].visible)
+            if (options[(int)TypeVertical.FileName].Visible ||
+                options[(int)TypeVertical.FileDirectory].Visible)
                 Append(result.first.path);
-            if (options[(int)TypeVertical.ImageSize].visible)
+            if (options[(int)TypeVertical.ImageSize].Visible)
                 Append(result.first.GetImageSizeString());
-            if (options[(int)TypeVertical.ImageType].visible)
+            if (options[(int)TypeVertical.ImageType].Visible)
                 Append(result.first.GetImageTypeString());
-            if (options[(int)TypeVertical.FileSize].visible)
+            if (options[(int)TypeVertical.FileSize].Visible)
                 Append(result.first.GetFileSizeString());
-            if (options[(int)TypeVertical.FileTime].visible)
+            if (options[(int)TypeVertical.FileTime].Visible)
                 Append(result.first.GetFileTimeString());
 
-            if (options[(int)TypeVertical.FileName].visible ||
-                options[(int)TypeVertical.FileDirectory].visible)
+            if (options[(int)TypeVertical.FileName].Visible ||
+                options[(int)TypeVertical.FileDirectory].Visible)
                 Append(result.second.path);
-            if (options[(int)TypeVertical.ImageSize].visible)
+            if (options[(int)TypeVertical.ImageSize].Visible)
                 Append(result.second.GetImageSizeString());
-            if (options[(int)TypeVertical.ImageType].visible)
+            if (options[(int)TypeVertical.ImageType].Visible)
                 Append(result.second.GetImageTypeString());
-            if (options[(int)TypeVertical.FileSize].visible)
+            if (options[(int)TypeVertical.FileSize].Visible)
                 Append(result.second.GetFileSizeString());
-            if (options[(int)TypeVertical.FileTime].visible)
+            if (options[(int)TypeVertical.FileTime].Visible)
                 Append(result.second.GetFileTimeString());
         }
 
-        private void AddHorizontal(CoreResult result, ResultsOptions.ColumnOptions[] options)
+        private void AddHorizontal(CoreResult result, ColumnOptions[] options)
         {
-            if (options[(int)TypeHorizontal.FirstFileName].visible ||
-                options[(int)TypeHorizontal.FirstFileDirectory].visible)
+            if (options[(int)TypeHorizontal.FirstFileName].Visible ||
+                options[(int)TypeHorizontal.FirstFileDirectory].Visible)
                 Append(result.first.path);
-            if (options[(int)TypeHorizontal.FirstImageSize].visible)
+            if (options[(int)TypeHorizontal.FirstImageSize].Visible)
                 Append(result.first.GetImageSizeString());
-            if (options[(int)TypeHorizontal.FirstImageType].visible)
+            if (options[(int)TypeHorizontal.FirstImageType].Visible)
                 Append(result.first.GetImageTypeString());
-            if (options[(int)TypeHorizontal.FirstFileSize].visible)
+            if (options[(int)TypeHorizontal.FirstFileSize].Visible)
                 Append(result.first.GetFileSizeString());
-            if (options[(int)TypeHorizontal.FirstFileTime].visible)
+            if (options[(int)TypeHorizontal.FirstFileTime].Visible)
                 Append(result.first.GetFileTimeString());
 
-            if (options[(int)TypeHorizontal.SecondFileName].visible ||
-                options[(int)TypeHorizontal.SecondFileDirectory].visible)
+            if (options[(int)TypeHorizontal.SecondFileName].Visible ||
+                options[(int)TypeHorizontal.SecondFileDirectory].Visible)
                 Append(result.second.path);
-            if (options[(int)TypeHorizontal.SecondImageSize].visible)
+            if (options[(int)TypeHorizontal.SecondImageSize].Visible)
                 Append(result.second.GetImageSizeString());
-            if (options[(int)TypeHorizontal.SecondImageType].visible)
+            if (options[(int)TypeHorizontal.SecondImageType].Visible)
                 Append(result.second.GetImageTypeString());
-            if (options[(int)TypeHorizontal.SecondFileSize].visible)
+            if (options[(int)TypeHorizontal.SecondFileSize].Visible)
                 Append(result.second.GetFileSizeString());
-            if (options[(int)TypeHorizontal.SecondFileTime].visible)
+            if (options[(int)TypeHorizontal.SecondFileTime].Visible)
                 Append(result.second.GetFileTimeString());
         }
 

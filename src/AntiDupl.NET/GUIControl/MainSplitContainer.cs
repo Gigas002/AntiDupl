@@ -47,7 +47,7 @@ namespace AntiDupl.NET
 
         private ThumbnailGroupTable m_thumbnailGroupTable;
         private ThumbnailPreview m_thumbnailPreview;
-        
+
         bool m_setOrientationNow = false;
         bool m_atLeastOneTimeSetOrientation = false;
 
@@ -168,57 +168,57 @@ namespace AntiDupl.NET
                 SetSplitterDistance();
             }
         }
-        
+
         private void SetSplitterDistance()
         {
             ResultsOptions options = m_options.resultsOptions;
-            if (options.viewMode == ViewMode.VerticalPairTable || options.viewMode == ViewMode.GroupedThumbnails)
+            if (options.ViewMode == ViewMode.VerticalPairTable || options.ViewMode == ViewMode.GroupedThumbnails)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
-                    SplitterDistance = Math.Min(Math.Max(options.splitterDistanceVerticalMaximized, VIEW_MIN_WIDTH), Width - LIST_MIN_WIDTH - SplitterWidth);
+                    SplitterDistance = Math.Min(Math.Max(options.SplitterDistanceVerticalMaximized, VIEW_MIN_WIDTH), Width - LIST_MIN_WIDTH - SplitterWidth);
                 }
                 if (m_mainForm.WindowState == FormWindowState.Normal)
                 {
-                    SplitterDistance = Math.Min(Math.Max(options.splitterDistanceVerticalNormal, VIEW_MIN_WIDTH), Width - LIST_MIN_WIDTH - SplitterWidth);
+                    SplitterDistance = Math.Min(Math.Max(options.SplitterDistanceVerticalNormal, VIEW_MIN_WIDTH), Width - LIST_MIN_WIDTH - SplitterWidth);
                 }
             }
-            if (options.viewMode == ViewMode.HorizontalPairTable)
+            if (options.ViewMode == ViewMode.HorizontalPairTable)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
-                    SplitterDistance = Math.Min(Math.Max(options.splitterDistanceHorizontalMaximized, VIEW_MIN_HEIGHT), Height - LIST_MIN_HEIGHT - SplitterWidth);
+                    SplitterDistance = Math.Min(Math.Max(options.SplitterDistanceHorizontalMaximized, VIEW_MIN_HEIGHT), Height - LIST_MIN_HEIGHT - SplitterWidth);
                 }
                 if (m_mainForm.WindowState == FormWindowState.Normal)
                 {
-                    SplitterDistance = Math.Min(Math.Max(options.splitterDistanceHorizontalNormal, VIEW_MIN_HEIGHT), Height - LIST_MIN_HEIGHT - SplitterWidth);
+                    SplitterDistance = Math.Min(Math.Max(options.SplitterDistanceHorizontalNormal, VIEW_MIN_HEIGHT), Height - LIST_MIN_HEIGHT - SplitterWidth);
                 }
             }
         }
-        
+
         private void GetSplitterDistance()
         {
             ResultsOptions options = m_options.resultsOptions;
-            if (options.viewMode == ViewMode.VerticalPairTable || options.viewMode == ViewMode.GroupedThumbnails)
+            if (options.ViewMode == ViewMode.VerticalPairTable || options.ViewMode == ViewMode.GroupedThumbnails)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
-                    options.splitterDistanceVerticalMaximized = SplitterDistance;
+                    options.SplitterDistanceVerticalMaximized = SplitterDistance;
                 }
                 if (m_mainForm.WindowState == FormWindowState.Normal)
                 {
-                    options.splitterDistanceVerticalNormal = SplitterDistance;
+                    options.SplitterDistanceVerticalNormal = SplitterDistance;
                 }
             }
-            if (options.viewMode == ViewMode.HorizontalPairTable)
+            if (options.ViewMode == ViewMode.HorizontalPairTable)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
-                    options.splitterDistanceHorizontalMaximized = SplitterDistance;
+                    options.SplitterDistanceHorizontalMaximized = SplitterDistance;
                 }
                 if (m_mainForm.WindowState == FormWindowState.Normal)
                 {
-                    options.splitterDistanceHorizontalNormal = SplitterDistance;
+                    options.SplitterDistanceHorizontalNormal = SplitterDistance;
                 }
             }
         }

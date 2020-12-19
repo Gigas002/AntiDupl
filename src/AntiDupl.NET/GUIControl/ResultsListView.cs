@@ -138,7 +138,7 @@ namespace AntiDupl.NET
             m_results = new CoreResult[0];
             m_resultRowSetter = new ResultRowSetter(m_options, this);
             InitializeComponents();
-            if(m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if(m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 m_viewMode = ViewMode.HorizontalPairTable;
                 SetViewMode(ViewMode.VerticalPairTable);
@@ -183,7 +183,7 @@ namespace AntiDupl.NET
             Columns[(int)ColumnsTypeVertical.Defect].Name = s.ResultsListView_Defect_Column_Text;
             Columns[(int)ColumnsTypeVertical.Transform].Name = s.ResultsListView_Transform_Column_Text;
             Columns[(int)ColumnsTypeVertical.Hint].Name = s.ResultsListView_Hint_Column_Text;
-            if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 Columns[(int)ColumnsTypeVertical.FileName].Name = s.ResultsListView_FileName_Column_Text;
                 Columns[(int)ColumnsTypeVertical.FileDirectory].Name = s.ResultsListView_FileDirectory_Column_Text;
@@ -194,7 +194,7 @@ namespace AntiDupl.NET
                 Columns[(int)ColumnsTypeVertical.FileSize].Name = s.ResultsListView_FileSize_Column_Text;
                 Columns[(int)ColumnsTypeVertical.FileTime].Name = s.ResultsListView_FileTime_Column_Text;
             }
-            if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
             {
                 Columns[(int)ColumnsTypeHorizontal.FirstFileName].Name = s.ResultsListView_FirstFileName_Column_Text;
                 Columns[(int)ColumnsTypeHorizontal.FirstFileDirectory].Name = s.ResultsListView_FirstFileDirectory_Column_Text;
@@ -220,18 +220,18 @@ namespace AntiDupl.NET
         public void UpdateColumnsVisibility()
         {
             m_updateColumnOrder = false;
-            if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 for (int i = 0; i < (int)ColumnsTypeVertical.Size; i++)
                 {
-                    Columns[i].Visible = m_options.resultsOptions.columnOptionsVertical[i].visible;
+                    Columns[i].Visible = m_options.resultsOptions.ColumnOptionsVertical[i].Visible;
                 }
             }
-            if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
             {
                 for (int i = 0; i < (int)ColumnsTypeHorizontal.Size; i++)
                 {
-                    Columns[i].Visible = m_options.resultsOptions.columnOptionsHorizontal[i].visible;
+                    Columns[i].Visible = m_options.resultsOptions.ColumnOptionsHorizontal[i].Visible;
                 }
             }
             m_updateColumnOrder = true;
@@ -439,7 +439,7 @@ namespace AntiDupl.NET
             DataGridViewColumn dataGridViewColumn = Columns[e.ColumnIndex];
 
             CoreDll.SortType sortType = CoreDll.SortType.ByType;
-            if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 switch ((ColumnsTypeVertical)e.ColumnIndex)
                 {
@@ -490,7 +490,7 @@ namespace AntiDupl.NET
                         break;
                 }
             }
-            if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
             {
                 switch ((ColumnsTypeHorizontal)e.ColumnIndex)
                 {
@@ -587,8 +587,8 @@ namespace AntiDupl.NET
                 if (col != e.ColumnIndex)
                     Columns[col].HeaderCell.SortGlyphDirection = SortOrder.None;
 
-            m_options.resultsOptions.sortTypeDefault = (int)sortType;
-            m_options.resultsOptions.increasingDefault = direction == ListSortDirection.Ascending;
+            m_options.resultsOptions.SortTypeDefault = (int)sortType;
+            m_options.resultsOptions.IncreasingDefault = direction == ListSortDirection.Ascending;
             m_core.SortResult(sortType, direction == ListSortDirection.Ascending);
 
             m_mainSplitContainer.UpdateResults();
@@ -597,13 +597,13 @@ namespace AntiDupl.NET
         protected override void OnColumnWidthChanged(DataGridViewColumnEventArgs e)
         {
             base.OnColumnWidthChanged(e);
-            if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
-                m_options.resultsOptions.columnOptionsVertical[e.Column.Index].width = Columns[e.Column.Index].Width;
+                m_options.resultsOptions.ColumnOptionsVertical[e.Column.Index].Width = Columns[e.Column.Index].Width;
             }
-            if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
             {
-                m_options.resultsOptions.columnOptionsHorizontal[e.Column.Index].width = Columns[e.Column.Index].Width;
+                m_options.resultsOptions.ColumnOptionsHorizontal[e.Column.Index].Width = Columns[e.Column.Index].Width;
             }
         }
 
@@ -612,13 +612,13 @@ namespace AntiDupl.NET
             base.OnColumnDisplayIndexChanged(e);
             if (m_updateColumnOrder)
             {
-                if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+                if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
                 {
-                    m_options.resultsOptions.columnOptionsVertical[e.Column.Index].order = Columns[e.Column.Index].DisplayIndex;
+                    m_options.resultsOptions.ColumnOptionsVertical[e.Column.Index].Order = Columns[e.Column.Index].DisplayIndex;
                 }
-                if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+                if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
                 {
-                    m_options.resultsOptions.columnOptionsHorizontal[e.Column.Index].order = Columns[e.Column.Index].DisplayIndex;
+                    m_options.resultsOptions.ColumnOptionsHorizontal[e.Column.Index].Order = Columns[e.Column.Index].DisplayIndex;
                 }
             }
         }
@@ -896,8 +896,8 @@ namespace AntiDupl.NET
                 {
                     Columns[i].Name = ((ColumnsTypeVertical)i).ToString();
                     Columns[i].SortMode = DataGridViewColumnSortMode.Programmatic;
-                    Columns[i].Width = m_options.resultsOptions.columnOptionsVertical[i].width;
-                    Columns[i].DisplayIndex = m_options.resultsOptions.columnOptionsVertical[i].order;
+                    Columns[i].Width = m_options.resultsOptions.ColumnOptionsVertical[i].Width;
+                    Columns[i].DisplayIndex = m_options.resultsOptions.ColumnOptionsVertical[i].Order;
                 }
                 Rows[0].Cells[0] = new DataGridViewDoubleTextBoxCell("0", "0");
             }
@@ -908,8 +908,8 @@ namespace AntiDupl.NET
                 {
                     Columns[i].Name = ((ColumnsTypeHorizontal)i).ToString();
                     Columns[i].SortMode = DataGridViewColumnSortMode.Programmatic;
-                    Columns[i].Width = m_options.resultsOptions.columnOptionsHorizontal[i].width;
-                    Columns[i].DisplayIndex = m_options.resultsOptions.columnOptionsHorizontal[i].order;
+                    Columns[i].Width = m_options.resultsOptions.ColumnOptionsHorizontal[i].Width;
+                    Columns[i].DisplayIndex = m_options.resultsOptions.ColumnOptionsHorizontal[i].Order;
                 }
                 Rows[0].Cells[0] = new DataGridViewTextBoxCell();
                 Rows[0].Cells[0].Value = "0";

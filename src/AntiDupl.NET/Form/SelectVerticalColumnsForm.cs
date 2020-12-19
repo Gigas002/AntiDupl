@@ -39,7 +39,7 @@ namespace AntiDupl.NET
 
         public SelectVerticalColumnsForm(ResultsListView resultsListView, Options options)
         {
-            if (options.resultsOptions.viewMode != ViewMode.VerticalPairTable)
+            if (options.resultsOptions.ViewMode != ViewMode.VerticalPairTable)
                 throw new Exception("Bad view mode!");
 
             m_resultsListView = resultsListView;
@@ -148,7 +148,7 @@ namespace AntiDupl.NET
         private void OnButtonClick(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            if(button == m_okButton)
+            if (button == m_okButton)
             {
                 m_newResultOptions.CopyTo(ref m_options.resultsOptions);
                 m_resultsListView.UpdateColumnsVisibility();
@@ -169,7 +169,7 @@ namespace AntiDupl.NET
         {
             for (int i = 0; i < (int)ResultsListView.ColumnsTypeVertical.Size; i++)
             {
-                m_checkBoxes[i].Checked = m_newResultOptions.columnOptionsVertical[i].visible;
+                m_checkBoxes[i].Checked = m_newResultOptions.ColumnOptionsVertical[i].Visible;
             }
         }
 
@@ -177,7 +177,7 @@ namespace AntiDupl.NET
         {
             for (int i = 0; i < (int)ResultsListView.ColumnsTypeVertical.Size; i++)
             {
-                m_newResultOptions.columnOptionsVertical[i].visible = m_checkBoxes[i].Checked;
+                m_newResultOptions.ColumnOptionsVertical[i].Visible = m_checkBoxes[i].Checked;
             }
         }
 

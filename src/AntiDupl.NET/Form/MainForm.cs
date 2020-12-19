@@ -140,7 +140,7 @@ namespace AntiDupl.NET
         private void OnFormShown(object sender, EventArgs e)
         {
             SetLoadedViewOptions();
-            m_mainSplitContainer.SetViewMode(m_options.resultsOptions.viewMode);
+            m_mainSplitContainer.SetViewMode(m_options.resultsOptions.ViewMode);
         }
 
         public void UpdateCaption()

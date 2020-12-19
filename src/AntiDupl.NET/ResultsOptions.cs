@@ -22,6 +22,8 @@
 * SOFTWARE.
 */
 
+using System.Drawing;
+
 namespace AntiDupl.NET
 {
     /// <summary>
@@ -30,7 +32,10 @@ namespace AntiDupl.NET
     /// </summary>
     public sealed class ResultsOptions
     {
+        #region Fields and Properties
+
         private const int DefaultThumbnailWidthMax = 128;
+
         private const int DefaultThumbnailHeightMax = 128;
 
         public delegate void ViewModeChangeHandler(ViewMode viewMode);
@@ -39,361 +44,207 @@ namespace AntiDupl.NET
 
         private ViewMode _mViewMode = ViewMode.VerticalPairTable;
 
-        public ViewMode viewMode
+        internal ViewMode ViewMode
         {
             get => _mViewMode;
             set
             {
-                if (_mViewMode != value)
-                {
-                    _mViewMode = value;
-                    if (OnViewModeChange != null)
-                        OnViewModeChange(_mViewMode);
-                }
+                if (_mViewMode == value) return;
+
+                _mViewMode = value;
+                OnViewModeChange?.Invoke(_mViewMode);
             }
         }
 
-        public bool IsPairTableView()
-        {
-            return (_mViewMode == ViewMode.VerticalPairTable || _mViewMode == ViewMode.HorizontalPairTable);
-        }
+        internal bool IsPairTableView() => _mViewMode == ViewMode.VerticalPairTable ||
+                                           _mViewMode == ViewMode.HorizontalPairTable;
 
         public delegate void ImageViewChangeHandler();
+
         public event ImageViewChangeHandler OnImageViewChange;
-        private bool m_stretchSmallImages = false;
-        public bool StretchSmallImages
+
+        private bool _mStretchSmallImages;
+
+        internal bool StretchSmallImages
         {
-            get
-            {
-                return m_stretchSmallImages;
-            }
+            get => _mStretchSmallImages;
             set
             {
-                if (m_stretchSmallImages != value)
-                {
-                    m_stretchSmallImages = value;
-                    if (OnImageViewChange != null)
-                        OnImageViewChange();
-                }
+                if (_mStretchSmallImages == value) return;
+
+                _mStretchSmallImages = value;
+                OnImageViewChange?.Invoke();
             }
         }
-        private bool m_proportionalImageSize = true;
-        public bool ProportionalImageSize
+
+        private bool _mProportionalImageSize = true;
+
+        internal bool ProportionalImageSize
         {
-            get
-            {
-                return m_proportionalImageSize;
-            }
+            get => _mProportionalImageSize;
             set
             {
-                if (m_proportionalImageSize != value)
-                {
-                    m_proportionalImageSize = value;
-                    if (OnImageViewChange != null)
-                        OnImageViewChange();
-                }
+                if (_mProportionalImageSize == value) return;
+
+                _mProportionalImageSize = value;
+                OnImageViewChange?.Invoke();
             }
         }
 
         public delegate void HighlightDifferenceChangeHandler();
+
         public event HighlightDifferenceChangeHandler OnHighlightDifferenceChange;
-        public void RaiseEventOnHighlightDifferenceChange()
-        {
-            if (OnHighlightDifferenceChange != null)
-                OnHighlightDifferenceChange();
-        }
 
-        private bool m_highlightDifference = false;
-        public bool HighlightDifference
+        internal void RaiseEventOnHighlightDifferenceChange() => OnHighlightDifferenceChange?.Invoke();
+
+        internal bool HighlightDifference { get; set; }
+
+        internal float DifferenceThreshold { get; set; } = 99.90F;
+
+        internal bool NotHighlightIfFragmentsMoreThan { get; set; } = true;
+
+        internal int NotHighlightMaxFragments { get; set; } = 32;
+
+        internal bool HighlightAllDifferences { get; set; } = true;
+
+        internal int MaxFragmentsForHighlight { get; set; } = 10;
+
+        internal int AmountOfFragmentsOnX { get; set; } = 16;
+
+        internal int AmountOfFragmentsOnY { get; set; } = 16;
+
+        internal int NormalizedSizeOfImage { get; set; } = 512;
+
+        internal int PenThickness { get; set; } = 2;
+
+        private bool _mShowNeighboursImages;
+
+        internal bool ShowNeighboursImages
         {
-            get
-            {
-                return m_highlightDifference;
-            }
+            get => _mShowNeighboursImages;
             set
             {
-                if (m_highlightDifference != value)
-                {
-                    m_highlightDifference = value;
-                }
+                if (_mShowNeighboursImages == value) return;
+
+                _mShowNeighboursImages = value;
+                OnImageViewChange?.Invoke();
             }
         }
 
-        private float m_differenceThreshold = 99.90F;
-        public float DifferenceThreshold
+        internal ColumnOptions[] ColumnOptionsVertical;
+
+        internal ColumnOptions[] ColumnOptionsHorizontal;
+
+        internal int SortTypeDefault;
+
+        internal bool IncreasingDefault;
+
+        internal int SplitterDistanceVerticalMaximized;
+
+        internal int SplitterDistanceVerticalNormal;
+
+        internal int SplitterDistanceHorizontalMaximized;
+
+        internal int SplitterDistanceHorizontalNormal;
+
+        internal Size ThumbnailSizeMax = new Size(DefaultThumbnailWidthMax, DefaultThumbnailHeightMax);
+
+        #endregion
+
+        #region Constructors
+
+        internal ResultsOptions(ResultsOptions options)
         {
-            get
-            {
-                return m_differenceThreshold;
-            }
-            set
-            {
-                if (m_differenceThreshold != value)
-                {
-                    m_differenceThreshold = value;
-                }
-            }
+            ColumnOptionsVertical = new ColumnOptions[(int)ResultsListView.ColumnsTypeVertical.Size];
+            for (int i = 0; i < ColumnOptionsVertical.Length; i++)
+                ColumnOptionsVertical[i] = options.ColumnOptionsVertical[i];
+            ColumnOptionsHorizontal = new ColumnOptions[(int)ResultsListView.ColumnsTypeHorizontal.Size];
+            for (int i = 0; i < ColumnOptionsHorizontal.Length; i++)
+                ColumnOptionsHorizontal[i] = options.ColumnOptionsHorizontal[i];
+            SortTypeDefault = options.SortTypeDefault;
+            IncreasingDefault = options.IncreasingDefault;
+            SplitterDistanceVerticalMaximized = options.SplitterDistanceVerticalMaximized;
+            SplitterDistanceVerticalNormal = options.SplitterDistanceVerticalNormal;
+            SplitterDistanceHorizontalMaximized = options.SplitterDistanceHorizontalMaximized;
+            SplitterDistanceHorizontalNormal = options.SplitterDistanceHorizontalNormal;
+            ThumbnailSizeMax = options.ThumbnailSizeMax;
+
+            HighlightDifference = options.HighlightDifference;
+            DifferenceThreshold = options.DifferenceThreshold;
+            NotHighlightIfFragmentsMoreThan = options.NotHighlightIfFragmentsMoreThan;
+            NotHighlightMaxFragments = options.NotHighlightMaxFragments;
+            HighlightAllDifferences = options.HighlightAllDifferences;
+            MaxFragmentsForHighlight = options.MaxFragmentsForHighlight;
+            AmountOfFragmentsOnX = options.AmountOfFragmentsOnX;
+            AmountOfFragmentsOnY = options.AmountOfFragmentsOnY;
+            NormalizedSizeOfImage = options.NormalizedSizeOfImage;
+            PenThickness = options.PenThickness;
         }
 
-
-        private bool m_notHighlightIfFragmentsMoreThan = true;
-        public bool NotHighlightIfFragmentsMoreThan
+        internal ResultsOptions()
         {
-            get
-            {
-                return m_notHighlightIfFragmentsMoreThan;
-            }
-            set
-            {
-                if (m_notHighlightIfFragmentsMoreThan != value)
-                {
-                    m_notHighlightIfFragmentsMoreThan = value;
-                }
-            }
-        }
-
-        private int m_notHighlightMaxFragments = 32;
-        public int NotHighlightMaxFragments
-        {
-            get
-            {
-                return m_notHighlightMaxFragments;
-            }
-            set
-            {
-                if (m_notHighlightMaxFragments != value)
-                {
-                    m_notHighlightMaxFragments = value;
-                }
-            }
-        }
-
-        private bool m_highlightAllDifferences = true;
-        public bool HighlightAllDifferences
-        {
-            get
-            {
-                return m_highlightAllDifferences;
-            }
-            set
-            {
-                if (m_highlightAllDifferences != value)
-                {
-                    m_highlightAllDifferences = value;
-                }
-            }
-        }
-
-        private int m_maxFragmentsForHighlight = 10;
-        public int MaxFragmentsForHighlight
-        {
-            get
-            {
-                return m_maxFragmentsForHighlight;
-            }
-            set
-            {
-                if (m_maxFragmentsForHighlight != value)
-                {
-                    m_maxFragmentsForHighlight = value;
-                }
-            }
-        }
-
-        private int m_amountOfFragmentsOnX = 16;
-        public int AmountOfFragmentsOnX
-        {
-            get
-            {
-                return m_amountOfFragmentsOnX;
-            }
-            set
-            {
-                if (m_amountOfFragmentsOnX != value)
-                {
-                    m_amountOfFragmentsOnX = value;
-                }
-            }
-        }
-
-        private int m_amountOfFragmentsOnY = 16;
-        public int AmountOfFragmentsOnY
-        {
-            get
-            {
-                return m_amountOfFragmentsOnY;
-            }
-            set
-            {
-                if (m_amountOfFragmentsOnY != value)
-                {
-                    m_amountOfFragmentsOnY = value;
-                }
-            }
-        }
-
-        private int m_normalizedSizeOfImage = 512;
-        public int NormalizedSizeOfImage
-        {
-            get
-            {
-                return m_normalizedSizeOfImage;
-            }
-            set
-            {
-                if (m_normalizedSizeOfImage != value)
-                {
-                    m_normalizedSizeOfImage = value;
-                }
-            }
-        }
-
-        private int m_penThickness = 2;
-        public int PenThickness
-        {
-            get
-            {
-                return m_penThickness;
-            }
-            set
-            {
-                if (m_penThickness != value)
-                {
-                    m_penThickness = value;
-                }
-            }
-        }
-
-
-        private bool m_showNeighboursImages = false;
-        public bool ShowNeighboursImages
-        {
-            get
-            {
-                return m_showNeighboursImages;
-            }
-            set
-            {
-                if (m_showNeighboursImages != value)
-                {
-                    m_showNeighboursImages = value;
-                    if (OnImageViewChange != null)
-                        OnImageViewChange();
-                }
-            }
-        }
-
-        public struct ColumnOptions
-        {
-            public bool visible;
-            public int width;
-            public int order;
-        };
-        public ColumnOptions[] columnOptionsVertical;
-        public ColumnOptions[] columnOptionsHorizontal;
-
-        public int sortTypeDefault;
-        public bool increasingDefault;
-
-        public int splitterDistanceVerticalMaximized;
-        public int splitterDistanceVerticalNormal;
-        public int splitterDistanceHorizontalMaximized;
-        public int splitterDistanceHorizontalNormal;
-
-        public System.Drawing.Size thumbnailSizeMax = new System.Drawing.Size(DefaultThumbnailWidthMax, DefaultThumbnailHeightMax);
-
-        public ResultsOptions Clone()
-        {
-            return new ResultsOptions(this);
-        }
-
-        public ResultsOptions(ResultsOptions options)
-        {
-            columnOptionsVertical = new ColumnOptions[(int)ResultsListView.ColumnsTypeVertical.Size];
-            for (int i = 0; i < columnOptionsVertical.Length; i++)
-                columnOptionsVertical[i] = options.columnOptionsVertical[i];
-            columnOptionsHorizontal = new ColumnOptions[(int)ResultsListView.ColumnsTypeHorizontal.Size];
-            for (int i = 0; i < columnOptionsHorizontal.Length; i++)
-                columnOptionsHorizontal[i] = options.columnOptionsHorizontal[i];
-            sortTypeDefault = options.sortTypeDefault;
-            increasingDefault = options.increasingDefault;
-            splitterDistanceVerticalMaximized = options.splitterDistanceVerticalMaximized;
-            splitterDistanceVerticalNormal = options.splitterDistanceVerticalNormal;
-            splitterDistanceHorizontalMaximized = options.splitterDistanceHorizontalMaximized;
-            splitterDistanceHorizontalNormal = options.splitterDistanceHorizontalNormal;
-            thumbnailSizeMax = options.thumbnailSizeMax;
-
-            m_highlightDifference = options.HighlightDifference;
-            m_differenceThreshold = options.DifferenceThreshold;
-            m_notHighlightIfFragmentsMoreThan = options.NotHighlightIfFragmentsMoreThan;
-            m_notHighlightMaxFragments = options.NotHighlightMaxFragments;
-            m_highlightAllDifferences = options.HighlightAllDifferences;
-            m_maxFragmentsForHighlight = options.MaxFragmentsForHighlight;
-            m_amountOfFragmentsOnX = options.AmountOfFragmentsOnX;
-            m_amountOfFragmentsOnY = options.AmountOfFragmentsOnY;
-            m_normalizedSizeOfImage = options.NormalizedSizeOfImage;
-            m_penThickness = options.PenThickness;
-        }
-
-        public ResultsOptions()
-        {
-            columnOptionsVertical = new ColumnOptions[(int)ResultsListView.ColumnsTypeVertical.Size];
-            columnOptionsHorizontal = new ColumnOptions[(int)ResultsListView.ColumnsTypeHorizontal.Size];
+            ColumnOptionsVertical = new ColumnOptions[(int)ResultsListView.ColumnsTypeVertical.Size];
+            ColumnOptionsHorizontal = new ColumnOptions[(int)ResultsListView.ColumnsTypeHorizontal.Size];
             SetDefault();
         }
 
-        public void CopyTo(ref ResultsOptions options)
+        #endregion
+
+        #region Methods
+
+        internal ResultsOptions Clone() => new ResultsOptions(this);
+
+        internal void CopyTo(ref ResultsOptions options)
         {
-            for (int i = 0; i < columnOptionsVertical.Length; i++)
-                options.columnOptionsVertical[i] = columnOptionsVertical[i];
-            for (int i = 0; i < columnOptionsHorizontal.Length; i++)
-                options.columnOptionsHorizontal[i] = columnOptionsHorizontal[i];
-            options.sortTypeDefault = sortTypeDefault;
-            options.increasingDefault = increasingDefault;
-            options.splitterDistanceVerticalMaximized = splitterDistanceVerticalMaximized;
-            options.splitterDistanceVerticalNormal = splitterDistanceVerticalNormal;
-            options.splitterDistanceHorizontalMaximized = splitterDistanceHorizontalMaximized;
-            options.splitterDistanceHorizontalNormal = splitterDistanceHorizontalNormal;
-            options.thumbnailSizeMax = thumbnailSizeMax;
+            for (int i = 0; i < ColumnOptionsVertical.Length; i++)
+                options.ColumnOptionsVertical[i] = ColumnOptionsVertical[i];
+            for (int i = 0; i < ColumnOptionsHorizontal.Length; i++)
+                options.ColumnOptionsHorizontal[i] = ColumnOptionsHorizontal[i];
+            options.SortTypeDefault = SortTypeDefault;
+            options.IncreasingDefault = IncreasingDefault;
+            options.SplitterDistanceVerticalMaximized = SplitterDistanceVerticalMaximized;
+            options.SplitterDistanceVerticalNormal = SplitterDistanceVerticalNormal;
+            options.SplitterDistanceHorizontalMaximized = SplitterDistanceHorizontalMaximized;
+            options.SplitterDistanceHorizontalNormal = SplitterDistanceHorizontalNormal;
+            options.ThumbnailSizeMax = ThumbnailSizeMax;
         }
 
-        public bool Equals(ResultsOptions options)
+        internal bool Equals(ResultsOptions options)
         {
-            for (int i = 0; i < columnOptionsVertical.Length; i++)
-                if (!Equals(columnOptionsVertical[i], options.columnOptionsVertical[i]))
+            for (int i = 0; i < ColumnOptionsVertical.Length; i++)
+                if (!Equals(ColumnOptionsVertical[i], options.ColumnOptionsVertical[i]))
                     return false;
-            for (int i = 0; i < columnOptionsHorizontal.Length; i++)
-                if (!Equals(columnOptionsHorizontal[i], options.columnOptionsHorizontal[i]))
+            for (int i = 0; i < ColumnOptionsHorizontal.Length; i++)
+                if (!Equals(ColumnOptionsHorizontal[i], options.ColumnOptionsHorizontal[i]))
                     return false;
-            if (sortTypeDefault != options.sortTypeDefault)
+
+            if (SortTypeDefault != options.SortTypeDefault)
                 return false;
-            if (increasingDefault != options.increasingDefault)
+            if (IncreasingDefault != options.IncreasingDefault)
                 return false;
-            if (splitterDistanceVerticalMaximized != options.splitterDistanceVerticalMaximized)
+            if (SplitterDistanceVerticalMaximized != options.SplitterDistanceVerticalMaximized)
                 return false;
-            if (splitterDistanceVerticalNormal != options.splitterDistanceVerticalNormal)
+            if (SplitterDistanceVerticalNormal != options.SplitterDistanceVerticalNormal)
                 return false;
-            if (splitterDistanceHorizontalMaximized != options.splitterDistanceHorizontalMaximized)
+            if (SplitterDistanceHorizontalMaximized != options.SplitterDistanceHorizontalMaximized)
                 return false;
-            if (splitterDistanceHorizontalNormal != options.splitterDistanceHorizontalNormal)
-                return false;
-            if (thumbnailSizeMax != options.thumbnailSizeMax)
+            if (SplitterDistanceHorizontalNormal != options.SplitterDistanceHorizontalNormal)
                 return false;
 
-            return true;
+            return ThumbnailSizeMax == options.ThumbnailSizeMax;
         }
 
-        public void SetDefault()
+        private void SetDefault()
         {
-            sortTypeDefault = (int)CoreDll.SortType.ByDifference;
-            increasingDefault = true;
+            SortTypeDefault = (int)CoreDll.SortType.ByDifference;
+            IncreasingDefault = true;
 
-            splitterDistanceVerticalMaximized = MainSplitContainer.VIEW_MIN_WIDTH;
-            splitterDistanceVerticalNormal = MainSplitContainer.VIEW_MIN_WIDTH;
-            splitterDistanceHorizontalMaximized = MainSplitContainer.VIEW_MIN_HEIGHT;
-            splitterDistanceHorizontalNormal = MainSplitContainer.VIEW_MIN_HEIGHT;
+            SplitterDistanceVerticalMaximized = MainSplitContainer.VIEW_MIN_WIDTH;
+            SplitterDistanceVerticalNormal = MainSplitContainer.VIEW_MIN_WIDTH;
+            SplitterDistanceHorizontalMaximized = MainSplitContainer.VIEW_MIN_HEIGHT;
+            SplitterDistanceHorizontalNormal = MainSplitContainer.VIEW_MIN_HEIGHT;
 
-            thumbnailSizeMax = new System.Drawing.Size(DefaultThumbnailWidthMax, DefaultThumbnailHeightMax);
+            ThumbnailSizeMax = new Size(DefaultThumbnailWidthMax, DefaultThumbnailHeightMax);
 
             _mViewMode = ViewMode.VerticalPairTable;
 
@@ -401,175 +252,178 @@ namespace AntiDupl.NET
             SetDefaultHorizontalColumns();
         }
 
-        public void Check()
+        internal void Check()
         {
-            if (columnOptionsVertical.Length < (int)ResultsListView.ColumnsTypeVertical.Size ||
-                columnOptionsHorizontal.Length < (int)ResultsListView.ColumnsTypeHorizontal.Size)
+            if (ColumnOptionsVertical.Length >= (int)ResultsListView.ColumnsTypeVertical.Size
+             && ColumnOptionsHorizontal.Length >= (int)ResultsListView.ColumnsTypeHorizontal.Size) return;
+
+            ResultsOptions options = new ResultsOptions();
+            if (ColumnOptionsVertical.Length < options.ColumnOptionsVertical.Length)
             {
-                ResultsOptions options = new ResultsOptions();
-                if (columnOptionsVertical.Length < options.columnOptionsVertical.Length)
+                for (int i = 0; i < ColumnOptionsVertical.Length; ++i)
                 {
-                    for (int i = 0; i < columnOptionsVertical.Length; ++i)
-                    {
-                        options.columnOptionsVertical[i].visible = columnOptionsVertical[i].visible;
-                        options.columnOptionsVertical[i].width = columnOptionsVertical[i].width;
-                        options.columnOptionsVertical[i].order = columnOptionsVertical[i].order;
-                    }
-                    columnOptionsVertical = options.columnOptionsVertical;
+                    options.ColumnOptionsVertical[i].Visible = ColumnOptionsVertical[i].Visible;
+                    options.ColumnOptionsVertical[i].Width = ColumnOptionsVertical[i].Width;
+                    options.ColumnOptionsVertical[i].Order = ColumnOptionsVertical[i].Order;
                 }
-                if (columnOptionsHorizontal.Length < options.columnOptionsHorizontal.Length)
-                {
-                    for (int i = 0; i < columnOptionsHorizontal.Length; ++i)
-                    {
-                        options.columnOptionsHorizontal[i].visible = columnOptionsHorizontal[i].visible;
-                        options.columnOptionsHorizontal[i].width = columnOptionsHorizontal[i].width;
-                        options.columnOptionsHorizontal[i].order = columnOptionsHorizontal[i].order;
-                    }
-                    columnOptionsHorizontal = options.columnOptionsHorizontal;
-                }
+
+                ColumnOptionsVertical = options.ColumnOptionsVertical;
             }
+
+            if (ColumnOptionsHorizontal.Length >= options.ColumnOptionsHorizontal.Length) return;
+
+            for (int i = 0; i < ColumnOptionsHorizontal.Length; ++i)
+            {
+                options.ColumnOptionsHorizontal[i].Visible = ColumnOptionsHorizontal[i].Visible;
+                options.ColumnOptionsHorizontal[i].Width = ColumnOptionsHorizontal[i].Width;
+                options.ColumnOptionsHorizontal[i].Order = ColumnOptionsHorizontal[i].Order;
+            }
+
+            ColumnOptionsHorizontal = options.ColumnOptionsHorizontal;
         }
 
         private void SetDefaultVerticalColumns()
         {
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Type].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Type].width = 35;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Type].order = 0;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Type].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Type].Width = 35;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Type].Order = 0;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Group].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Group].width = 40;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Group].order = 1;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Group].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Group].Width = 40;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Group].Order = 1;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Difference].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Difference].width = 40;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Difference].order = 2;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Difference].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Difference].Width = 40;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Difference].Order = 2;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Defect].visible = false;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Defect].width = 25;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Defect].order = 3;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Defect].Visible = false;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Defect].Width = 25;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Defect].Order = 3;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Transform].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Transform].width = 35;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Transform].order = 4;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Transform].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Transform].Width = 35;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Transform].Order = 4;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Hint].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Hint].width = 30;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Hint].order = 5;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Hint].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Hint].Width = 30;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Hint].Order = 5;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileName].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileName].width = 100;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileName].order = 6;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileName].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileName].Width = 100;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileName].Order = 6;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].width = 230;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].order = 7;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].Width = 230;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].Order = 7;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageSize].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageSize].width = 70;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageSize].order = 8;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageSize].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageSize].Width = 70;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageSize].Order = 8;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageType].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageType].width = 40;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageType].order = 9;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageType].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageType].Width = 40;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.ImageType].Order = 9;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blockiness].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blockiness].width = 55;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blockiness].order = 10;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blockiness].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blockiness].Width = 55;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blockiness].Order = 10;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blurring].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blurring].width = 55;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blurring].order = 11;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blurring].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blurring].Width = 55;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.Blurring].Order = 11;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileSize].visible = true;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileSize].width = 55;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileSize].order = 12;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileSize].Visible = true;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileSize].Width = 55;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileSize].Order = 12;
 
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileTime].visible = false;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileTime].width = 115;
-            columnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileTime].order = 13;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileTime].Visible = false;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileTime].Width = 115;
+            ColumnOptionsVertical[(int)ResultsListView.ColumnsTypeVertical.FileTime].Order = 13;
         }
 
         private void SetDefaultHorizontalColumns()
         {
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Type].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Type].width = 35;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Type].order = 0;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Type].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Type].Width = 35;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Type].Order = 0;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Group].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Group].width = 40;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Group].order = 1;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Group].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Group].Width = 40;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Group].Order = 1;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Difference].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Difference].width = 40;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Difference].order = 2;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Width = 40;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Order = 2;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Defect].visible = false;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Defect].width = 25;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Defect].order = 3;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Visible = false;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Width = 25;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Order = 3;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Transform].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Transform].width = 35;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Transform].order = 4;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Width = 35;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Order = 4;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Hint].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Hint].width = 30;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Hint].order = 5;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Width = 30;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Order = 5;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].width = 230;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].order = 7;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].Width = 230;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].Order = 7;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].width = 70;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].order = 8;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Width = 70;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Order = 8;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageType].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageType].width = 40;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageType].order = 9;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageType].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageType].Width = 40;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageType].Order = 9;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].width = 55;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].order = 10;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].Width = 55;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].Order = 10;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].width = 55;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].order = 11;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].Width = 55;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].Order = 11;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].width = 55;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].order = 12;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Width = 55;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Order = 12;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].visible = false;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].width = 115;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].order = 13;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].Visible = false;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].Width = 115;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].Order = 13;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].width = 230;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].order = 14;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].Width = 230;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].Order = 14;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].width = 70;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].order = 15;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Width = 70;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Order = 15;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageType].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageType].width = 40;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageType].order = 16;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageType].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageType].Width = 40;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageType].Order = 16;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].width = 55;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].order = 17;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].Width = 55;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].Order = 17;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].width = 55;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].order = 18;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].Width = 55;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].Order = 18;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].visible = true;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].width = 55;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].order = 19;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].Visible = true;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].Width = 55;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].Order = 19;
 
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].visible = false;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].width = 115;
-            columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].order = 20;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].Visible = false;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].Width = 115;
+            ColumnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].Order = 20;
         }
+
+        #endregion
     }
 }

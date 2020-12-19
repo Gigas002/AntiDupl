@@ -43,7 +43,7 @@ namespace AntiDupl.NET
             m_options = options;
             InitializeComponents();
             UpdateStrings();
-            UpdateIcons(m_options.resultsOptions.viewMode);
+            UpdateIcons(m_options.resultsOptions.ViewMode);
             Resources.Strings.OnCurrentChange += new Resources.Strings.CurrentChangeHandler(UpdateStrings);
             m_options.resultsOptions.OnViewModeChange += new AntiDupl.NET.ResultsOptions.ViewModeChangeHandler(UpdateIcons);
         }
@@ -68,7 +68,7 @@ namespace AntiDupl.NET
         private void OnClick(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
-            m_options.resultsOptions.viewMode = (ViewMode)item.Tag;
+            m_options.resultsOptions.ViewMode = (ViewMode)item.Tag;
         }
 
         private void UpdateStrings()

@@ -235,7 +235,7 @@ namespace AntiDupl.NET
                     break;
             } 
             
-            switch (m_options.resultsOptions.viewMode)
+            switch (m_options.resultsOptions.ViewMode)
             {
                 case ViewMode.VerticalPairTable:
                     SetDefectToRowVertical(cells, result);
@@ -387,7 +387,7 @@ namespace AntiDupl.NET
                     break;
             }
 
-            switch (m_options.resultsOptions.viewMode)
+            switch (m_options.resultsOptions.ViewMode)
             {
                 case ViewMode.VerticalPairTable:
                     SetDuplPairToRowVertical(cells, result);

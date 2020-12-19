@@ -73,7 +73,7 @@ namespace AntiDupl.NET
             UpdateStrings();
             UpdateResults();
             OnOptionsChanged();
-            SetViewMode(m_options.resultsOptions.viewMode);
+            SetViewMode(m_options.resultsOptions.ViewMode);
         }
 
         private void InitializeComponents()

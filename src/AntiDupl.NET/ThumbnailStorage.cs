@@ -108,7 +108,7 @@ namespace AntiDupl.NET
 
         private Size GetThumbnailSize(CoreImageInfo imageInfo)
         {
-            Size sizeMax = _mOptions.resultsOptions.thumbnailSizeMax;
+            Size sizeMax = _mOptions.resultsOptions.ThumbnailSizeMax;
             return sizeMax.Width * imageInfo.height > sizeMax.Height * imageInfo.width
                        ? new Size(sizeMax.Width, (int)(sizeMax.Height * imageInfo.height / imageInfo.width))
                        : new Size((int)(sizeMax.Width * imageInfo.width / imageInfo.height), sizeMax.Height);

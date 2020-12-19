@@ -85,9 +85,9 @@ namespace AntiDupl.NET
             hotKeysTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 6F));
             hotKeysTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             mainTableLayoutPanel.Controls.Add(hotKeysTableLayoutPanel, 0, 0);
-            
+
             m_hotKeyItems = new HotKeyItem[m_newHotKeyOptions.keys.Length];
-            for(int i = 0; i < m_hotKeyItems.Length; i++)
+            for (int i = 0; i < m_hotKeyItems.Length; i++)
             {
                 HotKeyItem item = new HotKeyItem();
                 item.icon = new PictureBox();
@@ -101,7 +101,7 @@ namespace AntiDupl.NET
                 item.text.Dock = DockStyle.Fill;
                 item.text.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
                 hotKeysTableLayoutPanel.Controls.Add(item.text, 1, i);
-                
+
                 item.ckeck = new CheckBox();
                 item.ckeck.Location = new System.Drawing.Point(0, 0);
                 item.ckeck.Size = new System.Drawing.Size(20, 20);
@@ -118,7 +118,7 @@ namespace AntiDupl.NET
                 item.edit.KeyDown += new KeyEventHandler(OnTextBoxKeyDown);
                 item.edit.Tag = i;
                 hotKeysTableLayoutPanel.Controls.Add(item.edit, 3, i);
-                
+
                 m_hotKeyItems[i] = item;
             }
 
@@ -138,16 +138,16 @@ namespace AntiDupl.NET
             m_cancelButton = new Button();
             m_cancelButton.Click += new System.EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_cancelButton, 2, 0);
-            
+
             m_setDefaultButton = new Button();
             m_setDefaultButton.AutoSize = true;
             m_setDefaultButton.Click += new System.EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_setDefaultButton, 3, 0);
         }
-        
+
         private void InitializeIcons()
         {
-            if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDefectDelete].icon.Image = Resources.Images.Get("DeleteDefectVerticalButton");
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairDeleteFirst].icon.Image = Resources.Images.Get("DeleteFirstVerticalButton");
@@ -156,7 +156,7 @@ namespace AntiDupl.NET
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameFirstToSecond].icon.Image = Resources.Images.Get("RenameFirstToSecondVerticalButton");
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameSecondToFirst].icon.Image = Resources.Images.Get("RenameSecondToFirstVerticalButton");
             }
-            else if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
+            else if (m_options.resultsOptions.ViewMode == ViewMode.HorizontalPairTable)
             {
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDefectDelete].icon.Image = Resources.Images.Get("DeleteDefectHorizontalButton");
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairDeleteFirst].icon.Image = Resources.Images.Get("DeleteFirstHorizontalButton");
@@ -193,8 +193,8 @@ namespace AntiDupl.NET
         private void OnButtonClick(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            
-            if(button == m_setDefaultButton)
+
+            if (button == m_setDefaultButton)
             {
                 m_newHotKeyOptions = new HotKeyOptions();
                 UpdateOptions();
@@ -202,7 +202,7 @@ namespace AntiDupl.NET
                 VerifyValidness();
                 return;
             }
-            
+
             if (button == m_okButton)
             {
                 m_newHotKeyOptions.CopyTo(ref m_options.hotKeyOptions);
@@ -217,7 +217,7 @@ namespace AntiDupl.NET
             CheckBox checkBox = (CheckBox)sender;
             int i = (int)checkBox.Tag;
             HotKeyItem item = m_hotKeyItems[i];
-            if(!item.ckeck.Checked)
+            if (!item.ckeck.Checked)
             {
                 m_newHotKeyOptions.keys[i] = Keys.None;
             }
@@ -232,7 +232,7 @@ namespace AntiDupl.NET
 
         private void UpdateOptions()
         {
-            for(int i = 0; i < m_hotKeyItems.Length; i++)
+            for (int i = 0; i < m_hotKeyItems.Length; i++)
             {
                 m_hotKeyItems[i].ckeck.Checked = m_newHotKeyOptions.keys[i] != Keys.None;
                 m_hotKeyItems[i].edit.Text = m_newHotKeyOptions.keys[i].ToString().Replace(',', '+');
@@ -244,7 +244,7 @@ namespace AntiDupl.NET
             m_okButton.Enabled = !m_newHotKeyOptions.Equals(m_options.hotKeyOptions) && m_newHotKeyOptions.Valid();
             m_setDefaultButton.Enabled = !m_newHotKeyOptions.Equals(new HotKeyOptions());
         }
-        
+
         private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             TextBox textBox = (TextBox)sender;

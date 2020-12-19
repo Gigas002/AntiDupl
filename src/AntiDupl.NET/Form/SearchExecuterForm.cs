@@ -134,7 +134,7 @@ namespace AntiDupl.NET
             m_timer.Tick += new EventHandler(TimerCallback);
             m_timer.Start();
 
-            KeyDown += new KeyEventHandler(OnKeyDown); 
+            KeyDown += new KeyEventHandler(OnKeyDown);
         }
 
         private void CoreThreadTask()
@@ -162,7 +162,7 @@ namespace AntiDupl.NET
                 m_core.Save(CoreDll.FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath());
             }
             m_core.Clear(CoreDll.FileType.ImageDataBase);
-            m_core.SortResult((CoreDll.SortType)m_options.resultsOptions.sortTypeDefault, m_options.resultsOptions.increasingDefault);
+            m_core.SortResult((CoreDll.SortType)m_options.resultsOptions.SortTypeDefault, m_options.resultsOptions.IncreasingDefault);
             m_state = State.Finish;
             LogPerformance(DateTime.Now - m_startDateTime, m_core.GetStatistic());
         }
@@ -181,7 +181,7 @@ namespace AntiDupl.NET
         {
             if (m_state == State.Finish)
             {
-                if(m_notifyIcon.Visible)
+                if (m_notifyIcon.Visible)
                     OnNotifyIconDoubleClick(null, null);
                 m_timer.Stop();
                 Close();
@@ -214,7 +214,7 @@ namespace AntiDupl.NET
                         break;
                     case State.LoadImages:
                         {
-                            m_stopButton.Enabled = false; 
+                            m_stopButton.Enabled = false;
                             builder.Append(s.StartFinishForm_LoadImages_Text);
                             builder.Append("...");
                             EstimateOtherProgress();
@@ -256,7 +256,7 @@ namespace AntiDupl.NET
                 {
                     m_notifyIcon.Text = builder.ToString();
                 }
-                else if(WindowState == FormWindowState.Minimized)
+                else if (WindowState == FormWindowState.Minimized)
                 {
                     m_mainForm.Text = builder.ToString();
                 }
@@ -270,7 +270,7 @@ namespace AntiDupl.NET
 
         private void OnStopButtonClick(Object obj, EventArgs eventArgs)
         {
-            if(m_state == State.Search)
+            if (m_state == State.Search)
             {
                 m_core.Stop();
                 m_state = State.Stopped;
@@ -337,16 +337,16 @@ namespace AntiDupl.NET
             if (mainThreadStatus != null)
             {
                 total = mainThreadStatus.total;
-                if(mainThreadStatus.current > 0)
+                if (mainThreadStatus.current > 0)
                 {
-                    if(m_coreOptions.compareOptions.checkOnEquality)
+                    if (m_coreOptions.compareOptions.checkOnEquality)
                     {
-                        for(int i = 0; ; i++)
+                        for (int i = 0; ; i++)
                         {
                             CoreStatus compareThreadStatus = m_core.StatusGet(CoreDll.ThreadType.Compare, i);
                             if (compareThreadStatus == null)
                                 break;
-                            if(i == 0)
+                            if (i == 0)
                             {
                                 path = compareThreadStatus.path;
                             }
@@ -360,7 +360,7 @@ namespace AntiDupl.NET
                         for (int i = 0; ; i++)
                         {
                             CoreStatus collectThreadStatus = m_core.StatusGet(CoreDll.ThreadType.Collect, i);
-                            if(collectThreadStatus == null)
+                            if (collectThreadStatus == null)
                                 break;
                             if (i == 0)
                             {
@@ -379,9 +379,9 @@ namespace AntiDupl.NET
 
             m_progressPanel.UpdateStatus(total, currentFirst, currentSecond, path);
 
-            if(total > 0)
+            if (total > 0)
             {
-                progress = (double)currentFirst/(double)total;
+                progress = (double)currentFirst / (double)total;
             }
 
             return progress;
@@ -441,7 +441,7 @@ namespace AntiDupl.NET
                 return string.Format("{0:F1} MB", (double)(size) / MB);
             else if (size > KB * 0.977)
                 return string.Format("{0:F1} KB", (double)(size) / KB);
-            else 
+            else
                 return string.Format("{0} B", size);
         }
     }

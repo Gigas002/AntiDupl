@@ -113,7 +113,7 @@ namespace AntiDupl.NET
 
             m_pictureBox = new PictureBox();
             m_pictureBox.Location = new Point(0, 0);
-            m_pictureBox.ClientSize = m_options.resultsOptions.thumbnailSizeMax;
+            m_pictureBox.ClientSize = m_options.resultsOptions.ThumbnailSizeMax;
             m_pictureBox.SizeMode = PictureBoxSizeMode.Zoom; 
             m_pictureBox.BorderStyle = BorderStyle.Fixed3D;
             m_pictureBox.Image = null;
