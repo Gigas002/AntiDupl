@@ -22,10 +22,11 @@
 * SOFTWARE.
 */
 
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public abstract class ResultsPreviewBase : Panel
     {

@@ -21,12 +21,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
-using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Панель одного изображения и информации о нем, checkbox.
@@ -39,7 +41,7 @@ namespace AntiDupl.NET
         private CoreLib m_core;
         private CoreGroup m_group;
         private int m_index;
-        private AntiDupl.NET.Options m_options;
+        private Options m_options;
         private ThumbnailGroupPanel m_thumbnailGroupPanel;
 
         private TableLayoutPanel m_mainLayout;
@@ -77,7 +79,7 @@ namespace AntiDupl.NET
 
         public CoreImageInfo ImageInfo { get { return m_group.images[m_index]; } }
 
-        public ThumbnailPanel(CoreLib core, AntiDupl.NET.Options options, CoreGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
+        public ThumbnailPanel(CoreLib core, Options options, CoreGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
         {
             m_core = core;
             m_options = options;

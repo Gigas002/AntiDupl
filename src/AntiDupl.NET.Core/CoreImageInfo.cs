@@ -21,10 +21,11 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Text;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Core
 {
     public class CoreImageInfo
     {
@@ -114,7 +115,7 @@ namespace AntiDupl.NET
         {
             return blockiness.ToString("F2");
         }
-        
+
         public string GetBlurringString()
         {
             return blurring.ToString("F2");
@@ -157,24 +158,26 @@ namespace AntiDupl.NET
 
         public string GetTipString()
         {
-            Strings s = Resources.Strings.Current;
-            StringBuilder builder = new StringBuilder();
+            // TODO
+            return string.Empty;
+            //Strings s = Resources.Strings.Current;
+            //StringBuilder builder = new StringBuilder();
 
-            builder.AppendLine(path);
+            //builder.AppendLine(path);
 
-            builder.Append(s.ResultsListView_ImageSize_Column_Text);
-            builder.Append(": ");
-            builder.AppendLine(GetImageSizeString());
+            //builder.Append(s.ResultsListView_ImageSize_Column_Text);
+            //builder.Append(": ");
+            //builder.AppendLine(GetImageSizeString());
 
-            builder.Append(s.ResultsListView_ImageType_Column_Text);
-            builder.Append(": ");
-            builder.AppendLine(GetImageTypeString());
+            //builder.Append(s.ResultsListView_ImageType_Column_Text);
+            //builder.Append(": ");
+            //builder.AppendLine(GetImageTypeString());
 
-            builder.Append(s.ResultsListView_FileSize_Column_Text);
-            builder.Append(": ");
-            builder.Append(GetFileSizeString());
+            //builder.Append(s.ResultsListView_FileSize_Column_Text);
+            //builder.Append(": ");
+            //builder.Append(GetFileSizeString());
 
-            return builder.ToString();
+            //return builder.ToString();
         }
 
         public string GetDirectoryString()

@@ -22,7 +22,7 @@
 * SOFTWARE.
 */
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Core
 {
     public class CorePathWithSubFolder
     {

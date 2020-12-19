@@ -23,8 +23,9 @@
 */
 
 using System.Text;
-using TypeVertical = AntiDupl.NET.ResultsListView.ColumnsTypeVertical;
-using TypeHorizontal = AntiDupl.NET.ResultsListView.ColumnsTypeHorizontal;
+using AntiDupl.NET.Core;
+using TypeVertical = AntiDupl.NET.GUIControl.ResultsListView.ColumnsTypeVertical;
+using TypeHorizontal = AntiDupl.NET.GUIControl.ResultsListView.ColumnsTypeHorizontal;
 
 namespace AntiDupl.NET
 {

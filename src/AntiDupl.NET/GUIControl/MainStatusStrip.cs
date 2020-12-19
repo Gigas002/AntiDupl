@@ -21,11 +21,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     class MainStatusStrip : StatusStrip
     {
@@ -55,22 +56,22 @@ namespace AntiDupl.NET
             Visible = m_options.mainFormOptions.statusStripView;
 
             m_totalLabel = new ToolStripStatusLabel();
-            m_totalLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            m_totalLabel.Margin = new System.Windows.Forms.Padding(0, 2, 1, 0);
+            m_totalLabel.BorderStyle = Border3DStyle.SunkenOuter;
+            m_totalLabel.Margin = new Padding(0, 2, 1, 0);
             m_totalLabel.BorderSides = ToolStripStatusLabelBorderSides.All;
             m_totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             m_totalLabel.AutoSize = false;
 
             m_currentLabel = new ToolStripStatusLabel();
-            m_currentLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            m_currentLabel.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            m_currentLabel.BorderStyle = Border3DStyle.SunkenOuter;
+            m_currentLabel.Margin = new Padding(0, 2, 0, 0);
             m_currentLabel.BorderSides = ToolStripStatusLabelBorderSides.All;
             m_currentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             m_currentLabel.AutoSize = false;
             
             m_selectedLabel = new ToolStripStatusLabel();
-            m_selectedLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            m_selectedLabel.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            m_selectedLabel.BorderStyle = Border3DStyle.SunkenOuter;
+            m_selectedLabel.Margin = new Padding(0, 2, 0, 0);
             m_selectedLabel.BorderSides = ToolStripStatusLabelBorderSides.All;
             m_selectedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             m_selectedLabel.AutoSize = false;

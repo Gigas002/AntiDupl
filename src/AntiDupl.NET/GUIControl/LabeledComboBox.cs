@@ -21,10 +21,11 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Windows.Forms;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class LabeledComboBox : TableLayoutPanel
     {

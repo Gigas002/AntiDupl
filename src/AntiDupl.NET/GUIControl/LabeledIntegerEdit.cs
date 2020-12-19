@@ -21,10 +21,11 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Windows.Forms;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class LabeledIntegerEdit : TableLayoutPanel
     {
@@ -109,7 +110,7 @@ namespace AntiDupl.NET
             m_textBox.KeyUp += new KeyEventHandler(OnTextBoxKeyUp);
             Controls.Add(m_textBox, 0, 0);
 
-            m_label = new System.Windows.Forms.Label();
+            m_label = new Label();
             m_label.AutoSize = true;
             m_label.Padding = new Padding(0, 5, 5, 5);
             Controls.Add(m_label, 1, 0);
@@ -127,7 +128,7 @@ namespace AntiDupl.NET
                     m_value = old;
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 m_value = old;
             }

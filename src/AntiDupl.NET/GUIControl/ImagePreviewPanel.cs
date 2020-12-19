@@ -21,14 +21,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class ImagePreviewPanel : TableLayoutPanel
     {
@@ -91,7 +93,7 @@ namespace AntiDupl.NET
         {
             Strings s = Resources.Strings.Current;
 
-            Location = new System.Drawing.Point(0, 0);
+            Location = new Point(0, 0);
             Margin = new Padding(0);
             Padding = new Padding(0);
             Dock = DockStyle.Fill;
@@ -217,33 +219,33 @@ namespace AntiDupl.NET
                 {
                     m_imageSizeLabel.ForeColor =
                             m_currentImageInfo.height * m_currentImageInfo.width < m_neighbourImageInfo.height * m_neighbourImageInfo.width ?
-                            Color.Red : TableLayoutPanel.DefaultForeColor;
+                            Color.Red : DefaultForeColor;
                     m_imageTypeLabel.ForeColor = m_currentImageInfo.type != m_neighbourImageInfo.type ?
-                            Color.Red : TableLayoutPanel.DefaultForeColor;
+                            Color.Red : DefaultForeColor;
                     m_fileSizeLabel.ForeColor = m_currentImageInfo.size < m_neighbourImageInfo.size ?
-                            Color.Red : TableLayoutPanel.DefaultForeColor;
+                            Color.Red : DefaultForeColor;
                     m_imageBlocknessLabel.ForeColor = m_currentImageInfo.blockiness > m_neighbourImageInfo.blockiness ?
-                            Color.Red : TableLayoutPanel.DefaultForeColor;
+                            Color.Red : DefaultForeColor;
                     m_imageBlurringLabel.ForeColor = m_currentImageInfo.blurring > m_neighbourImageInfo.blurring ?
-                            Color.Red : TableLayoutPanel.DefaultForeColor;
+                            Color.Red : DefaultForeColor;
                     m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
-                        TableLayoutPanel.DefaultForeColor : Color.Red;
+                        DefaultForeColor : Color.Red;
                 }
             }
             else if (m_neighbourImageInfo != null)
             {
                 m_imageSizeLabel.ForeColor = m_currentImageInfo.height * m_currentImageInfo.width < m_neighbourImageInfo.height * m_neighbourImageInfo.width ?
-                        Color.Red : TableLayoutPanel.DefaultForeColor;
+                        Color.Red : DefaultForeColor;
                 m_imageTypeLabel.ForeColor = m_currentImageInfo.type != m_neighbourImageInfo.type ?
-                        Color.Red : TableLayoutPanel.DefaultForeColor;
+                        Color.Red : DefaultForeColor;
                 m_fileSizeLabel.ForeColor = m_currentImageInfo.size < m_neighbourImageInfo.size ?
-                        Color.Red : TableLayoutPanel.DefaultForeColor;
+                        Color.Red : DefaultForeColor;
                 m_imageBlocknessLabel.ForeColor = m_currentImageInfo.blockiness > m_neighbourImageInfo.blockiness ?
-                        Color.Red : TableLayoutPanel.DefaultForeColor;
+                        Color.Red : DefaultForeColor;
                 m_imageBlurringLabel.ForeColor = m_currentImageInfo.blurring > m_neighbourImageInfo.blurring ?
-                        Color.Red : TableLayoutPanel.DefaultForeColor;
+                        Color.Red : DefaultForeColor;
                 m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
-                    TableLayoutPanel.DefaultForeColor : Color.Red;
+                    DefaultForeColor : Color.Red;
             }
             if (updateCurrent || updateNeighbour)
             {
@@ -401,7 +403,7 @@ namespace AntiDupl.NET
             dialog.AddExtension = true;
             dialog.CheckPathExists = true;
             dialog.DefaultExt = fileInfo.Extension;
-            dialog.FileOk += new System.ComponentModel.CancelEventHandler(OnRenameImageDialogFileOk);
+            dialog.FileOk += new CancelEventHandler(OnRenameImageDialogFileOk);
             dialog.Title = Resources.Strings.Current.ImagePreviewContextMenu_RenameImageItem_Text;
             dialog.InitialDirectory = fileInfo.Directory.ToString();
             if (dialog.ShowDialog() == DialogResult.OK)

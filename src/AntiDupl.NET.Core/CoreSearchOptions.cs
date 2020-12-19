@@ -24,7 +24,7 @@
 
 using System.Collections;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Core
 {
     public class CoreSearchOptions
     {

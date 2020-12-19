@@ -5,8 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.3.10.23</AssemblyVersion>
-    <FileVersion>2.3.10.23</FileVersion>
+    <AssemblyVersion>2.3.10.31</AssemblyVersion>
+    <FileVersion>2.3.10.31</FileVersion>
     <Platforms>x64</Platforms>
     <Company>ErmIg</Company>
     <Copyright>ErmIg © 2002-2018</Copyright>
@@ -15,15 +15,7 @@
 
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-  </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -36,16 +28,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Form\AboutProgramForm.cs" />
-    <Compile Update="Form\CoreOptionsForm.cs" />
-    <Compile Update="Form\CorePathsForm.cs" />
-    <Compile Update="Form\MainForm.cs" />
-    <Compile Update="Form\ProgressForm.cs" />
-    <Compile Update="Form\SearchExecuterForm.cs" />
-    <Compile Update="Form\SelectHorizontalColumnsForm.cs" />
-    <Compile Update="Form\SelectHotKeysForm.cs" />
-    <Compile Update="Form\SelectVerticalColumnsForm.cs" />
-    <Compile Update="Form\StartFinishForm.cs" />
+    <ProjectReference Include="..\AntiDupl.NET.Core\AntiDupl.NET.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Forms\AboutProgramForm.cs" />
+    <Compile Update="Forms\CoreOptionsForm.cs" />
+    <Compile Update="Forms\CorePathsForm.cs" />
+    <Compile Update="Forms\MainForm.cs" />
+    <Compile Update="Forms\ProgressForm.cs" />
+    <Compile Update="Forms\SearchExecuterForm.cs" />
+    <Compile Update="Forms\SelectHorizontalColumnsForm.cs" />
+    <Compile Update="Forms\SelectHotKeysForm.cs" />
+    <Compile Update="Forms\SelectVerticalColumnsForm.cs" />
+    <Compile Update="Forms\StartFinishForm.cs" />
     <Compile Update="GUIControl\AboutProgramPanel.cs" />
     <Compile Update="GUIControl\ComplexProgressBar.cs" />
     <Compile Update="GUIControl\ImagePreviewContextMenu.cs" />

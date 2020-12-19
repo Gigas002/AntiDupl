@@ -23,6 +23,8 @@
 */
 
 using System.Drawing;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
 
 namespace AntiDupl.NET
 {

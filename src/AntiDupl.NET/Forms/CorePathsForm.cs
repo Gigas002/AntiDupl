@@ -21,15 +21,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using System.Collections.Specialized;
+using AntiDupl.NET.Core;
 
-
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Forms
 {
     public class CorePathsForm : Form
     {

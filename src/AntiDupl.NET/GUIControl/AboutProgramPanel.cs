@@ -22,10 +22,11 @@
 * SOFTWARE.
 */
 
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class AboutProgramPanel : Panel
     {
@@ -48,7 +49,7 @@ namespace AntiDupl.NET
             layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             layout.AutoSize = true;
 
-            layout.Controls.Add(CreateLogotype(new Font(this.Font.FontFamily, this.Font.Size * 2.0f)), 0, 0);
+            layout.Controls.Add(CreateLogotype(new Font(Font.FontFamily, Font.Size * 2.0f)), 0, 0);
 
             layout.Controls.Add(GetCoopyrightLabel(0), 0, 1);
 
@@ -67,7 +68,7 @@ namespace AntiDupl.NET
                 case 0: text = Resources.Strings.Current.AboutProgramPanel_CopyrightLabel0_Text; break;
                 case 1: text = Resources.Strings.Current.AboutProgramPanel_CopyrightLabel1_Text; break;
             }
-            Label label = CreateLabel(text, new Font(this.Font.FontFamily, this.Font.Size * 1.2f));
+            Label label = CreateLabel(text, new Font(Font.FontFamily, Font.Size * 1.2f));
             label.Margin = new Padding(0, (index == 0 ? 10 : 0), 0, (index == 1 ? 10 : 0));
             return label;
         }
@@ -83,7 +84,7 @@ namespace AntiDupl.NET
 
             Bitmap bitmap = Resources.Icons.Get(new Size(LOGO_SIZE, LOGO_SIZE)).ToBitmap();
             PictureBox pictureBox = new PictureBox();
-            pictureBox.Location = new System.Drawing.Point(0, 0);
+            pictureBox.Location = new Point(0, 0);
             pictureBox.Dock = DockStyle.Fill;
             pictureBox.Padding = new Padding(0);
             pictureBox.Margin = new Padding(0);
@@ -130,9 +131,9 @@ namespace AntiDupl.NET
 
         private Label CreateLabel(string text, Font font)
         {
-            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+            Label label = new Label();
             label.AutoSize = true;
-            label.Padding = new System.Windows.Forms.Padding(2);
+            label.Padding = new Padding(2);
             label.Font = font;
             label.Text = text;
             label.Dock = DockStyle.Fill;
@@ -148,7 +149,7 @@ namespace AntiDupl.NET
             linkLabel.Text = text;
             linkLabel.Dock = DockStyle.Fill;
             linkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
-            linkLabel.Padding = new System.Windows.Forms.Padding(2);
+            linkLabel.Padding = new Padding(2);
             linkLabel.Links.Add(new LinkLabel.Link(0, text.Length, link));
             linkLabel.LinkClicked += new LinkLabelLinkClickedEventHandler(OnLinkLabelLinkClicked);
             linkLabel.TextAlign = ContentAlignment.MiddleCenter;

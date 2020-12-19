@@ -21,27 +21,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Drawing;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Core
 {
-    public class CoreGroup
+    public class CoreResult
     {
-        public int id;
-        public CoreImageInfo[] images;
+        public CoreDll.ResultType type;
+        public CoreImageInfo first;
+        public CoreImageInfo second;
+        public CoreDll.DefectType defect;
+        public double difference;
+        public CoreDll.TransformType transform;
+        public int group;
+        public int groupSize;
+        public CoreDll.HintType hint;
 
-        public Size sizeMax = new Size(0, 0);
-
-        public CoreGroup(ref CoreDll.adGroup group, CoreLib core)
+        public CoreResult(ref CoreDll.adResultW result)
         {
-            id = group.id.ToInt32();
-            images = core.GetImageInfo(id, 0, (uint)group.size);
-            for (int i = 0; i < images.Length; ++i)
-            {
-                sizeMax.Width = Math.Max(sizeMax.Width, (int)images[i].width);
-                sizeMax.Height = Math.Max(sizeMax.Height, (int)images[i].height);
-            }
+            type = result.type;
+            first = new CoreImageInfo(ref result.first);
+            second = new CoreImageInfo(ref result.second);
+            defect = result.defect;
+            difference = result.difference;
+            transform = result.transform;
+            group = result.group.ToInt32();
+            groupSize = result.groupSize.ToInt32();
+            hint = result.hint;
         }
     }
 }

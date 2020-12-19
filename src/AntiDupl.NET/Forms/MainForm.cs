@@ -21,12 +21,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Forms
 {
     public class MainForm : Form
     {
@@ -65,7 +68,7 @@ namespace AntiDupl.NET
         {
             m_mainSplitContainer = new MainSplitContainer(m_core, m_options, m_coreOptions, this);
             m_mainSplitContainer.Dock = DockStyle.Fill;
-            m_mainSplitContainer.Location = new System.Drawing.Point(0, 0);
+            m_mainSplitContainer.Location = new Point(0, 0);
 
             m_mainMenu = new MainMenu(m_core, m_options, m_coreOptions, this, m_mainSplitContainer);
 

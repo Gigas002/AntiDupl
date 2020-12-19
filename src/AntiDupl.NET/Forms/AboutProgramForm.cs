@@ -21,10 +21,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Forms
 {
     public class AboutProgramForm : Form
     {
@@ -66,7 +69,7 @@ namespace AntiDupl.NET
             mainTableLayoutPanel.Controls.Add(okButtonTableLayoutPanel, 0, 1);
 
             m_okButton = new Button();
-            m_okButton.Click += new System.EventHandler(OnOkButtonClick);
+            m_okButton.Click += new EventHandler(OnOkButtonClick);
             okButtonTableLayoutPanel.Controls.Add(m_okButton, 1, 0);
         }
 

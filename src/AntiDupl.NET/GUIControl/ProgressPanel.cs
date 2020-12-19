@@ -21,11 +21,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.Drawing;
 
-namespace AntiDupl.NET
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace AntiDupl.NET.GUIControl
 {
     public class ProgressPanel : Panel
     {

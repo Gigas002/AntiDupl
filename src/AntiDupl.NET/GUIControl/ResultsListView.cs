@@ -21,13 +21,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.ComponentModel;
-using System.IO;
 
-namespace AntiDupl.NET
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.Forms;
+
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Class output result in ListView.
@@ -85,7 +88,7 @@ namespace AntiDupl.NET
 
         private MainSplitContainer m_mainSplitContainer;
         private CoreLib m_core;
-        private AntiDupl.NET.Options m_options;
+        private Options m_options;
         public CoreOptions CoreOptions { get { return m_coreOptions; } } 
         private CoreOptions m_coreOptions;
         private CoreResult[] m_results;
@@ -129,7 +132,7 @@ namespace AntiDupl.NET
             }
         }
 
-        public ResultsListView(CoreLib core, AntiDupl.NET.Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ResultsListView(CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;
@@ -162,7 +165,7 @@ namespace AntiDupl.NET
             AllowUserToResizeRows = false;
             AllowUserToDeleteRows = false;
             AllowUserToOrderColumns = true;
-            this.BackgroundColor = Color.White;
+            BackgroundColor = Color.White;
             ReadOnly = true;
             ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             DoubleBuffered = true;
@@ -719,7 +722,7 @@ namespace AntiDupl.NET
                     SetRowSelection(HigherDragSelectedRowIndex + 1, m_highestDragSelectedIndex + 1, false);
                 }
                 SetRowSelection(LowerDragSelectedRowIndex, HigherDragSelectedRowIndex + 1, true);
-                this.Refresh();
+                Refresh();
                 m_mainSplitContainer.SelectedResultsChanged();
             }
             base.OnCellMouseEnter(e);

@@ -24,7 +24,7 @@
 
 using System.Windows.Forms;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class RaisedPanel : Panel
     {

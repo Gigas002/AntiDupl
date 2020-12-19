@@ -22,10 +22,11 @@
 * SOFTWARE.
 */
 
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Панель которая включает в себя панель с просмотра изображеня и панель инструментов для работы с дефектными изображенями.

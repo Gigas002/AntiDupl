@@ -25,6 +25,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
+using AntiDupl.NET.Core;
 
 namespace AntiDupl.NET
 {
@@ -37,8 +38,8 @@ namespace AntiDupl.NET
 
         private readonly CoreLib _mCore;
         private readonly Options _mOptions;
-        private readonly Dictionary<ulong, Bitmap> _mStorage = new();
-        private readonly Mutex _mMutex = new();
+        private readonly Dictionary<ulong, Bitmap> _mStorage = new Dictionary<ulong, Bitmap>();
+        private readonly Mutex _mMutex = new Mutex();
 
         #endregion
 
@@ -97,7 +98,8 @@ namespace AntiDupl.NET
             if (bitmap == null || bitmap.Height != size.Height || bitmap.Width != size.Width)
             {
                 _mMutex.ReleaseMutex(); // поток может работать дальше
-                bitmap = _mCore.LoadBitmap(size, imageInfo.path);
+                //bitmap = _mCore.LoadBitmap(size, imageInfo.path);
+                bitmap = BitmapWorker.LoadBitmap(_mCore, size, imageInfo.path);
                 _mMutex.WaitOne();
                 _mStorage[imageInfo.id] = bitmap;
             }

@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using System.IO;
+using AntiDupl.NET.Forms;
 
 namespace AntiDupl.NET
 {

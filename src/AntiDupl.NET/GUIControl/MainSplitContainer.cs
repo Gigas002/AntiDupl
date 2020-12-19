@@ -21,11 +21,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.Drawing;
 
-namespace AntiDupl.NET
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.Forms;
+
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Две панели, разделенные подвижной строкой: таблицы и превью.
@@ -161,7 +164,7 @@ namespace AntiDupl.NET
             }
         }
 
-        private void OnSizeChanged(object sender, System.EventArgs e)
+        private void OnSizeChanged(object sender, EventArgs e)
         {
             if (m_atLeastOneTimeSetOrientation)
             {

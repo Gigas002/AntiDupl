@@ -21,11 +21,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.ComponentModel;
 
-namespace AntiDupl.NET
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Контекстное меню для списка дубликатов.

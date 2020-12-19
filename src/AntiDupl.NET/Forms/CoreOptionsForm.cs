@@ -21,10 +21,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Forms
 {
     public class CoreOptionsForm : Form
     {

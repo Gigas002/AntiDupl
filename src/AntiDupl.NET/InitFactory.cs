@@ -175,9 +175,9 @@ namespace AntiDupl.NET
 
         public static class MenuItem
         {
-            public static System.Windows.Forms.ToolStripMenuItem Create(string image, object tag, EventHandler handler)
+            public static ToolStripMenuItem Create(string image, object tag, EventHandler handler)
             {
-                System.Windows.Forms.ToolStripMenuItem menuItem = new System.Windows.Forms.ToolStripMenuItem();
+                ToolStripMenuItem menuItem = new ToolStripMenuItem();
                 if (image != null)
                 {
                     menuItem.Image = Resources.Images.Get(image);
@@ -188,9 +188,9 @@ namespace AntiDupl.NET
                 return menuItem;
             }
 
-            public static System.Windows.Forms.ToolStripMenuItem Create(string image, object tag, EventHandler handler, bool checkedValue)
+            public static ToolStripMenuItem Create(string image, object tag, EventHandler handler, bool checkedValue)
             {
-                System.Windows.Forms.ToolStripMenuItem menuItem = Create(image, tag, handler);
+                ToolStripMenuItem menuItem = Create(image, tag, handler);
                 menuItem.CheckOnClick = true;
                 menuItem.Checked = checkedValue;
                 return menuItem;
@@ -199,9 +199,9 @@ namespace AntiDupl.NET
 
         public static class ToolButton
         {
-            public static System.Windows.Forms.ToolStripButton Create(string image, object tag, EventHandler handler)
+            public static ToolStripButton Create(string image, object tag, EventHandler handler)
             {
-                System.Windows.Forms.ToolStripButton toolButton = new System.Windows.Forms.ToolStripButton();
+                ToolStripButton toolButton = new ToolStripButton();
                 if (image != null)
                 {
                     toolButton.Image = Resources.Images.Get(image);

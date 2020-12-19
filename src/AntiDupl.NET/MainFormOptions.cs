@@ -24,6 +24,7 @@
 
 using System.Windows.Forms;
 using System.Drawing;
+using AntiDupl.NET.Forms;
 
 namespace AntiDupl.NET
 {

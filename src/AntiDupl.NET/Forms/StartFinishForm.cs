@@ -21,13 +21,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Text;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Threading;
 
-namespace AntiDupl.NET
+using System;
+using System.Drawing;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
+
+namespace AntiDupl.NET.Forms
 {
     public class StartFinishForm : Form
     {
@@ -66,7 +69,7 @@ namespace AntiDupl.NET
 
         private void InitializeComponent()
         {
-            ClientSize = new System.Drawing.Size(310, 255);
+            ClientSize = new Size(310, 255);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;

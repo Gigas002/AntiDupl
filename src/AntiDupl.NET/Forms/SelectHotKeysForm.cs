@@ -21,11 +21,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.Drawing;
 
-namespace AntiDupl.NET
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace AntiDupl.NET.Forms
 {
     public class SelectHotKeysForm : Form
     {
@@ -61,7 +62,7 @@ namespace AntiDupl.NET
 
         private void InitializeComponents()
         {
-            ClientSize = new System.Drawing.Size(420, 315);
+            ClientSize = new Size(420, 315);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;
@@ -91,27 +92,27 @@ namespace AntiDupl.NET
             {
                 HotKeyItem item = new HotKeyItem();
                 item.icon = new PictureBox();
-                item.icon.Location = new System.Drawing.Point(0, 0);
-                item.icon.Size = new System.Drawing.Size(20, 20);
+                item.icon.Location = new Point(0, 0);
+                item.icon.Size = new Size(20, 20);
                 item.icon.SizeMode = PictureBoxSizeMode.Zoom;
                 hotKeysTableLayoutPanel.Controls.Add(item.icon, 0, i);
 
                 item.text = new Label();
-                item.text.Location = new System.Drawing.Point(0, 0);
+                item.text.Location = new Point(0, 0);
                 item.text.Dock = DockStyle.Fill;
-                item.text.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                item.text.TextAlign = ContentAlignment.MiddleCenter;
                 hotKeysTableLayoutPanel.Controls.Add(item.text, 1, i);
 
                 item.ckeck = new CheckBox();
-                item.ckeck.Location = new System.Drawing.Point(0, 0);
-                item.ckeck.Size = new System.Drawing.Size(20, 20);
+                item.ckeck.Location = new Point(0, 0);
+                item.ckeck.Size = new Size(20, 20);
                 item.ckeck.Dock = DockStyle.Fill;
                 item.ckeck.Tag = i;
                 item.ckeck.Click += new EventHandler(OnCheckBoxClick);
                 hotKeysTableLayoutPanel.Controls.Add(item.ckeck, 2, i);
 
                 item.edit = new TextBox();
-                item.edit.Location = new System.Drawing.Point(0, 0);
+                item.edit.Location = new Point(0, 0);
                 item.edit.Dock = DockStyle.Fill;
                 item.edit.ReadOnly = true;
                 item.edit.Multiline = false;
@@ -132,16 +133,16 @@ namespace AntiDupl.NET
             mainTableLayoutPanel.Controls.Add(buttonsTableLayoutPanel, 0, 1);
 
             m_okButton = new Button();
-            m_okButton.Click += new System.EventHandler(OnButtonClick);
+            m_okButton.Click += new EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_okButton, 1, 0);
 
             m_cancelButton = new Button();
-            m_cancelButton.Click += new System.EventHandler(OnButtonClick);
+            m_cancelButton.Click += new EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_cancelButton, 2, 0);
 
             m_setDefaultButton = new Button();
             m_setDefaultButton.AutoSize = true;
-            m_setDefaultButton.Click += new System.EventHandler(OnButtonClick);
+            m_setDefaultButton.Click += new EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_setDefaultButton, 3, 0);
         }
 
@@ -263,14 +264,14 @@ namespace AntiDupl.NET
                 if (m_newHotKeyOptions.Valid((HotKeyOptions.Action)i))
                 {
                     m_toolTip.SetToolTip(m_hotKeyItems[i].edit, "");
-                    m_hotKeyItems[i].edit.ForeColor = TextBox.DefaultForeColor;
-                    m_hotKeyItems[i].edit.BackColor = TextBox.DefaultBackColor;
+                    m_hotKeyItems[i].edit.ForeColor = DefaultForeColor;
+                    m_hotKeyItems[i].edit.BackColor = DefaultBackColor;
                 }
                 else
                 {
                     m_toolTip.SetToolTip(m_hotKeyItems[i].edit, m_invalidHotKeyToolTipText);
                     m_hotKeyItems[i].edit.ForeColor = Color.Red;
-                    m_hotKeyItems[i].edit.BackColor = TextBox.DefaultBackColor;
+                    m_hotKeyItems[i].edit.BackColor = DefaultBackColor;
                 }
             }
         }

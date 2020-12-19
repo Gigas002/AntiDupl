@@ -21,10 +21,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Drawing;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Панель содержит панели изображений одной группы.
@@ -33,7 +35,7 @@ namespace AntiDupl.NET
     {
         private CoreLib m_core;
         private CoreGroup m_group;
-        private AntiDupl.NET.Options m_options;
+        private Options m_options;
 
         private ThumbnailPanel[] m_thumbnailPanels;
         public ThumbnailPanel[] ThumbnailPanels { get { return m_thumbnailPanels; } }
@@ -41,7 +43,7 @@ namespace AntiDupl.NET
         private ThumbnailGroupTable m_thumbnailGroupTable;
         public ThumbnailGroupTable Table { get { return m_thumbnailGroupTable; } }
 
-        public ThumbnailGroupPanel(CoreLib core, AntiDupl.NET.Options options, CoreGroup group, ThumbnailGroupTable thumbnailGroupTable)
+        public ThumbnailGroupPanel(CoreLib core, Options options, CoreGroup group, ThumbnailGroupTable thumbnailGroupTable)
         {
             m_core = core;
             m_options = options;

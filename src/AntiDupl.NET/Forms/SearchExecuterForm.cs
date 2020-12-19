@@ -21,15 +21,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using System.Diagnostics;
-using System.IO;
 
-namespace AntiDupl.NET
+using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
+
+namespace AntiDupl.NET.Forms
 {
     public class SearchExecuterForm : Form
     {
@@ -114,7 +117,7 @@ namespace AntiDupl.NET
             m_notifyIcon.Text = Application.ProductName;
             m_notifyIcon.DoubleClick += new EventHandler(OnNotifyIconDoubleClick);
 
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;
             ControlBox = false;

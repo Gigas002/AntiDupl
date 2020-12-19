@@ -21,12 +21,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Diagnostics;
 
-namespace AntiDupl.NET
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+namespace AntiDupl.NET.Core
 {
     public class DynamicModule : IDisposable
     {
@@ -47,7 +48,7 @@ namespace AntiDupl.NET
                 if (m_module == IntPtr.Zero)
                     throw new Exception(string.Format("Can't load {0} dynamic library!", m_fileName));
 
-                FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
+                FieldInfo[] fields = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
                 for (int i = 0; i < fields.Length; ++i)
                 {
                     FieldInfo field = fields[i];

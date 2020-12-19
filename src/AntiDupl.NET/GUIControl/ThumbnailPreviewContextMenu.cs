@@ -21,13 +21,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
-using System.Windows.Forms;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.ComponentModel;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class ThumbnailPreviewContextMenu : ContextMenuStrip
     {
@@ -95,7 +97,7 @@ namespace AntiDupl.NET
             {
                 Process.Start(startInfo);
             }
-            catch (System.Exception exeption)
+            catch (Exception exeption)
             {
                 MessageBox.Show(exeption.Message);
             }
@@ -119,7 +121,7 @@ namespace AntiDupl.NET
             dialog.AddExtension = true;
             dialog.CheckPathExists = true;
             dialog.DefaultExt = (new FileInfo(m_thumbnailPreview.ImageInfo.path)).Extension;
-            dialog.FileOk += new System.ComponentModel.CancelEventHandler(OnRenameImageDialogFileOk);
+            dialog.FileOk += new CancelEventHandler(OnRenameImageDialogFileOk);
             dialog.Title = Resources.Strings.Current.ImagePreviewContextMenu_RenameImageItem_Text;
             if (dialog.ShowDialog() == DialogResult.OK)
             {

@@ -21,14 +21,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Панель которая включает в себя две панели с просмотра изображений и панель инструментов для работы с дубликатами изображений.
@@ -181,14 +183,14 @@ namespace AntiDupl.NET
             m_renameSecondToFirstButton.BackColor = BackColor;
         }
 
-        private void OnButtonClicked(object sender, System.EventArgs e)
+        private void OnButtonClicked(object sender, EventArgs e)
         {
             ToolStripButton item = (ToolStripButton)sender;
             CoreDll.LocalActionType action = (CoreDll.LocalActionType)item.Tag;
             m_resultsListView.MakeAction(action, CoreDll.TargetType.Current);
         }
 
-        private void OnImageDoubleClicked(object sender, System.EventArgs e)
+        private void OnImageDoubleClicked(object sender, EventArgs e)
         {
             PictureBox pictureBox = (PictureBox)sender;
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -196,13 +198,13 @@ namespace AntiDupl.NET
             Process.Start(startInfo);
         }
 
-        private void OnOpenBothFoldersButtonClicked(object sender, System.EventArgs e)
+        private void OnOpenBothFoldersButtonClicked(object sender, EventArgs e)
         {
             FolderOpener.OpenContainingFolder(m_firstImagePreviewPanel.CurrentImageInfo);
             FolderOpener.OpenContainingFolder(m_secondImagePreviewPanel.CurrentImageInfo);
         }
 
-        private void OnOpenBothImagesButtonClicked(object sender, System.EventArgs e)
+        private void OnOpenBothImagesButtonClicked(object sender, EventArgs e)
         {
             ImageOpener.OpenFile(m_firstImagePreviewPanel.CurrentImageInfo.path);
             ImageOpener.OpenFile(m_secondImagePreviewPanel.CurrentImageInfo.path);

@@ -25,6 +25,7 @@
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
+using AntiDupl.NET.Core;
 
 namespace AntiDupl.NET
 {

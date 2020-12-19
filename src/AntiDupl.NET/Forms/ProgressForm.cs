@@ -21,12 +21,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Text;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.GUIControl;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Forms
 {
     /// <summary>
     /// Форма отображает прогресс длительных операций.
@@ -159,7 +162,7 @@ namespace AntiDupl.NET
             m_cancelButton.AutoSize = true;
             buttonsTableLayoutPanel.Controls.Add(m_cancelButton, 1, 0);
 
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;
             ControlBox = false;

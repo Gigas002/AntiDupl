@@ -21,12 +21,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.IO;
-using System.ComponentModel;
 
-namespace AntiDupl.NET
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+
+namespace AntiDupl.NET.GUIControl
 {
     public class ImagePreviewContextMenu : ContextMenuStrip
     {
@@ -68,7 +70,7 @@ namespace AntiDupl.NET
             RenderMode = ToolStripRenderMode.System;
 
             m_copyPathItem = InitFactory.MenuItem.Create(null, null, CopyPath);
-            m_copyFileNameItem = InitFactory.MenuItem.Create(null, null, new EventHandler(this.CopyFileName));
+            m_copyFileNameItem = InitFactory.MenuItem.Create(null, null, new EventHandler(CopyFileName));
             m_openImageItem = InitFactory.MenuItem.Create(null, null, OpenImage);
             m_openFolderItem = InitFactory.MenuItem.Create(null, null, OpenFolder);
             m_addToIgnore = InitFactory.MenuItem.Create(null, null, AddToIgnore);

@@ -26,8 +26,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class PictureBoxPanel : Panel
     {
@@ -44,14 +45,17 @@ namespace AntiDupl.NET
         /// <summary>
         /// Изображение загруженное из файла.
         /// </summary>
-        public Bitmap Bitmap { get 
+        public Bitmap Bitmap
         {
-            if (m_bitmap != m_originalBitmap && m_originalBitmap != null)
+            get
             {
-                return m_originalBitmap;
+                if (m_bitmap != m_originalBitmap && m_originalBitmap != null)
+                {
+                    return m_originalBitmap;
+                }
+                return m_bitmap;
             }
-            return m_bitmap; 
-        } }
+        }
         private bool m_animationEnable = false;
         private bool m_currentlyAnimating = false;
 
@@ -91,7 +95,7 @@ namespace AntiDupl.NET
 
         private void InitializeComponents()
         {
-            Location = new System.Drawing.Point(0, 0);
+            Location = new Point(0, 0);
             Dock = DockStyle.Fill;
             BorderStyle = BorderStyle.Fixed3D;
             BackColor = Color.DarkGray;
@@ -132,12 +136,14 @@ namespace AntiDupl.NET
                         }
                         catch
                         {
-                            m_bitmap = m_core.LoadBitmap(m_currentImageInfo);
+                            //m_bitmap = m_core.LoadBitmap(m_currentImageInfo);
+                            m_bitmap = BitmapWorker.LoadBitmap(m_core, m_currentImageInfo);
                         }
                     }
                     else
                     {
-                        m_bitmap = m_core.LoadBitmap(m_currentImageInfo);
+                        //m_bitmap = m_core.LoadBitmap(m_currentImageInfo);
+                        m_bitmap = BitmapWorker.LoadBitmap(m_core, m_currentImageInfo);
                     }
                 }
                 else
@@ -226,7 +232,7 @@ namespace AntiDupl.NET
             Invalidate();
         }
 
-        private void OnImageDoubleClicked(object sender, System.EventArgs e)
+        private void OnImageDoubleClicked(object sender, EventArgs e)
         {
             ImageOpener.OpenFile(m_currentImageInfo.path);
         }
@@ -435,7 +441,7 @@ namespace AntiDupl.NET
                         for (int i = 0; i < m_rectanglesOfDifferences.Length; i++)
                             gr.DrawRectangle(penForDifferences, m_rectanglesOfDifferences[i]);
                     }
-                    this.Invalidate();
+                    Invalidate();
                     return true;
                 }
                 catch (Exception)
@@ -456,7 +462,7 @@ namespace AntiDupl.NET
                 m_originalBitmap = null;
             }
             m_rectanglesOfDifferences = null;
-            this.Invalidate();
+            Invalidate();
         }
 
         private void ShowNeighboursImages(bool forceLoad)
@@ -557,7 +563,8 @@ namespace AntiDupl.NET
             }
             catch
             {
-                return m_core.LoadBitmap(m_currentImageInfo);
+                //return m_core.LoadBitmap(m_currentImageInfo);
+                return BitmapWorker.LoadBitmap(m_core, m_currentImageInfo);
             }
 
             return null;

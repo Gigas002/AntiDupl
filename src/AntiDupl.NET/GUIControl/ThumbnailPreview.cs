@@ -22,10 +22,11 @@
 * SOFTWARE.
 */
 
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Панель превью изображения.
@@ -55,7 +56,7 @@ namespace AntiDupl.NET
         
         private void InnitializeComponents()
         {
-            Location = new System.Drawing.Point(0, 0);
+            Location = new Point(0, 0);
             Dock = DockStyle.Fill;
 
             m_pictureBoxPanel = new PictureBoxPanel(m_core, m_options);

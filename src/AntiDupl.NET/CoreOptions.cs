@@ -23,8 +23,8 @@
 */
 
 using System.IO;
-using System.Windows.Forms;
 using System.Xml.Serialization;
+using AntiDupl.NET.Core; //using System.Windows.Forms;
 
 namespace AntiDupl.NET
 {
@@ -54,7 +54,7 @@ namespace AntiDupl.NET
         }
 
         public CoreOptions(CoreLib core, bool onePath)
-            :this()
+            : this()
         {
             SetDefault(core, onePath);
         }
@@ -124,10 +124,11 @@ namespace AntiDupl.NET
             {
                 CorePathWithSubFolder[] tmpSearch = new CorePathWithSubFolder[1];
                 CorePathWithSubFolder[] tmpOther = new CorePathWithSubFolder[0];
-                if (searchPath.Length > 0 && Directory.Exists(searchPath[0].path))
-                    tmpSearch[0] = searchPath[0];
+                if (searchPath.Length > 0 && Directory.Exists(searchPath[0].path)) tmpSearch[0] = searchPath[0];
                 else
-                    tmpSearch[0].path = Application.StartupPath;
+                    //TODO
+                    tmpSearch[0].path = string.Empty;
+                //tmpSearch[0].path = Application.StartupPath;
                 core.searchPath = tmpSearch;
                 core.ignorePath = tmpOther;
                 core.validPath = tmpOther;
@@ -243,7 +244,7 @@ namespace AntiDupl.NET
                 }
                 catch
                 {
-                    if(fileStream != null)
+                    if (fileStream != null)
                         fileStream.Close();
                     return new CoreOptions(core);
                 }
@@ -270,7 +271,8 @@ namespace AntiDupl.NET
 
         public string GetImageDataBasePath()
         {
-            string directory = string.Format("{0}\\images\\{1}x{1}", Resources.UserPath, advancedOptions.reducedImageSize);
+            string directory =
+                $"{Resources.UserPath}\\images\\{advancedOptions.reducedImageSize}x{advancedOptions.reducedImageSize}";
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
             if (!directoryInfo.Exists)
                 directoryInfo.Create();

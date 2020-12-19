@@ -21,15 +21,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Runtime.InteropServices;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Core
 {
     public class CoreDll : DynamicModule
     {
         public CoreDll()
-            : base(IntPtr.Size == 8 ? "AntiDupl64.dll" : "AntiDupl32.dll")
+            : base(Environment.Is64BitProcess ? "AntiDupl64.dll" : "AntiDupl32.dll")
         {
         } 
 
@@ -389,7 +390,7 @@ namespace AntiDupl.NET
         public struct adStatusW
         {
             public StateType state;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CoreDll.MAX_PATH_EX)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH_EX)]
             public string path;
             public UIntPtr current;
             public UIntPtr total;
@@ -422,7 +423,7 @@ namespace AntiDupl.NET
         public struct adImageInfoW
         {
             public IntPtr id;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CoreDll.MAX_PATH_EX)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH_EX)]
             public string path;
             public ulong size;
             public ulong time;
@@ -470,7 +471,7 @@ namespace AntiDupl.NET
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct adPathWithSubFolderW
         {
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CoreDll.MAX_PATH_EX)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH_EX)]
             public string path;
             public int enableSubFolder;
         }

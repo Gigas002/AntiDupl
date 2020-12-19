@@ -21,10 +21,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Windows.Forms;
+using AntiDupl.NET.GUIControl;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Forms
 {
     public class SelectHorizontalColumnsForm : Form
     {
@@ -128,11 +130,11 @@ namespace AntiDupl.NET
             mainTableLayoutPanel.Controls.Add(buttonsTableLayoutPanel, 0, 1);
 
             m_okButton = new Button();
-            m_okButton.Click += new System.EventHandler(OnButtonClick);
+            m_okButton.Click += new EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_okButton, 1, 0);
 
             m_cancelButton = new Button();
-            m_cancelButton.Click += new System.EventHandler(OnButtonClick);
+            m_cancelButton.Click += new EventHandler(OnButtonClick);
             buttonsTableLayoutPanel.Controls.Add(m_cancelButton, 2, 0);
         }
 

@@ -21,11 +21,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Windows.Forms;
-using System.Drawing;
 
-namespace AntiDupl.NET
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.Forms;
+
+namespace AntiDupl.NET.GUIControl
 {
     /// <summary>
     /// Главная панель инструментов.
@@ -93,7 +96,7 @@ namespace AntiDupl.NET
             
             m_thresholdDifferenceComboBox = new ToolStripComboBox();
             m_thresholdDifferenceComboBox.AutoSize = false;
-            m_thresholdDifferenceComboBox.Size = new System.Drawing.Size(50, 20);
+            m_thresholdDifferenceComboBox.Size = new Size(50, 20);
             m_thresholdDifferenceComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             m_thresholdDifferenceComboBox.FlatStyle = FlatStyle.Popup;
             m_thresholdDifferenceComboBox.SelectedIndexChanged += new EventHandler(OnThresholdDifferenceChanged);
@@ -106,7 +109,7 @@ namespace AntiDupl.NET
 
             m_algorithmComparingComboBox = new ToolStripComboBox();
             m_algorithmComparingComboBox.AutoSize = false;
-            m_algorithmComparingComboBox.Size = new System.Drawing.Size(70, 20);
+            m_algorithmComparingComboBox.Size = new Size(70, 20);
             m_algorithmComparingComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             m_algorithmComparingComboBox.FlatStyle = FlatStyle.Popup;
             m_algorithmComparingComboBox.SelectedIndexChanged += new EventHandler(OnAlgorithmComparingChanged);

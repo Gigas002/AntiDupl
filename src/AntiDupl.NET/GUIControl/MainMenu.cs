@@ -25,8 +25,10 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using AntiDupl.NET.Core;
+using AntiDupl.NET.Forms;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.GUIControl
 {
     public class MainMenu : MenuStrip
     {

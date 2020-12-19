@@ -22,21 +22,27 @@
 * SOFTWARE.
 */
 
-namespace AntiDupl.NET
-{
-    public class CoreStatus
-    {
-        public CoreDll.StateType state;
-        public string path;
-        public int current;
-        public int total;
+using System;
+using System.Drawing;
 
-        public CoreStatus(ref CoreDll.adStatusW status)
+namespace AntiDupl.NET.Core
+{
+    public class CoreGroup
+    {
+        public int id;
+        public CoreImageInfo[] images;
+
+        public Size sizeMax = new Size(0, 0);
+
+        public CoreGroup(ref CoreDll.adGroup group, CoreLib core)
         {
-            state = status.state;
-            path = status.path;
-            current = (int)status.current.ToUInt32();
-            total = (int)status.total.ToUInt32();
+            id = group.id.ToInt32();
+            images = core.GetImageInfo(id, 0, (uint)group.size);
+            for (int i = 0; i < images.Length; ++i)
+            {
+                sizeMax.Width = Math.Max(sizeMax.Width, (int)images[i].width);
+                sizeMax.Height = Math.Max(sizeMax.Height, (int)images[i].height);
+            }
         }
     }
 }

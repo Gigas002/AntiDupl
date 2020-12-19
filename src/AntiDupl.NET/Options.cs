@@ -78,14 +78,14 @@ namespace AntiDupl.NET
 
         static public Options Load()
         {
-            FileInfo fileInfo = new FileInfo(Options.GetOptionsFileName());
+            FileInfo fileInfo = new FileInfo(GetOptionsFileName());
             if (fileInfo.Exists)
             {
                 FileStream fileStream = null;
                 try
                 {
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof(Options));
-                    fileStream = new FileStream(Options.GetOptionsFileName(), FileMode.Open, FileAccess.Read);
+                    fileStream = new FileStream(GetOptionsFileName(), FileMode.Open, FileAccess.Read);
                     Options options = (Options)xmlSerializer.Deserialize(fileStream);
                     options.resultsOptions.Check();
                     fileStream.Close();
@@ -128,7 +128,7 @@ namespace AntiDupl.NET
             TextWriter writer = null;
             try
             {
-                writer = new StreamWriter(Options.GetOptionsFileName());
+                writer = new StreamWriter(GetOptionsFileName());
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(Options));
                 xmlSerializer.Serialize(writer, this);
             }

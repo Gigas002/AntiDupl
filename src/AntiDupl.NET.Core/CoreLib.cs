@@ -21,11 +21,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace AntiDupl.NET
+namespace AntiDupl.NET.Core
 {
     public class CoreLib : IDisposable
     {
@@ -47,12 +48,11 @@ namespace AntiDupl.NET
             {
                 throw new Exception("Can't load core library!");
             }
-            if (Version.Compatible(GetVersion(CoreDll.VersionType.AntiDupl)))
-            {
-                m_handle = m_dll.adCreateW(userPath);
-            }
-            else
-                throw new Exception("Incompatible core library version!");
+
+            // TODO
+            //if (Version.Compatible(GetVersion(CoreDll.VersionType.AntiDupl)))
+            m_handle = m_dll.adCreateW(userPath);
+            //else throw new Exception("Incompatible core library version!");
         }
 
         ~CoreLib()
@@ -102,16 +102,16 @@ namespace AntiDupl.NET
                         return new CoreVersion(versionB);
                     }
                 }
-                finally 
+                finally
                 {
                     versionH.Free();
                     sizeH.Free();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
-            return null; 
+            return null;
         }
 
         public bool IsInited()
@@ -229,7 +229,7 @@ namespace AntiDupl.NET
 
         public bool CanApply(CoreDll.ActionEnableType actionEnableType)
         {
-            try 
+            try
             {
                 int[] enableB = new int[1];
                 GCHandle enableH = GCHandle.Alloc(enableB, GCHandleType.Pinned);
@@ -241,12 +241,12 @@ namespace AntiDupl.NET
                         return enableB[0] != CoreDll.FALSE;
                     }
                 }
-                finally 
+                finally
                 {
                     enableH.Free();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
             return false;
@@ -287,12 +287,12 @@ namespace AntiDupl.NET
                     pSize[0] = new UIntPtr(PAGE_SIZE);
 
                     if (m_dll.adResultGetW(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0),
-                        Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0), 
+                        Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
                         Marshal.UnsafeAddrOfPinnedArrayElement(pSize, 0)) == CoreDll.Error.Ok)
                     {
                         for (uint i = 0; i < pSize[0].ToUInt32(); ++i)
                         {
-                            IntPtr pResult = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i*sizeOfResult));
+                            IntPtr pResult = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i * sizeOfResult));
                             CoreDll.adResultW result = (CoreDll.adResultW)Marshal.PtrToStructure(pResult, resultObject.GetType());
                             results[page * PAGE_SIZE + i] = new CoreResult(ref result);
                         }
@@ -306,12 +306,12 @@ namespace AntiDupl.NET
 
         public uint GetResultSize()
         {
-            try 
+            try
             {
                 UIntPtr[] startFromB = new UIntPtr[1];
                 startFromB[0] = new UIntPtr(uint.MaxValue);
                 GCHandle startFromH = GCHandle.Alloc(startFromB, GCHandleType.Pinned);
-                try 
+                try
                 {
                     IntPtr startFromP = startFromH.AddrOfPinnedObject();
                     IntPtr resultP = new IntPtr(1);
@@ -326,7 +326,7 @@ namespace AntiDupl.NET
                     startFromH.Free();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
             return 0;
@@ -336,7 +336,7 @@ namespace AntiDupl.NET
         {
             UIntPtr[] pStartFrom = new UIntPtr[1];
             pStartFrom[0] = new UIntPtr(startFrom);
-            return m_dll.adSelectionSet(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0), new UIntPtr(size), 
+            return m_dll.adSelectionSet(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0), new UIntPtr(size),
                 value ? CoreDll.TRUE : CoreDll.FALSE) == CoreDll.Error.Ok;
         }
 
@@ -347,7 +347,7 @@ namespace AntiDupl.NET
             pStartFrom[0] = new UIntPtr(startFrom);
             UIntPtr[] pSelectionSize = new UIntPtr[1];
             pSelectionSize[0] = new UIntPtr(size);
-            if (m_dll.adSelectionGet(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0), 
+            if (m_dll.adSelectionGet(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0),
                 Marshal.UnsafeAddrOfPinnedArrayElement(pSelection, 0),
                 Marshal.UnsafeAddrOfPinnedArrayElement(pSelectionSize, 0)) == CoreDll.Error.Ok)
             {
@@ -381,7 +381,7 @@ namespace AntiDupl.NET
             if (groupSize > startFrom)
             {
                 object groupObject = new CoreDll.adGroup();
-                int sizeOfGroup= Marshal.SizeOf(groupObject);
+                int sizeOfGroup = Marshal.SizeOf(groupObject);
                 size = Math.Min(groupSize - startFrom, size);
                 byte[] buffer = new byte[sizeOfGroup * size];
                 CoreGroup[] groups = new CoreGroup[size];
@@ -511,64 +511,68 @@ namespace AntiDupl.NET
             return m_dll.adImageInfoRenameW(m_handle, new IntPtr(groupId), new IntPtr(index), newFileName) == CoreDll.Error.Ok;
         }
 
-        public System.Drawing.Bitmap LoadBitmap(int width, int height, string path)
+        public CoreDll.Error LoadBitmap(string path, CoreDll.adBitmap[] pBitmap)
         {
-            if (height * width == 0)
-                return null;
-
-            System.Drawing.Bitmap bitmap = null;
-            try
-            {
-                bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            }
-            catch (System.Exception)
-            {
-                GC.Collect();
-                try
-                {
-                    bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                }
-                catch (System.Exception)
-                {
-                    return null;
-                }
-            }
-            System.Drawing.Imaging.BitmapData bitmapData = new System.Drawing.Imaging.BitmapData();
-            bitmapData = bitmap.LockBits(
-                new System.Drawing.Rectangle(0, 0, width, height),
-                System.Drawing.Imaging.ImageLockMode.WriteOnly,
-                System.Drawing.Imaging.PixelFormat.Format32bppArgb,
-                bitmapData);
-            CoreDll.adBitmap[] pBitmap = new CoreDll.adBitmap[1];
-            pBitmap[0].width = (uint)bitmapData.Width;
-            pBitmap[0].height = (uint)bitmapData.Height;
-            pBitmap[0].stride = bitmapData.Stride;
-            pBitmap[0].format = CoreDll.PixelFormatType.Argb32;
-            pBitmap[0].data = bitmapData.Scan0;
-            CoreDll.Error error = m_dll.adLoadBitmapW(m_handle, path, Marshal.UnsafeAddrOfPinnedArrayElement(pBitmap, 0));
-            bitmap.UnlockBits(bitmapData);
-            return error == CoreDll.Error.Ok ? bitmap : null;
+            return m_dll.adLoadBitmapW(m_handle, path, Marshal.UnsafeAddrOfPinnedArrayElement(pBitmap, 0));
         }
+        //public System.Drawing.Bitmap LoadBitmap(int width, int height, string path)
+        //{
+        //    if (height * width == 0)
+        //        return null;
 
-        /// <summary>
-        /// Возврашает загруженное изображение по заланному пути и заданного размера.
-        /// </summary>
-        /// <param name="size"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public System.Drawing.Bitmap LoadBitmap(System.Drawing.Size size, string path)
-        {
-            return LoadBitmap(size.Width, size.Height, path);
-        }
+        //    System.Drawing.Bitmap bitmap = null;
+        //    try
+        //    {
+        //        bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        //    }
+        //    catch (System.Exception)
+        //    {
+        //        GC.Collect();
+        //        try
+        //        {
+        //            bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        //        }
+        //        catch (System.Exception)
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    System.Drawing.Imaging.BitmapData bitmapData = new System.Drawing.Imaging.BitmapData();
+        //    bitmapData = bitmap.LockBits(
+        //        new System.Drawing.Rectangle(0, 0, width, height),
+        //        System.Drawing.Imaging.ImageLockMode.WriteOnly,
+        //        System.Drawing.Imaging.PixelFormat.Format32bppArgb,
+        //        bitmapData);
+        //    CoreDll.adBitmap[] pBitmap = new CoreDll.adBitmap[1];
+        //    pBitmap[0].width = (uint)bitmapData.Width;
+        //    pBitmap[0].height = (uint)bitmapData.Height;
+        //    pBitmap[0].stride = bitmapData.Stride;
+        //    pBitmap[0].format = CoreDll.PixelFormatType.Argb32;
+        //    pBitmap[0].data = bitmapData.Scan0;
+        //    CoreDll.Error error = m_dll.adLoadBitmapW(m_handle, path, Marshal.UnsafeAddrOfPinnedArrayElement(pBitmap, 0));
+        //    bitmap.UnlockBits(bitmapData);
+        //    return error == CoreDll.Error.Ok ? bitmap : null;
+        //}
 
-        public System.Drawing.Bitmap LoadBitmap(CoreImageInfo imageInfo)
-        {
-            return LoadBitmap((int)imageInfo.width, (int)imageInfo.height, imageInfo.path);
-        }
+        ///// <summary>
+        ///// Возврашает загруженное изображение по заланному пути и заданного размера.
+        ///// </summary>
+        ///// <param name="size"></param>
+        ///// <param name="path"></param>
+        ///// <returns></returns>
+        //public System.Drawing.Bitmap LoadBitmap(System.Drawing.Size size, string path)
+        //{
+        //    return LoadBitmap(size.Width, size.Height, path);
+        //}
+
+        //public System.Drawing.Bitmap LoadBitmap(CoreImageInfo imageInfo)
+        //{
+        //    return LoadBitmap((int)imageInfo.width, (int)imageInfo.height, imageInfo.path);
+        //}
 
         //-----------Public properties----------------------------------------------
 
-#region Public properties
+        #region Public properties
 
         public CoreSearchOptions searchOptions
         {
@@ -657,7 +661,7 @@ namespace AntiDupl.NET
                 SetPath(CoreDll.PathType.Ignore, value);
             }
         }
-        
+
         public CorePathWithSubFolder[] validPath
         {
             get
@@ -682,10 +686,10 @@ namespace AntiDupl.NET
             }
         }
 
-#endregion
+        #endregion
 
         //-----------Private functions:--------------------------------------------
-#region private
+        #region private
 
         static private string BufferToString(char[] buffer, int startIndex, int maxSize)
         {
@@ -735,13 +739,13 @@ namespace AntiDupl.NET
                 path[i].path.CopyTo(0, buffer, i * (CoreDll.MAX_PATH_EX + 1), path[i].path.Length);
                 buffer[(CoreDll.MAX_PATH_EX + 1) * i + CoreDll.MAX_PATH_EX] = path[i].enableSubFolder ? (char)1 : (char)0;
             }
-            
-            return m_dll.adPathWithSubFolderSetW(m_handle, 
-                pathType, 
+
+            return m_dll.adPathWithSubFolderSetW(m_handle,
+                pathType,
                 Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
                 new IntPtr(path.Length)) == CoreDll.Error.Ok;
         }
 
-#endregion
+        #endregion
     };
 }
