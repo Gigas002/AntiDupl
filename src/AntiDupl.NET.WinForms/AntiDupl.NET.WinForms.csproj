@@ -5,8 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.3.10.34</AssemblyVersion>
-    <FileVersion>2.3.10.34</FileVersion>
+    <AssemblyVersion>2.3.10.36</AssemblyVersion>
+    <FileVersion>2.3.10.36</FileVersion>
     <Platforms>x64</Platforms>
     <Company>ErmIg</Company>
     <Copyright>ErmIg © 2002-2018</Copyright>
@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AntiDupl.Native\AntiDupl.Native.csproj" />
     <ProjectReference Include="..\AntiDupl.NET.Core\AntiDupl.NET.Core.csproj" />
   </ItemGroup>
 

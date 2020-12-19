@@ -29,13 +29,13 @@ namespace AntiDupl.NET.Core
 {
     public class CoreDll : DynamicModule
     {
-        public CoreDll()
-            : base(Environment.Is64BitProcess ? "AntiDupl64.dll" : "AntiDupl32.dll")
-        {
-        } 
+        //TODO
+        //public CoreDll() : base("runtimes/win-x64/native/AntiDupl.dll") { }
+        public CoreDll() : base("AntiDupl.dll") { }
+
 
         //-----------API constants:--------------------------------------------
-        
+
         public const int FALSE = 0;
         public const int TRUE = 1;
 

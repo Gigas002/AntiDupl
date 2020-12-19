@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiDupl.NET.Core", "AntiDu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntiDupl.NET.WinForms", "AntiDupl.NET.WinForms\AntiDupl.NET.WinForms.csproj", "{850FBEC2-52AA-41A2-AC27-BC628CCA81BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiDupl.Native", "AntiDupl.Native\AntiDupl.Native.csproj", "{81E7D460-D469-45C4-9C25-4532E6C7CB4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -17,15 +19,18 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{064909D6-CA38-45EA-ABC8-9DF202E600C9}.Debug|x64.ActiveCfg = Debug|x64
 		{064909D6-CA38-45EA-ABC8-9DF202E600C9}.Release|x64.ActiveCfg = Release|x64
-		{064909D6-CA38-45EA-ABC8-9DF202E600C9}.Release|x64.Build.0 = Release|x64
 		{A60D99CA-0D0A-47B8-AAA8-673C9E27AA62}.Debug|x64.ActiveCfg = Debug|x64
 		{A60D99CA-0D0A-47B8-AAA8-673C9E27AA62}.Debug|x64.Build.0 = Debug|x64
-		{A60D99CA-0D0A-47B8-AAA8-673C9E27AA62}.Release|x64.ActiveCfg = Release|Any CPU
-		{A60D99CA-0D0A-47B8-AAA8-673C9E27AA62}.Release|x64.Build.0 = Release|Any CPU
+		{A60D99CA-0D0A-47B8-AAA8-673C9E27AA62}.Release|x64.ActiveCfg = Release|x64
+		{A60D99CA-0D0A-47B8-AAA8-673C9E27AA62}.Release|x64.Build.0 = Release|x64
 		{850FBEC2-52AA-41A2-AC27-BC628CCA81BF}.Debug|x64.ActiveCfg = Debug|x64
 		{850FBEC2-52AA-41A2-AC27-BC628CCA81BF}.Debug|x64.Build.0 = Debug|x64
 		{850FBEC2-52AA-41A2-AC27-BC628CCA81BF}.Release|x64.ActiveCfg = Release|x64
 		{850FBEC2-52AA-41A2-AC27-BC628CCA81BF}.Release|x64.Build.0 = Release|x64
+		{81E7D460-D469-45C4-9C25-4532E6C7CB4F}.Debug|x64.ActiveCfg = Debug|x64
+		{81E7D460-D469-45C4-9C25-4532E6C7CB4F}.Debug|x64.Build.0 = Debug|x64
+		{81E7D460-D469-45C4-9C25-4532E6C7CB4F}.Release|x64.ActiveCfg = Release|x64
+		{81E7D460-D469-45C4-9C25-4532E6C7CB4F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

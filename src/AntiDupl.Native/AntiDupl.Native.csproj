@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <VersionPrefix>2.4.0</VersionPrefix>
+    <!--<VersionSuffix>0</VersionSuffix>-->
+    <AssemblyVersion>2.4.0.5</AssemblyVersion>
+    <FileVersion>2.4.0.5</FileVersion>
+    <Platforms>x64</Platforms>
+    <Configurations>Debug;Release</Configurations>
+    <Authors>Gigas002</Authors>
+    <Description>Todo</Description>
+    <Copyright>ErmIg © 2002-2018</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageId>AntiDupl.Native.Win-$(Platform)</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../AntiDupl/bin/$(Platform)/Release/*.dll">
+      <PackagePath>runtimes/win-$(Platform)/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+
+</Project>
