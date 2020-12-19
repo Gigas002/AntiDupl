@@ -38,10 +38,13 @@ namespace AntiDupl.NET
 
         public Version()
         {
-            string[] versions = External.Version.Split('.');
-            major = Convert.ToInt32(versions[0]);
-            minor = Convert.ToInt32(versions[1]);
-            release = Convert.ToInt32(versions[2]);
+            major = 2;
+            minor = 3;
+            release = 10;
+            //string[] versions = External.Version.Split('.');
+            //major = Convert.ToInt32(versions[0]);
+            //minor = Convert.ToInt32(versions[1]);
+            //release = Convert.ToInt32(versions[2]);
         }
 
         static public Version LoadXml(Stream stream)
