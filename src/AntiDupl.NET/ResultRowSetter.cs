@@ -21,6 +21,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
 using System.Windows.Forms;
 using System.Drawing;
@@ -32,136 +33,171 @@ namespace AntiDupl.NET
     /// Set table of out defect and dublicate pair.
     /// Установка таблицы вывода дефектов и дубликатов.
     /// </summary>
-    public class ResultRowSetter
+    internal sealed class ResultRowSetter
     {
-        private AntiDupl.NET.Options m_options;
-        private DataGridView m_dataGridView;
+        private readonly Options _mOptions;
 
-        private Image m_nullIcon;
+        private readonly DataGridView _mDataGridView;
 
-        private Image m_defectIcon;
-        
-        private Image m_duplPairVerticalIcon;
-        private Image m_duplPairHorizontalIcon;
+        private Image _mNullIcon;
 
-        private Image m_unknownDefectIcon;
-        private Image m_jpegEndMarkerIsAbsentIcon;
-        private Image m_blockinessIcon;
-        private Image m_blurringIcon;
+        private Image _mDefectIcon;
 
-        private Image m_deleteDefectIcon;
-        private Image m_deleteFirstVerticalIcon;
-        private Image m_deleteFirstHorizontalIcon;
-        private Image m_deleteSecondVerticalIcon;
-        private Image m_deleteSecondHorizontalIcon;
-        private Image m_renameFirstToSecondVerticalIcon;
-        private Image m_renameFirstToSecondHorizontalIcon;
-        private Image m_renameSecondToFirstVerticalIcon;
-        private Image m_renameSecondToFirstHorizontalIcon;
+        private Image _mDuplPairVerticalIcon;
 
-        private Image m_turn_0_Icon;
-        private Image m_turn_90_Icon;
-        private Image m_turn_180_Icon;
-        private Image m_turn_270_Icon;
-        private Image m_mirrorTurn_0_Icon;
-        private Image m_mirrorTurn_90_Icon;
-        private Image m_mirrorTurn_180_Icon;
-        private Image m_mirrorTurn_270_Icon;
+        private Image _mDuplPairHorizontalIcon;
 
-        private string m_defectIconToolTipText;
-        private string m_duplPairIconToolTipText;
+        private Image _mUnknownDefectIcon;
 
-        private string m_unknownDefectIconToolTipText;
-        private string m_jpegEndMarkerIsAbsentIconToolTipText;
-        private string m_blockinessIconToolTipText;
-        private string m_blurringIconToolTipText;
+        private Image _mJpegEndMarkerIsAbsentIcon;
 
-        private string m_deleteDefectIconToolTipText;
-        private string m_deleteFirstIconToolTipText;
-        private string m_deleteSecondIconToolTipText;
-        private string m_renameFirstToSecondIconToolTipText;
-        private string m_renameSecondToFirstIconToolTipText;
+        private Image _mBlockinessIcon;
 
-        private string m_turn_0_IconToolTipText;
-        private string m_turn_90_IconToolTipText;
-        private string m_turn_180_IconToolTipText;
-        private string m_turn_270_IconToolTipText;
-        private string m_mirrorTurn_0_IconToolTipText;
-        private string m_mirrorTurn_90_IconToolTipText;
-        private string m_mirrorTurn_180_IconToolTipText;
-        private string m_mirrorTurn_270_IconToolTipText;
+        private Image _mBlurringIcon;
 
-        public ResultRowSetter(AntiDupl.NET.Options options, DataGridView dataGridView)
+        private Image _mDeleteDefectIcon;
+
+        private Image _mDeleteFirstVerticalIcon;
+
+        private Image _mDeleteFirstHorizontalIcon;
+
+        private Image _mDeleteSecondVerticalIcon;
+
+        private Image _mDeleteSecondHorizontalIcon;
+
+        private Image _mRenameFirstToSecondVerticalIcon;
+
+        private Image _mRenameFirstToSecondHorizontalIcon;
+
+        private Image _mRenameSecondToFirstVerticalIcon;
+
+        private Image _mRenameSecondToFirstHorizontalIcon;
+
+        private Image _mTurn0Icon;
+
+        private Image _mTurn90Icon;
+
+        private Image _mTurn180Icon;
+
+        private Image _mTurn270Icon;
+
+        private Image _mMirrorTurn0Icon;
+
+        private Image _mMirrorTurn90Icon;
+
+        private Image _mMirrorTurn180Icon;
+
+        private Image _mMirrorTurn270Icon;
+
+        private string _mDefectIconToolTipText;
+
+        private string _mDuplPairIconToolTipText;
+
+        private string _mUnknownDefectIconToolTipText;
+
+        private string _mJpegEndMarkerIsAbsentIconToolTipText;
+
+        private string _mBlockinessIconToolTipText;
+
+        private string _mBlurringIconToolTipText;
+
+        private string _mDeleteDefectIconToolTipText;
+
+        private string _mDeleteFirstIconToolTipText;
+
+        private string _mDeleteSecondIconToolTipText;
+
+        private string _mRenameFirstToSecondIconToolTipText;
+
+        private string _mRenameSecondToFirstIconToolTipText;
+
+        private string _mTurn0IconToolTipText;
+
+        private string _mTurn90IconToolTipText;
+
+        private string _mTurn180IconToolTipText;
+
+        private string _mTurn270IconToolTipText;
+
+        private string _mMirrorTurn0IconToolTipText;
+
+        private string _mMirrorTurn90IconToolTipText;
+
+        private string _mMirrorTurn180IconToolTipText;
+
+        private string _mMirrorTurn270IconToolTipText;
+
+        public ResultRowSetter(Options options, DataGridView dataGridView)
         {
-            m_options = options;
-            m_dataGridView = dataGridView;
+            _mOptions = options;
+            _mDataGridView = dataGridView;
             InitializeImages();
             UpdateStrings();
-            Resources.Strings.OnCurrentChange += new Resources.Strings.CurrentChangeHandler(UpdateStrings);
+            Resources.Strings.OnCurrentChange += UpdateStrings;
         }
-        
+
         private void InitializeImages()
         {
-            m_nullIcon = Resources.Images.GetNullImage();
+            _mNullIcon = Resources.Images.GetNullImage();
 
-            m_defectIcon = Resources.Images.Get("DefectIcon");
-            m_duplPairVerticalIcon = Resources.Images.Get("DuplPairVerticalIcon");
-            m_duplPairHorizontalIcon = Resources.Images.Get("DuplPairHorizontalIcon");
+            _mDefectIcon = Resources.Images.Get("DefectIcon");
+            _mDuplPairVerticalIcon = Resources.Images.Get("DuplPairVerticalIcon");
+            _mDuplPairHorizontalIcon = Resources.Images.Get("DuplPairHorizontalIcon");
 
-            m_unknownDefectIcon = Resources.Images.Get("UnknownDefectIcon");
-            m_jpegEndMarkerIsAbsentIcon = Resources.Images.Get("JpegEndMarkerIsAbsentIcon");
-            m_blockinessIcon = Resources.Images.Get("BlockinessIcon");
-            m_blurringIcon = Resources.Images.Get("BlurringIcon");
+            _mUnknownDefectIcon = Resources.Images.Get("UnknownDefectIcon");
+            _mJpegEndMarkerIsAbsentIcon = Resources.Images.Get("JpegEndMarkerIsAbsentIcon");
+            _mBlockinessIcon = Resources.Images.Get("BlockinessIcon");
+            _mBlurringIcon = Resources.Images.Get("BlurringIcon");
 
-            m_deleteDefectIcon = Resources.Images.Get("DeleteDefectIcon");
-            m_deleteFirstVerticalIcon = Resources.Images.Get("DeleteFirstVerticalIcon");
-            m_deleteFirstHorizontalIcon = Resources.Images.Get("DeleteFirstHorizontalIcon");
-            m_deleteSecondVerticalIcon = Resources.Images.Get("DeleteSecondVerticalIcon");
-            m_deleteSecondHorizontalIcon = Resources.Images.Get("DeleteSecondHorizontalIcon");
-            m_renameFirstToSecondVerticalIcon = Resources.Images.Get("RenameFirstToSecondVerticalIcon");
-            m_renameFirstToSecondHorizontalIcon = Resources.Images.Get("RenameFirstToSecondHorizontalIcon");
-            m_renameSecondToFirstVerticalIcon = Resources.Images.Get("RenameSecondToFirstVerticalIcon");
-            m_renameSecondToFirstHorizontalIcon = Resources.Images.Get("RenameSecondToFirstHorizontalIcon");
+            _mDeleteDefectIcon = Resources.Images.Get("DeleteDefectIcon");
+            _mDeleteFirstVerticalIcon = Resources.Images.Get("DeleteFirstVerticalIcon");
+            _mDeleteFirstHorizontalIcon = Resources.Images.Get("DeleteFirstHorizontalIcon");
+            _mDeleteSecondVerticalIcon = Resources.Images.Get("DeleteSecondVerticalIcon");
+            _mDeleteSecondHorizontalIcon = Resources.Images.Get("DeleteSecondHorizontalIcon");
+            _mRenameFirstToSecondVerticalIcon = Resources.Images.Get("RenameFirstToSecondVerticalIcon");
+            _mRenameFirstToSecondHorizontalIcon = Resources.Images.Get("RenameFirstToSecondHorizontalIcon");
+            _mRenameSecondToFirstVerticalIcon = Resources.Images.Get("RenameSecondToFirstVerticalIcon");
+            _mRenameSecondToFirstHorizontalIcon = Resources.Images.Get("RenameSecondToFirstHorizontalIcon");
 
-            m_turn_0_Icon = Resources.Images.Get("Turn_0_Icon");
-            m_turn_90_Icon = Resources.Images.Get("Turn_90_Icon");
-            m_turn_180_Icon = Resources.Images.Get("Turn_180_Icon");
-            m_turn_270_Icon = Resources.Images.Get("Turn_270_Icon");
-            m_mirrorTurn_0_Icon = Resources.Images.Get("MirrorTurn_0_Icon");
-            m_mirrorTurn_90_Icon = Resources.Images.Get("MirrorTurn_90_Icon");
-            m_mirrorTurn_180_Icon = Resources.Images.Get("MirrorTurn_180_Icon");
-            m_mirrorTurn_270_Icon = Resources.Images.Get("MirrorTurn_270_Icon");
+            _mTurn0Icon = Resources.Images.Get("Turn_0_Icon");
+            _mTurn90Icon = Resources.Images.Get("Turn_90_Icon");
+            _mTurn180Icon = Resources.Images.Get("Turn_180_Icon");
+            _mTurn270Icon = Resources.Images.Get("Turn_270_Icon");
+            _mMirrorTurn0Icon = Resources.Images.Get("MirrorTurn_0_Icon");
+            _mMirrorTurn90Icon = Resources.Images.Get("MirrorTurn_90_Icon");
+            _mMirrorTurn180Icon = Resources.Images.Get("MirrorTurn_180_Icon");
+            _mMirrorTurn270Icon = Resources.Images.Get("MirrorTurn_270_Icon");
         }
 
         private void UpdateStrings()
         {
             Strings s = Resources.Strings.Current;
 
-            m_defectIconToolTipText = s.ResultRowSetter_DefectIcon_ToolTip_Text;
-            m_duplPairIconToolTipText = s.ResultRowSetter_DuplPairIcon_ToolTip_Text;
+            _mDefectIconToolTipText = s.ResultRowSetter_DefectIcon_ToolTip_Text;
+            _mDuplPairIconToolTipText = s.ResultRowSetter_DuplPairIcon_ToolTip_Text;
 
-            m_unknownDefectIconToolTipText = s.ResultRowSetter_UnknownDefectIcon_ToolTip_Text;
-            m_jpegEndMarkerIsAbsentIconToolTipText = s.ResultRowSetter_JpegEndMarkerIsAbsentIcon_ToolTip_Text;
-            m_blockinessIconToolTipText = s.ResultRowSetter_blockinessIcon_ToolTip_Text;
-            m_blurringIconToolTipText = s.ResultRowSetter_blurringIcon_ToolTip_Text;
+            _mUnknownDefectIconToolTipText = s.ResultRowSetter_UnknownDefectIcon_ToolTip_Text;
+            _mJpegEndMarkerIsAbsentIconToolTipText = s.ResultRowSetter_JpegEndMarkerIsAbsentIcon_ToolTip_Text;
+            _mBlockinessIconToolTipText = s.ResultRowSetter_blockinessIcon_ToolTip_Text;
+            _mBlurringIconToolTipText = s.ResultRowSetter_blurringIcon_ToolTip_Text;
 
-            m_deleteDefectIconToolTipText = s.ResultRowSetter_DeleteDefectIcon_ToolTip_Text;
-            m_deleteFirstIconToolTipText = s.ResultRowSetter_DeleteFirstIcon_ToolTip_Text;
-            m_deleteSecondIconToolTipText = s.ResultRowSetter_DeleteSecondIcon_ToolTip_Text;
-            m_renameFirstToSecondIconToolTipText = s.ResultRowSetter_RenameFirstToSecondIcon_ToolTip_Text;
-            m_renameSecondToFirstIconToolTipText = s.ResultRowSetter_RenameSecondToFirstIcon_ToolTip_Text;
+            _mDeleteDefectIconToolTipText = s.ResultRowSetter_DeleteDefectIcon_ToolTip_Text;
+            _mDeleteFirstIconToolTipText = s.ResultRowSetter_DeleteFirstIcon_ToolTip_Text;
+            _mDeleteSecondIconToolTipText = s.ResultRowSetter_DeleteSecondIcon_ToolTip_Text;
+            _mRenameFirstToSecondIconToolTipText = s.ResultRowSetter_RenameFirstToSecondIcon_ToolTip_Text;
+            _mRenameSecondToFirstIconToolTipText = s.ResultRowSetter_RenameSecondToFirstIcon_ToolTip_Text;
 
-            m_turn_0_IconToolTipText = s.ResultRowSetter_Turn_0_Icon_ToolTip_Text;
-            m_turn_90_IconToolTipText = s.ResultRowSetter_Turn_90_Icon_ToolTip_Text;
-            m_turn_180_IconToolTipText = s.ResultRowSetter_Turn_180_Icon_ToolTip_Text;
-            m_turn_270_IconToolTipText = s.ResultRowSetter_Turn_270_Icon_ToolTip_Text;
-            m_mirrorTurn_0_IconToolTipText = s.ResultRowSetter_MirrorTurn_0_Icon_ToolTip_Text;
-            m_mirrorTurn_90_IconToolTipText = s.ResultRowSetter_MirrorTurn_90_Icon_ToolTip_Text;
-            m_mirrorTurn_180_IconToolTipText = s.ResultRowSetter_MirrorTurn_180_Icon_ToolTip_Text;
-            m_mirrorTurn_270_IconToolTipText = s.ResultRowSetter_MirrorTurn_270_Icon_ToolTip_Text;
+            _mTurn0IconToolTipText = s.ResultRowSetter_Turn_0_Icon_ToolTip_Text;
+            _mTurn90IconToolTipText = s.ResultRowSetter_Turn_90_Icon_ToolTip_Text;
+            _mTurn180IconToolTipText = s.ResultRowSetter_Turn_180_Icon_ToolTip_Text;
+            _mTurn270IconToolTipText = s.ResultRowSetter_Turn_270_Icon_ToolTip_Text;
+            _mMirrorTurn0IconToolTipText = s.ResultRowSetter_MirrorTurn_0_Icon_ToolTip_Text;
+            _mMirrorTurn90IconToolTipText = s.ResultRowSetter_MirrorTurn_90_Icon_ToolTip_Text;
+            _mMirrorTurn180IconToolTipText = s.ResultRowSetter_MirrorTurn_180_Icon_ToolTip_Text;
+            _mMirrorTurn270IconToolTipText = s.ResultRowSetter_MirrorTurn_270_Icon_ToolTip_Text;
         }
 
-        public void Set(CoreResult result, DataGridViewCustomRow row) 
+        public void Set(CoreResult result, DataGridViewCustomRow row)
         {
             switch (result.type)
             {
@@ -179,63 +215,74 @@ namespace AntiDupl.NET
             if (result.type != CoreDll.ResultType.DefectImage)
                 throw new Exception("Bad result type!");
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type] = new DataGridViewImageCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].Value = m_defectIcon;
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].ToolTipText = m_defectIconToolTipText;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type] = new DataGridViewImageCell
+            {
+                Value = _mDefectIcon,
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter },
+                ToolTipText = _mDefectIconToolTipText
+            };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group].Value = (result.group == -1 ? "" : result.group.ToString());
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group] = new DataGridViewTextBoxCell
+            {
+                Value = result.group == -1 ? "" : result.group.ToString(),
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize].Value = (result.groupSize == -1 ? "" : result.groupSize.ToString());
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize] = new DataGridViewTextBoxCell
+            {
+                Value = result.groupSize == -1 ? "" : result.groupSize.ToString(),
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
 
             cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Value = "";
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect] = new DataGridViewImageCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect] = new DataGridViewImageCell
+            {
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
+
             switch (result.defect)
             {
                 case CoreDll.DefectType.None:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = m_nullIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mNullIcon;
                     break;
                 case CoreDll.DefectType.Unknown:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = m_unknownDefectIcon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = m_unknownDefectIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mUnknownDefectIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mUnknownDefectIconToolTipText;
                     break;
                 case CoreDll.DefectType.JpegEndMarkerIsAbsent:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = m_jpegEndMarkerIsAbsentIcon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = m_jpegEndMarkerIsAbsentIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mJpegEndMarkerIsAbsentIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mJpegEndMarkerIsAbsentIconToolTipText;
                     break;
                 case CoreDll.DefectType.Blockiness:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = m_blockinessIcon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = m_blockinessIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mBlockinessIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mBlockinessIconToolTipText;
                     break;
                 case CoreDll.DefectType.Blurring:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = m_blurringIcon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = m_blurringIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mBlurringIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mBlurringIconToolTipText;
                     break;
             }
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = "";
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform] = new DataGridViewTextBoxCell { Value = "" };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint] = new DataGridViewImageCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint] = new DataGridViewImageCell
+            {
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
+
             switch (result.hint)
             {
                 case CoreDll.HintType.DeleteFirst:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = m_deleteDefectIcon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].ToolTipText = m_deleteDefectIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mDeleteDefectIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].ToolTipText = _mDeleteDefectIconToolTipText;
                     break;
                 default:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = m_nullIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mNullIcon;
                     break;
-            } 
-            
-            switch (m_options.resultsOptions.ViewMode)
+            }
+
+            switch (_mOptions.resultsOptions.ViewMode)
             {
                 case ViewMode.VerticalPairTable:
                     SetDefectToRowVertical(cells, result);
@@ -250,10 +297,11 @@ namespace AntiDupl.NET
         /// Set cell defect in vertical mode.
         /// Установка яйчейки дефектов в вертикальном режиме.
         /// </summary>
-        private void SetDefectToRowVertical(DataGridViewCellCollection cells, CoreResult result)
+        private static void SetDefectToRowVertical(DataGridViewCellCollection cells, CoreResult result)
         {
             for (int col = (int)ResultsListView.ColumnsTypeVertical.FileName; col < (int)ResultsListView.ColumnsTypeVertical.Size; col++)
                 cells[col] = new DataGridViewTextBoxCell();
+
             cells[(int)ResultsListView.ColumnsTypeVertical.FileName].Value = Path.GetFileName(result.first.path);
             cells[(int)ResultsListView.ColumnsTypeVertical.FileDirectory].Value = result.first.GetDirectoryString();
             cells[(int)ResultsListView.ColumnsTypeVertical.ImageSize].Value = result.first.GetImageSizeString();
@@ -275,10 +323,11 @@ namespace AntiDupl.NET
         /// Set cell defect in horizontal mode.
         /// Установка яйчейки дефектов в горизонтальном режиме.
         /// </summary>
-        private void SetDefectToRowHorizontal(DataGridViewCellCollection cells, CoreResult result)
+        private static void SetDefectToRowHorizontal(DataGridViewCellCollection cells, CoreResult result)
         {
             for (int col = (int)ResultsListView.ColumnsTypeHorizontal.FirstFileName; col < (int)ResultsListView.ColumnsTypeHorizontal.Size; col++)
                 cells[col] = new DataGridViewTextBoxCell();
+
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileName].Value = Path.GetFileName(result.first.path);
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].Value = result.first.GetDirectoryString();
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Value = result.first.GetImageSizeString();
@@ -290,7 +339,7 @@ namespace AntiDupl.NET
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Value = result.first.GetFileSizeString();
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileTime].Value = result.first.GetFileTimeString();
-            
+
             cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileName].Value = "";
             cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileDirectory].Value = "";
             cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Value = "";
@@ -304,90 +353,105 @@ namespace AntiDupl.NET
             if (result.type != CoreDll.ResultType.DuplImagePair)
                 throw new Exception("Bad result type!");
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type] = new DataGridViewImageCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].ToolTipText = m_duplPairIconToolTipText;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type] = new DataGridViewImageCell
+            {
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter },
+                ToolTipText = _mDuplPairIconToolTipText
+            };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group].Value = (result.group == -1 ? "" : result.group.ToString());
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Group] = new DataGridViewTextBoxCell
+            {
+                Value = result.group == -1 ? "" : result.group.ToString(),
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize].Value = (result.groupSize == -1 ? "" : result.groupSize.ToString());
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.GroupSize] = new DataGridViewTextBoxCell
+            {
+                Value = result.groupSize == -1 ? "" : result.groupSize.ToString(),
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Value = result.difference.ToString("F2");
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Style.Font =
-                new Font(DataGridView.DefaultFont, result.difference == 0 ? FontStyle.Bold : FontStyle.Regular);
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Style.ForeColor =
-                result.difference == 0 ? Color.LightGreen : DataGridView.DefaultForeColor;
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Difference] = new DataGridViewTextBoxCell
+            {
+                Value = result.difference.ToString("F2"),
+                Style =
+                {
+                    Font = new Font(Control.DefaultFont,
+                                    result.difference == 0 ? FontStyle.Bold : FontStyle.Regular),
+                    ForeColor = result.difference == 0 ? Color.LightGreen : Control.DefaultForeColor,
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
+            };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect] = new DataGridViewTextBoxCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = "";
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect] = new DataGridViewTextBoxCell { Value = "" };
 
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform] = new DataGridViewImageCell();
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform] = new DataGridViewImageCell
+            {
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
+
             switch (result.transform)
             {
                 case CoreDll.TransformType.Turn_0:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_turn_0_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_turn_0_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn0Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn0IconToolTipText;
                     break;
                 case CoreDll.TransformType.Turn_90:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_turn_90_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_turn_90_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn90Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn90IconToolTipText;
                     break;
                 case CoreDll.TransformType.Turn_180:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_turn_180_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_turn_180_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn180Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn180IconToolTipText;
                     break;
                 case CoreDll.TransformType.Turn_270:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_turn_270_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_turn_270_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn270Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn270IconToolTipText;
                     break;
                 case CoreDll.TransformType.MirrorTurn_0:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_mirrorTurn_0_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_mirrorTurn_0_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn0Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn0IconToolTipText;
                     break;
                 case CoreDll.TransformType.MirrorTurn_90:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_mirrorTurn_90_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_mirrorTurn_90_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn90Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn90IconToolTipText;
                     break;
                 case CoreDll.TransformType.MirrorTurn_180:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_mirrorTurn_180_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_mirrorTurn_180_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn180Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn180IconToolTipText;
                     break;
                 case CoreDll.TransformType.MirrorTurn_270:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = m_mirrorTurn_270_Icon;
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = m_mirrorTurn_270_IconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn270Icon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn270IconToolTipText;
                     break;
             }
 
-            cells[(int)ResultsListView.ColumnsTypeVertical.Hint] = new DataGridViewImageCell();
-            cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cells[(int)ResultsListView.ColumnsTypeVertical.Hint] = new DataGridViewImageCell
+            {
+                Style = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
+
             switch (result.hint)
             {
                 case CoreDll.HintType.DeleteFirst:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = m_deleteFirstIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mDeleteFirstIconToolTipText;
                     break;
                 case CoreDll.HintType.DeleteSecond:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = m_deleteSecondIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mDeleteSecondIconToolTipText;
                     break;
                 case CoreDll.HintType.RenameFirstToSecond:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = m_renameFirstToSecondIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mRenameFirstToSecondIconToolTipText;
                     break;
                 case CoreDll.HintType.RenameSecondToFirst:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = m_renameSecondToFirstIconToolTipText;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mRenameSecondToFirstIconToolTipText;
                     break;
                 default:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = m_nullIcon;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mNullIcon;
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = "";
                     break;
             }
 
-            switch (m_options.resultsOptions.ViewMode)
+            switch (_mOptions.resultsOptions.ViewMode)
             {
                 case ViewMode.VerticalPairTable:
                     SetDuplPairToRowVertical(cells, result);
@@ -404,31 +468,32 @@ namespace AntiDupl.NET
         /// </summary>
         private void SetDuplPairToRowVertical(DataGridViewCellCollection cells, CoreResult result)
         {
-            cells[(int)ResultsListView.ColumnsTypeVertical.Type].Value = m_duplPairVerticalIcon;
+            cells[(int)ResultsListView.ColumnsTypeVertical.Type].Value = _mDuplPairVerticalIcon;
 
             switch (result.hint)
             {
                 case CoreDll.HintType.DeleteFirst:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = m_deleteFirstVerticalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mDeleteFirstVerticalIcon;
                     break;
                 case CoreDll.HintType.DeleteSecond:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = m_deleteSecondVerticalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mDeleteSecondVerticalIcon;
                     break;
                 case CoreDll.HintType.RenameFirstToSecond:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = m_renameFirstToSecondVerticalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mRenameFirstToSecondVerticalIcon;
                     break;
                 case CoreDll.HintType.RenameSecondToFirst:
-                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = m_renameSecondToFirstVerticalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mRenameSecondToFirstVerticalIcon;
                     break;
             }
 
-            DataGridViewDoubleTextBoxCell doubleCell;
-            cells[(int)ResultsListView.ColumnsTypeVertical.FileName] = new DataGridViewDoubleTextBoxCell(
-              Path.GetFileName(result.first.path), Path.GetFileName(result.second.path));
-            cells[(int)ResultsListView.ColumnsTypeVertical.FileDirectory] = new DataGridViewDoubleTextBoxCell(
-              result.first.GetDirectoryString(), result.second.GetDirectoryString());
+            cells[(int)ResultsListView.ColumnsTypeVertical.FileName] =
+                new DataGridViewDoubleTextBoxCell(Path.GetFileName(result.first.path),
+                                                  Path.GetFileName(result.second.path));
+            cells[(int)ResultsListView.ColumnsTypeVertical.FileDirectory] =
+                new DataGridViewDoubleTextBoxCell(result.first.GetDirectoryString(),
+                                                  result.second.GetDirectoryString());
 
-            doubleCell = new DataGridViewDoubleTextBoxCell(result.first.GetImageSizeString(), result.second.GetImageSizeString());
+            DataGridViewDoubleTextBoxCell doubleCell = new DataGridViewDoubleTextBoxCell(result.first.GetImageSizeString(), result.second.GetImageSizeString());
             if (result.first.height * result.first.width > result.second.height * result.second.width)
                 doubleCell.markType = DataGridViewDoubleTextBoxCell.MarkType.Second;
             else if (result.first.height * result.first.width < result.second.height * result.second.width)
@@ -457,7 +522,7 @@ namespace AntiDupl.NET
             cells[(int)ResultsListView.ColumnsTypeVertical.Blockiness].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             doubleCell = new DataGridViewDoubleTextBoxCell(result.first.GetBlurringString(), result.second.GetBlurringString());
-            if (result.first.blurring > result.second.blurring) 
+            if (result.first.blurring > result.second.blurring)
                 doubleCell.markType = DataGridViewDoubleTextBoxCell.MarkType.First;
             else if (result.first.blurring < result.second.blurring)
                 doubleCell.markType = DataGridViewDoubleTextBoxCell.MarkType.Second;
@@ -469,26 +534,27 @@ namespace AntiDupl.NET
 
         private void SetDuplPairToRowHorizontal(DataGridViewCellCollection cells, CoreResult result)
         {
-            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].Value = m_duplPairHorizontalIcon;
+            cells[(int)ResultsListView.ColumnsTypeHorizontal.Type].Value = _mDuplPairHorizontalIcon;
 
             switch (result.hint)
             {
                 case CoreDll.HintType.DeleteFirst:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = m_deleteFirstHorizontalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mDeleteFirstHorizontalIcon;
                     break;
                 case CoreDll.HintType.DeleteSecond:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = m_deleteSecondHorizontalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mDeleteSecondHorizontalIcon;
                     break;
                 case CoreDll.HintType.RenameFirstToSecond:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = m_renameFirstToSecondHorizontalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mRenameFirstToSecondHorizontalIcon;
                     break;
                 case CoreDll.HintType.RenameSecondToFirst:
-                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = m_renameSecondToFirstHorizontalIcon;
+                    cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mRenameSecondToFirstHorizontalIcon;
                     break;
             }
 
             for (int col = (int)ResultsListView.ColumnsTypeHorizontal.FirstFileName; col < (int)ResultsListView.ColumnsTypeHorizontal.Size; col++)
                 cells[col] = new DataGridViewTextBoxCell();
+
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileName].Value = Path.GetFileName(result.first.path);
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileDirectory].Value = result.first.GetDirectoryString();
             cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Value = result.first.GetImageSizeString();
@@ -515,45 +581,45 @@ namespace AntiDupl.NET
 
             if (result.first.height * result.first.width > result.second.height * result.second.width) //подсветка highlight
             {
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Style.ForeColor = Color.Red;
             }
             else if (result.first.height * result.first.width < result.second.height * result.second.width)
             {
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstImageSize].Style.ForeColor = Color.Red;
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondImageSize].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
             }
 
             if (result.first.size > result.second.size)
             {
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].Style.ForeColor = Color.Red;
             }
             else if (result.first.size < result.second.size)
             {
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstFileSize].Style.ForeColor = Color.Red;
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileSize].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
             }
 
             if (result.first.blockiness > result.second.blockiness)
             {
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].Style.ForeColor = Color.Red;
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
             }
             else if (result.first.blockiness < result.second.blockiness)
             {
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlockiness].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlockiness].Style.ForeColor = Color.Red;
             }
 
             if (result.first.blurring > result.second.blurring)
             {
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].Style.ForeColor = Color.Red;
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
             }
             else if (result.first.blurring < result.second.blurring)
             {
-                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].Style.ForeColor = m_dataGridView.DefaultCellStyle.ForeColor;
+                cells[(int)ResultsListView.ColumnsTypeHorizontal.FirstBlurring].Style.ForeColor = _mDataGridView.DefaultCellStyle.ForeColor;
                 cells[(int)ResultsListView.ColumnsTypeHorizontal.SecondBlurring].Style.ForeColor = Color.Red;
             }
 
