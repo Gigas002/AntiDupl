@@ -24,6 +24,8 @@
 
 namespace AntiDupl.NET
 {
+    // TODO: move to Strings.resx
+
     static public class StringsDefaultEnglish
     {
         static public void CopyTo(Strings s)

@@ -45,11 +45,11 @@ namespace AntiDupl.NET
             m_insertTab = false;
             switch (m_options.viewMode)
             {
-                case ResultsOptions.ViewMode.VerticalPairTable:
+                case ViewMode.VerticalPairTable:
                     AddCommon(result, m_options.columnOptionsVertical);
                     AddVertical(result, m_options.columnOptionsVertical);
                     break;
-                case ResultsOptions.ViewMode.HorizontalPairTable:
+                case ViewMode.HorizontalPairTable:
                     AddCommon(result, m_options.columnOptionsHorizontal);
                     AddHorizontal(result, m_options.columnOptionsHorizontal);
                     break;

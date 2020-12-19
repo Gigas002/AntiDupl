@@ -171,9 +171,9 @@ namespace AntiDupl.NET
             m_mistakeItem.Enabled = m_coreOptions.advancedOptions.mistakeDataBase;
         }
         
-        public void SetViewMode(ResultsOptions.ViewMode viewMode)
+        public void SetViewMode(ViewMode viewMode)
         {
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable)
             {
                 m_deleteDefectItem.Image = Resources.Images.Get("DeleteDefectsVerticalMenu");
                 m_deleteFirstItem.Image = Resources.Images.Get("DeleteFirstsVerticalMenu");
@@ -186,7 +186,7 @@ namespace AntiDupl.NET
                 m_moveSecondToFirst.Image = Resources.Images.Get("MoveSecondToFirstVerticalMenu");
                 m_deleteBothItem.Image = Resources.Images.Get("DeleteBothesVerticalMenu");
             }
-            if (viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.HorizontalPairTable)
             {
                 m_deleteDefectItem.Image = Resources.Images.Get("DeleteDefectsHorizontalMenu");
                 m_deleteFirstItem.Image = Resources.Images.Get("DeleteFirstsHorizontalMenu");

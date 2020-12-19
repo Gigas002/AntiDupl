@@ -28,41 +28,34 @@ namespace AntiDupl.NET
     /// Setting for table out (ListView).
     /// Установки для таблицы вывода.
     /// </summary>
-    public class ResultsOptions
+    public sealed class ResultsOptions
     {
-        private const int DEFAULT_THUMBNAIL_WIDTH_MAX = 128;
-        private const int DEFAULT_THUMBNAIL_HEIGHT_MAX = 128;
-
-        public enum ViewMode
-        {
-            VerticalPairTable,
-            HorizontalPairTable,
-            GroupedThumbnails
-        }
+        private const int DefaultThumbnailWidthMax = 128;
+        private const int DefaultThumbnailHeightMax = 128;
 
         public delegate void ViewModeChangeHandler(ViewMode viewMode);
+
         public event ViewModeChangeHandler OnViewModeChange;
-        private ViewMode m_viewMode = ViewMode.VerticalPairTable;
+
+        private ViewMode _mViewMode = ViewMode.VerticalPairTable;
+
         public ViewMode viewMode
         {
-            get
-            {
-                return m_viewMode;
-            }
+            get => _mViewMode;
             set
             {
-                if (m_viewMode != value)
+                if (_mViewMode != value)
                 {
-                    m_viewMode = value;
+                    _mViewMode = value;
                     if (OnViewModeChange != null)
-                        OnViewModeChange(m_viewMode);
+                        OnViewModeChange(_mViewMode);
                 }
             }
         }
 
         public bool IsPairTableView()
         {
-            return (m_viewMode == ViewMode.VerticalPairTable || m_viewMode == ViewMode.HorizontalPairTable);
+            return (_mViewMode == ViewMode.VerticalPairTable || _mViewMode == ViewMode.HorizontalPairTable);
         }
 
         public delegate void ImageViewChangeHandler();
@@ -307,7 +300,7 @@ namespace AntiDupl.NET
         public int splitterDistanceHorizontalMaximized;
         public int splitterDistanceHorizontalNormal;
 
-        public System.Drawing.Size thumbnailSizeMax = new System.Drawing.Size(DEFAULT_THUMBNAIL_WIDTH_MAX, DEFAULT_THUMBNAIL_HEIGHT_MAX);
+        public System.Drawing.Size thumbnailSizeMax = new System.Drawing.Size(DefaultThumbnailWidthMax, DefaultThumbnailHeightMax);
 
         public ResultsOptions Clone()
         {
@@ -400,9 +393,9 @@ namespace AntiDupl.NET
             splitterDistanceHorizontalMaximized = MainSplitContainer.VIEW_MIN_HEIGHT;
             splitterDistanceHorizontalNormal = MainSplitContainer.VIEW_MIN_HEIGHT;
 
-            thumbnailSizeMax = new System.Drawing.Size(DEFAULT_THUMBNAIL_WIDTH_MAX, DEFAULT_THUMBNAIL_HEIGHT_MAX);
+            thumbnailSizeMax = new System.Drawing.Size(DefaultThumbnailWidthMax, DefaultThumbnailHeightMax);
 
-            m_viewMode = ViewMode.VerticalPairTable;
+            _mViewMode = ViewMode.VerticalPairTable;
 
             SetDefaultVerticalColumns();
             SetDefaultHorizontalColumns();
@@ -578,6 +571,5 @@ namespace AntiDupl.NET
             columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].width = 115;
             columnOptionsHorizontal[(int)ResultsListView.ColumnsTypeHorizontal.SecondFileTime].order = 20;
         }
-
     }
 }

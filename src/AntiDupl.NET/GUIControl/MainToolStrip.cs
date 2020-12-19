@@ -224,7 +224,7 @@ namespace AntiDupl.NET
             m_thresholdDifferenceComboBox.SelectedIndex = m_coreOptions.compareOptions.thresholdDifference;
         }
 
-        public void SetViewMode(ResultsOptions.ViewMode viewMode)
+        public void SetViewMode(ViewMode viewMode)
         {
             Items.Clear();
 
@@ -240,7 +240,7 @@ namespace AntiDupl.NET
             Items.Add(new ToolStripSeparator());
             Items.Add(m_undoButton);
             Items.Add(m_redoButton);
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable || viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable || viewMode == ViewMode.HorizontalPairTable)
             {
                 Items.Add(new ToolStripSeparator());
                 Items.Add(m_mistakeButton);
@@ -255,14 +255,14 @@ namespace AntiDupl.NET
             Items.Add(new ToolStripSeparator());
             Items.Add(m_helpButton);
 
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable)
             {
                 m_deleteDefectButton.Image = Resources.Images.Get("DeleteDefectsVerticalButton");
                 m_deleteFirstButton.Image = Resources.Images.Get("DeleteFirstsVerticalButton");
                 m_deleteSecondButton.Image = Resources.Images.Get("DeleteSecondsVerticalButton");
                 m_deleteBothButton.Image = Resources.Images.Get("DeleteBothesVerticalButton");
             }
-            if (viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.HorizontalPairTable)
             {
                 m_deleteDefectButton.Image = Resources.Images.Get("DeleteDefectsHorizontalButton");
                 m_deleteFirstButton.Image = Resources.Images.Get("DeleteFirstsHorizontalButton");

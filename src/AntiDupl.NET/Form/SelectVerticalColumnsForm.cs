@@ -39,7 +39,7 @@ namespace AntiDupl.NET
 
         public SelectVerticalColumnsForm(ResultsListView resultsListView, Options options)
         {
-            if (options.resultsOptions.viewMode != ResultsOptions.ViewMode.VerticalPairTable)
+            if (options.resultsOptions.viewMode != ViewMode.VerticalPairTable)
                 throw new Exception("Bad view mode!");
 
             m_resultsListView = resultsListView;

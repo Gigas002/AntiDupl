@@ -24,6 +24,8 @@
 
 namespace AntiDupl.NET
 {
+    // TODO: move to Strings.ru-ru.resx
+
     static public class StringsDefaultRussian
     {
         static public void CopyTo(Strings s)

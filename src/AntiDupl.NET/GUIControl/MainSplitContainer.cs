@@ -104,22 +104,22 @@ namespace AntiDupl.NET
             Orientation = Orientation.Vertical;
         }
 
-        public void SetViewMode(ResultsOptions.ViewMode viewMode)
+        public void SetViewMode(ViewMode viewMode)
         {
             Panel2.Controls.Clear();
             Panel1.Controls.Clear();
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable || viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable || viewMode == ViewMode.HorizontalPairTable)
             {
                 Panel2.Controls.Add(m_resultsListView);
                 Panel1.Controls.Add(m_resultsPreviewContainer);
             }
-            if (viewMode == ResultsOptions.ViewMode.GroupedThumbnails)
+            if (viewMode == ViewMode.GroupedThumbnails)
             {
                 Panel2.Controls.Add(m_thumbnailGroupTable);
                 Panel1.Controls.Add(m_thumbnailPreview);
             }
 
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable || viewMode == ResultsOptions.ViewMode.GroupedThumbnails)
+            if (viewMode == ViewMode.VerticalPairTable || viewMode == ViewMode.GroupedThumbnails)
             {
                 Panel1MinSize = 0;
                 Panel2MinSize = 0;
@@ -130,7 +130,7 @@ namespace AntiDupl.NET
                 Panel1MinSize = VIEW_MIN_WIDTH;
                 Panel2MinSize = LIST_MIN_WIDTH;
             }
-            if (viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.HorizontalPairTable)
             {
                 Panel1MinSize = 0;
                 Panel2MinSize = 0;
@@ -142,7 +142,7 @@ namespace AntiDupl.NET
                 Panel2MinSize = LIST_MIN_HEIGHT;
             }
 
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable || viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable || viewMode == ViewMode.HorizontalPairTable)
             {
                 m_resultsPreviewContainer.SetViewMode(viewMode);
                 m_resultsListView.SetViewMode(viewMode);
@@ -172,7 +172,7 @@ namespace AntiDupl.NET
         private void SetSplitterDistance()
         {
             ResultsOptions options = m_options.resultsOptions;
-            if (options.viewMode == ResultsOptions.ViewMode.VerticalPairTable || options.viewMode == ResultsOptions.ViewMode.GroupedThumbnails)
+            if (options.viewMode == ViewMode.VerticalPairTable || options.viewMode == ViewMode.GroupedThumbnails)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
@@ -183,7 +183,7 @@ namespace AntiDupl.NET
                     SplitterDistance = Math.Min(Math.Max(options.splitterDistanceVerticalNormal, VIEW_MIN_WIDTH), Width - LIST_MIN_WIDTH - SplitterWidth);
                 }
             }
-            if (options.viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (options.viewMode == ViewMode.HorizontalPairTable)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
@@ -199,7 +199,7 @@ namespace AntiDupl.NET
         private void GetSplitterDistance()
         {
             ResultsOptions options = m_options.resultsOptions;
-            if (options.viewMode == ResultsOptions.ViewMode.VerticalPairTable || options.viewMode == ResultsOptions.ViewMode.GroupedThumbnails)
+            if (options.viewMode == ViewMode.VerticalPairTable || options.viewMode == ViewMode.GroupedThumbnails)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {
@@ -210,7 +210,7 @@ namespace AntiDupl.NET
                     options.splitterDistanceVerticalNormal = SplitterDistance;
                 }
             }
-            if (options.viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (options.viewMode == ViewMode.HorizontalPairTable)
             {
                 if (m_mainForm.WindowState == FormWindowState.Maximized)
                 {

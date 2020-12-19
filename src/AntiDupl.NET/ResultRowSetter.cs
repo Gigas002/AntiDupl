@@ -237,10 +237,10 @@ namespace AntiDupl.NET
             
             switch (m_options.resultsOptions.viewMode)
             {
-                case ResultsOptions.ViewMode.VerticalPairTable:
+                case ViewMode.VerticalPairTable:
                     SetDefectToRowVertical(cells, result);
                     break;
-                case ResultsOptions.ViewMode.HorizontalPairTable:
+                case ViewMode.HorizontalPairTable:
                     SetDefectToRowHorizontal(cells, result);
                     break;
             }
@@ -389,10 +389,10 @@ namespace AntiDupl.NET
 
             switch (m_options.resultsOptions.viewMode)
             {
-                case ResultsOptions.ViewMode.VerticalPairTable:
+                case ViewMode.VerticalPairTable:
                     SetDuplPairToRowVertical(cells, result);
                     break;
-                case ResultsOptions.ViewMode.HorizontalPairTable:
+                case ViewMode.HorizontalPairTable:
                     SetDuplPairToRowHorizontal(cells, result);
                     break;
             }

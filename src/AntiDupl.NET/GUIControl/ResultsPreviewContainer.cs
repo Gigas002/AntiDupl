@@ -113,7 +113,7 @@ namespace AntiDupl.NET
             }
         }
 
-        public void SetViewMode(ResultsOptions.ViewMode viewMode)
+        public void SetViewMode(ViewMode viewMode)
         {
             m_resultsPreviewDefect.SetViewMode(viewMode);
             m_resultsPreviewDuplPair.SetViewMode(viewMode);

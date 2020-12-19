@@ -264,13 +264,13 @@ namespace AntiDupl.NET
 
         private void OnSelectColumnsClick(object sender, EventArgs e)
         {
-            if(m_options.resultsOptions.viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if(m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
             {
                 SelectVerticalColumnsForm form =
                     new SelectVerticalColumnsForm(m_mainSplitContainer.resultsListView, m_options);
                 form.ShowDialog();
             }
-            if (m_options.resultsOptions.viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
             {
                 SelectHorizontalColumnsForm form =
                     new SelectHorizontalColumnsForm(m_mainSplitContainer.resultsListView, m_options);

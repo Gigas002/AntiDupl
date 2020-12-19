@@ -72,12 +72,12 @@ namespace AntiDupl.NET
             m_previousButton = InitFactory.ToolButton.Create("PreviousButton", null, OnPreviousButtonClicked);
         }
 
-        public void SetViewMode(ResultsOptions.ViewMode viewMode)
+        public void SetViewMode(ViewMode viewMode)
         {
             Controls.Clear();
             m_toolStripPanel.Controls.Clear();
             m_toolStrip.Items.Clear();
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable)
             {
                 m_toolStripPanel.Orientation = Orientation.Vertical;
 
@@ -94,7 +94,7 @@ namespace AntiDupl.NET
                 m_mainLayout.Controls.Add(m_imageLayout, 0, 0);
                 m_mainLayout.Controls.Add(m_buttonLayout, 1, 0);
             }
-            if (viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.HorizontalPairTable)
             {
                 m_toolStripPanel.Orientation = Orientation.Horizontal;
 
@@ -119,7 +119,7 @@ namespace AntiDupl.NET
             Controls.Add(m_mainLayout);
         }
 
-        protected abstract void AddItems(ResultsOptions.ViewMode viewMode);
+        protected abstract void AddItems(ViewMode viewMode);
 
         private void OnNextButtonClicked(object sender, System.EventArgs e)
         {

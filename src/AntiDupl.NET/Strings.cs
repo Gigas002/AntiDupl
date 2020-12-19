@@ -24,6 +24,8 @@
 
 namespace AntiDupl.NET
 {
+    // TODO: move to Strings.resx
+
     public class Strings
     {
         public Strings()

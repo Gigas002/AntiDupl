@@ -88,15 +88,15 @@ namespace AntiDupl.NET
             m_mistakeButton.Enabled = m_coreOptions.advancedOptions.mistakeDataBase;
         }
 
-        protected override void AddItems(ResultsOptions.ViewMode viewMode)
+        protected override void AddItems(ViewMode viewMode)
         {
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable)
             {
                 m_imagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Top);
                 
                 m_deleteButton.Image = Resources.Images.Get("DeleteDefectVerticalButton");
             }
-            if (viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.HorizontalPairTable)
             {
                 m_imagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Left);
                 

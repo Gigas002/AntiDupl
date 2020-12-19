@@ -44,7 +44,7 @@ namespace AntiDupl.NET
 
                 if (!directoryInfo.Exists)
                 {
-                    // TODO: move to strings
+                    // TODO: move to Strings.resx
                     throw new Exception(string.Format(CultureInfo.InvariantCulture,
                                                       "The directory '{0}' is not exists!", customSavePath));
                 }

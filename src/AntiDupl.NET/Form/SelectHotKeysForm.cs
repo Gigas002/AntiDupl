@@ -147,7 +147,7 @@ namespace AntiDupl.NET
         
         private void InitializeIcons()
         {
-            if (m_options.resultsOptions.viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.viewMode == ViewMode.VerticalPairTable)
             {
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDefectDelete].icon.Image = Resources.Images.Get("DeleteDefectVerticalButton");
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairDeleteFirst].icon.Image = Resources.Images.Get("DeleteFirstVerticalButton");
@@ -156,7 +156,7 @@ namespace AntiDupl.NET
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameFirstToSecond].icon.Image = Resources.Images.Get("RenameFirstToSecondVerticalButton");
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairRenameSecondToFirst].icon.Image = Resources.Images.Get("RenameSecondToFirstVerticalButton");
             }
-            else if (m_options.resultsOptions.viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            else if (m_options.resultsOptions.viewMode == ViewMode.HorizontalPairTable)
             {
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDefectDelete].icon.Image = Resources.Images.Get("DeleteDefectHorizontalButton");
                 m_hotKeyItems[(int)HotKeyOptions.Action.CurrentDuplPairDeleteFirst].icon.Image = Resources.Images.Get("DeleteFirstHorizontalButton");

@@ -213,9 +213,9 @@ namespace AntiDupl.NET
             m_mistakeButton.Enabled = m_coreOptions.advancedOptions.mistakeDataBase;
         }
 
-        protected override void AddItems(ResultsOptions.ViewMode viewMode)
+        protected override void AddItems(ViewMode viewMode)
         {
-            if (viewMode == ResultsOptions.ViewMode.VerticalPairTable)
+            if (viewMode == ViewMode.VerticalPairTable)
             {
                 m_firstImagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Top);
                 m_secondImagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Bottom);
@@ -229,7 +229,7 @@ namespace AntiDupl.NET
                 m_renameFirstToSecondButton.Image = Resources.Images.Get("RenameFirstToSecondVerticalButton");
                 m_renameSecondToFirstButton.Image = Resources.Images.Get("RenameSecondToFirstVerticalButton");
             }
-            if (viewMode == ResultsOptions.ViewMode.HorizontalPairTable)
+            if (viewMode == ViewMode.HorizontalPairTable)
             {
                 m_firstImagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Left);
                 m_secondImagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Right);

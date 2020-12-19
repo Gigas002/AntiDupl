@@ -53,9 +53,9 @@ namespace AntiDupl.NET
             m_trueIcon = Resources.Images.GetImageWithBlackCircle(16, 16, 3.5);
             m_falseIcon = Resources.Images.GetNullImage();
 
-            m_verticalPairTableMenuItem = InitFactory.MenuItem.Create(null, ResultsOptions.ViewMode.VerticalPairTable, OnClick);
-            m_horizontalPairTableMenuItem = InitFactory.MenuItem.Create(null, ResultsOptions.ViewMode.HorizontalPairTable, OnClick);
-            m_groupedThumbnailsMenuItem = InitFactory.MenuItem.Create(null, ResultsOptions.ViewMode.GroupedThumbnails, OnClick);
+            m_verticalPairTableMenuItem = InitFactory.MenuItem.Create(null, ViewMode.VerticalPairTable, OnClick);
+            m_horizontalPairTableMenuItem = InitFactory.MenuItem.Create(null, ViewMode.HorizontalPairTable, OnClick);
+            m_groupedThumbnailsMenuItem = InitFactory.MenuItem.Create(null, ViewMode.GroupedThumbnails, OnClick);
 
             //m_groupedThumbnailsMenuItem.Enabled = false;
 
@@ -68,7 +68,7 @@ namespace AntiDupl.NET
         private void OnClick(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
-            m_options.resultsOptions.viewMode = (ResultsOptions.ViewMode)item.Tag;
+            m_options.resultsOptions.viewMode = (ViewMode)item.Tag;
         }
 
         private void UpdateStrings()
@@ -81,11 +81,11 @@ namespace AntiDupl.NET
             m_groupedThumbnailsMenuItem.Text = s.ViewModeMenuItem_GroupedThumbnailsMenuItem_Text;
         }
 
-        void UpdateIcons(ResultsOptions.ViewMode viewMode)
+        void UpdateIcons(ViewMode viewMode)
         {
-            m_verticalPairTableMenuItem.Image = (viewMode == ResultsOptions.ViewMode.VerticalPairTable ? m_trueIcon : m_falseIcon);
-            m_horizontalPairTableMenuItem.Image = (viewMode == ResultsOptions.ViewMode.HorizontalPairTable ? m_trueIcon : m_falseIcon);
-            m_groupedThumbnailsMenuItem.Image = (viewMode == ResultsOptions.ViewMode.GroupedThumbnails ? m_trueIcon : m_falseIcon);
+            m_verticalPairTableMenuItem.Image = (viewMode == ViewMode.VerticalPairTable ? m_trueIcon : m_falseIcon);
+            m_horizontalPairTableMenuItem.Image = (viewMode == ViewMode.HorizontalPairTable ? m_trueIcon : m_falseIcon);
+            m_groupedThumbnailsMenuItem.Image = (viewMode == ViewMode.GroupedThumbnails ? m_trueIcon : m_falseIcon);
         }
     }
 }
