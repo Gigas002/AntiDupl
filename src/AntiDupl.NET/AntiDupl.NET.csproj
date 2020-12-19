@@ -5,8 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.3.10.31</AssemblyVersion>
-    <FileVersion>2.3.10.31</FileVersion>
+    <AssemblyVersion>2.3.10.32</AssemblyVersion>
+    <FileVersion>2.3.10.32</FileVersion>
     <Platforms>x64</Platforms>
     <Company>ErmIg</Company>
     <Copyright>ErmIg © 2002-2018</Copyright>
@@ -71,5 +71,19 @@
     <Compile Update="GUIControl\ThumbnailPreviewContextMenu.cs" />
     <Compile Update="GUIControl\ViewModeMenuItem.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalImages Include="Resources/images/*.*" />
+    <AdditionalStrings Include="Resources/strings/*.*" />
+  </ItemGroup>
+
+  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+    <Copy SourceFiles="@(AdditionalImages)" DestinationFolder="$(OutDir)data/resources/images" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(AdditionalStrings)" DestinationFolder="$(OutDir)data/resources/strings" SkipUnchangedFiles="true" />
+  </Target>
 
 </Project>
