@@ -21,68 +21,64 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using System.IO;
 
 namespace AntiDupl.NET
 {
-    static class Program
+    internal static class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            if (IsDotNet35Installed)
+            string customSavePath = null;
+
+            // TODO: use CommandLineParser?
+            if (GetParameter(args, "-s", ref customSavePath))
             {
-                string customSavePath = null;
-                if (GetParameter(args, "-s", ref customSavePath))
+                DirectoryInfo directoryInfo = new(customSavePath);
+
+                if (!directoryInfo.Exists)
                 {
-                    DirectoryInfo directoryInfo = new DirectoryInfo(customSavePath);
-                    if (!directoryInfo.Exists)
-                        throw new Exception(String.Format("The directory '{0}' is not exists!", customSavePath));
-                    Resources.UserPath = customSavePath;
+                    // TODO: move to strings
+                    throw new Exception(string.Format(CultureInfo.InvariantCulture,
+                                                      "The directory '{0}' is not exists!", customSavePath));
                 }
-                else
-                {
-                    Resources.UserPath = Resources.GetDefaultUserPath();
-                }
-                Resources.Strings.Initialize();
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
+
+                Resources.UserPath = customSavePath;
             }
-            else if (MessageBox.Show("You Need Microsoft .NET Framework 3.5 in order to run this program. Want to download .Net Framework 3.5?", "Warning",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                System.Diagnostics.Process.Start("http://www.microsoft.com/ru-ru/download/details.aspx?id=22");
+            else
+            {
+                Resources.UserPath = Resources.GetDefaultUserPath();
+            }
+
+            Resources.Strings.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            using MainForm form = new();
+            Application.Run(form);
         }
 
-        static bool GetParameter(string[] args, string name, ref string value)
+        private static bool GetParameter(IReadOnlyList<string> args, string name, ref string value)
         {
-            for(int i = 0; i < args.Length - 1; i++)
+            for (int i = 0; i < args.Count - 1; i++)
             {
-                if(String.Compare(args[i], name) == 0)
+                if (string.Compare(args[i], name, CultureInfo.InvariantCulture, CompareOptions.IgnoreCase) != 0)
                 {
-                    value = args[i + 1];
-                    return true;
+                    continue;
                 }
+
+                value = args[i + 1];
+
+                return true;
             }
+
             return false;
         }
-
-        private static bool IsDotNet35Installed
-        {
-            get
-            {
-                try
-                {
-                    return (Convert.ToInt32(Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5").GetValue("Install")) == 1);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
-
     }
 }
