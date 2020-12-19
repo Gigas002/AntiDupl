@@ -31,26 +31,36 @@ namespace AntiDupl.NET
     /// <summary>
     /// Хранилище эскизов изображений.
     /// </summary>
-    public class ThumbnailStorage
+    internal sealed class ThumbnailStorage
     {
-        private CoreLib m_core;
-        private Options m_options;
-        private Dictionary<ulong, Bitmap> m_storage = new Dictionary<ulong,Bitmap>();
-        private Mutex m_mutex = new Mutex();
-        
+        #region Fields
+
+        private readonly CoreLib _mCore;
+        private readonly Options _mOptions;
+        private readonly Dictionary<ulong, Bitmap> _mStorage = new();
+        private readonly Mutex _mMutex = new();
+
+        #endregion
+
+        #region Constructor
+
         public ThumbnailStorage(CoreLib core, Options options)
         {
-            m_core = core;
-            m_options = options;
+            _mCore = core;
+            _mOptions = options;
         }
-        
+
+        #endregion
+
+        #region Methods
+
         public void Clear()
         {
-            m_mutex.WaitOne();
-            m_storage.Clear();
-            m_mutex.ReleaseMutex();
+            _mMutex.WaitOne();
+            _mStorage.Clear();
+            _mMutex.ReleaseMutex();
         }
-        
+
         /// <summary>
         /// Существует ли в хранилише изображение по переданному изображению.
         /// </summary>
@@ -59,17 +69,18 @@ namespace AntiDupl.NET
         public bool Exists(CoreImageInfo imageInfo)
         {
             bool result = false;
-            m_mutex.WaitOne();
-            if (m_storage.ContainsKey(imageInfo.id))
+            _mMutex.WaitOne();
+            if (_mStorage.ContainsKey(imageInfo.id))
             {
-                Bitmap bitmap = m_storage[imageInfo.id];
-                if(bitmap != null)
+                Bitmap bitmap = _mStorage[imageInfo.id];
+                if (bitmap != null)
                 {
                     Size size = GetThumbnailSize(imageInfo);
-                    result = (bitmap.Height == size.Height && bitmap.Width == size.Width);
+                    result = bitmap.Height == size.Height && bitmap.Width == size.Width;
                 }
             }
-            m_mutex.ReleaseMutex();
+
+            _mMutex.ReleaseMutex();
             return result;
         }
 
@@ -80,32 +91,29 @@ namespace AntiDupl.NET
         /// <returns></returns>
         public Bitmap Get(CoreImageInfo imageInfo)
         {
-            Bitmap bitmap = null;
             Size size = GetThumbnailSize(imageInfo);
-            m_mutex.WaitOne();
-            m_storage.TryGetValue(imageInfo.id, out bitmap);
+            _mMutex.WaitOne();
+            _mStorage.TryGetValue(imageInfo.id, out Bitmap bitmap);
             if (bitmap == null || bitmap.Height != size.Height || bitmap.Width != size.Width)
             {
-                m_mutex.ReleaseMutex(); // поток может работать дальше
-                bitmap = m_core.LoadBitmap(size, imageInfo.path);
-                m_mutex.WaitOne();
-                m_storage[imageInfo.id] = bitmap;
+                _mMutex.ReleaseMutex(); // поток может работать дальше
+                bitmap = _mCore.LoadBitmap(size, imageInfo.path);
+                _mMutex.WaitOne();
+                _mStorage[imageInfo.id] = bitmap;
             }
-            m_mutex.ReleaseMutex();
+
+            _mMutex.ReleaseMutex();
             return bitmap;
         }
 
         private Size GetThumbnailSize(CoreImageInfo imageInfo)
         {
-            Size sizeMax = m_options.resultsOptions.thumbnailSizeMax;
-            if (sizeMax.Width * imageInfo.height > sizeMax.Height * imageInfo.width)
-            {
-                return new Size(sizeMax.Width, (int)(sizeMax.Height * imageInfo.height / imageInfo.width));
-            }
-            else
-            {
-                return new Size((int)(sizeMax.Width * imageInfo.width / imageInfo.height), sizeMax.Height);
-            }
-        } 
+            Size sizeMax = _mOptions.resultsOptions.thumbnailSizeMax;
+            return sizeMax.Width * imageInfo.height > sizeMax.Height * imageInfo.width
+                       ? new Size(sizeMax.Width, (int)(sizeMax.Height * imageInfo.height / imageInfo.width))
+                       : new Size((int)(sizeMax.Width * imageInfo.width / imageInfo.height), sizeMax.Height);
+        }
+
+        #endregion
     }
 }

@@ -5,8 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.3.10.17</AssemblyVersion>
-    <FileVersion>2.3.10.17</FileVersion>
+    <AssemblyVersion>2.3.10.18</AssemblyVersion>
+    <FileVersion>2.3.10.18</FileVersion>
     <Platforms>x64</Platforms>
     <Company>ErmIg</Company>
     <Copyright>ErmIg © 2002-2018</Copyright>

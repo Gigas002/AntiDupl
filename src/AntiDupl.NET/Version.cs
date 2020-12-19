@@ -28,6 +28,8 @@ using System.Xml.Serialization;
 
 namespace AntiDupl.NET
 {
+    // TODO: remove this class? replacebale by existing dotnet classes
+
     public class Version
     {
         public int major;
