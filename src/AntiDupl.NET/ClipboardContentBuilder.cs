@@ -21,11 +21,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 
+using System.Text;
 using TypeVertical = AntiDupl.NET.ResultsListView.ColumnsTypeVertical;
 using TypeHorizontal = AntiDupl.NET.ResultsListView.ColumnsTypeHorizontal;
 

@@ -21,11 +21,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using Microsoft.Win32;
-using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading;

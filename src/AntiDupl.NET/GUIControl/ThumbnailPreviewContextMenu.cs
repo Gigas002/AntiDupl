@@ -22,12 +22,9 @@
 * SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Win32;
 using System.ComponentModel;
 
 namespace AntiDupl.NET

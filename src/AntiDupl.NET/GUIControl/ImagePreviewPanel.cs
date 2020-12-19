@@ -23,9 +23,7 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.Drawing;
 using System.ComponentModel;
 using System.IO;
