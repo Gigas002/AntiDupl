@@ -1,0 +1,2 @@
+# todo: add RuntimeIdentifier to .csproj instead of publish script later
+dotnet publish "AntiDupl.NET.WinForms/AntiDupl.NET.WinForms.csproj" -c Release /p:PublishDir=../Publish/AntiDupl.NET.WinForms /p:Platform=x64 -r win-x64
