@@ -22,8 +22,10 @@
 * SOFTWARE.
 */
 
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace AntiDupl.NET.WinForms
 {
@@ -62,8 +64,31 @@ namespace AntiDupl.NET.WinForms
                     g.DrawImage(bitmapSource, 0, 0, section, GraphicsUnit.Pixel);
                 }
 
-                _grayScaleData = GetBmpBytes(ToGrayScale(sectionBmp));
+                _grayScaleData = OldGetBmpBytes(ToGrayScale(sectionBmp));
             }
+        }
+
+        byte[] GetBmpBytes(Bitmap bmp)
+        {
+            // TODO: test this somehow
+
+            // https://docs.microsoft.com/en-us/dotnet/api/system.drawing.imaging.bitmapdata.scan0?view=dotnet-plat-ext-5.0
+
+            BitmapData bData = bmp.LockBits(new Rectangle(new Point(), bmp.Size), ImageLockMode.ReadOnly, bmp.PixelFormat);
+            int byteCount = Math.Abs(bData.Stride) * bmp.Height;
+            byte[] bmpBytes = new byte[byteCount];
+
+            // Get the address of the first line.
+            IntPtr ptr = bData.Scan0;
+
+            int bytes = Math.Abs(bData.Stride) * bmp.Height;
+
+            // Copy the RGB values into the array.
+            Marshal.Copy(ptr, bmpBytes, 0, bytes);
+
+            bmp.UnlockBits(bData);
+
+            return bmpBytes;
         }
 
         /// <summary>
@@ -72,24 +97,45 @@ namespace AntiDupl.NET.WinForms
         /// </summary>
         /// <param name="sectionBmp"></param>
         /// <returns></returns>
-        byte[] GetBmpBytes(Bitmap bmp)
+        byte[] OldGetBmpBytes(Bitmap bmp)
         {
+            // https://docs.microsoft.com/en-us/dotnet/api/system.drawing.imaging.bitmapdata.scan0?view=dotnet-plat-ext-5.0
+
             BitmapData bData = bmp.LockBits(new Rectangle(new Point(), bmp.Size), ImageLockMode.ReadOnly, bmp.PixelFormat);
+            int readBytesCount = Math.Abs(bData.Stride) * bmp.Height;
             int byteCount = (bData.Stride * bmp.Height) / 4;
             int bytesPerPixel = (bData.Stride * bmp.Height) / (bmp.Height * bmp.Width);
+            byte[] readBytes = new byte[readBytesCount];
+
+            // Get the address of the first line.
+            IntPtr ptr = bData.Scan0;
+
+            int bytes = Math.Abs(bData.Stride) * bmp.Height;
+
+            // Copy the RGB values into the array.
+            Marshal.Copy(ptr, readBytes, 0, bytes);
+
             byte[] bmpBytes = new byte[byteCount];
 
-            unsafe
+            int readCounter = 0;
+            for (int x = 0; x < bmpBytes.Length; x++)
             {
-                byte* p = (byte*)(void*)bData.Scan0;
-                for (int x = 0; x < bmpBytes.Length; ++x)
-                {
-                    bmpBytes[x] = *p;
-                    p += bytesPerPixel;
-                }
+                bmpBytes[x] = readBytes[readCounter];
+                readCounter += bytesPerPixel;
             }
 
+            //unsafe
+            //{
+            //    byte* p = (byte*)(void*)bData.Scan0;
+            //    for (int x = 0; x < bmpBytes.Length; ++x)
+            //    {
+            //        bmpBytes[x] = *p;
+            //        p += bytesPerPixel;
+            //    }
+            //}
+
             bmp.UnlockBits(bData);
+
             return bmpBytes;
         }
 
