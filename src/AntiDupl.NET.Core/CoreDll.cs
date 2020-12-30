@@ -27,11 +27,16 @@ using System.Runtime.InteropServices;
 
 namespace AntiDupl.NET.Core
 {
-    public class CoreDll : DynamicModule
+    public class CoreDll
     {
+        private const string DllPath = "AntiDupl.dll";
+
         //TODO
         //public CoreDll() : base("runtimes/win-x64/native/AntiDupl.dll") { }
-        public CoreDll() : base("AntiDupl.dll") { }
+        public CoreDll() //: base("AntiDupl.dll")
+        {
+            //
+        }
 
 
         //-----------API constants:--------------------------------------------
@@ -43,7 +48,7 @@ namespace AntiDupl.NET.Core
         public const int MAX_PATH_EX = 32768;
 
         //-----------API enumerations------------------------------------------
-        
+
         public enum Error : int
         {
             Ok = 0,
@@ -80,7 +85,7 @@ namespace AntiDupl.NET.Core
             InvalidGroupId = 31,
             InvalidSelectionType = 32,
         }
-        
+
         public enum PathType : int
         {
             Search = 0,
@@ -299,11 +304,11 @@ namespace AntiDupl.NET.Core
         }
 
         public enum AlgorithmComparing : int
-	    {
-		    SquaredSum = 0,
-		    SSIM = 1,
-	    };
-        
+        {
+            SquaredSum = 0,
+            SSIM = 1,
+        };
+
         //-----------API structures--------------------------------------------
 
         [StructLayout(LayoutKind.Sequential)]
@@ -405,17 +410,17 @@ namespace AntiDupl.NET.Core
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
             public string imageDescription;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
-		    public string equipMake;
+            public string equipMake;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
-		    public string equipModel;
+            public string equipModel;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
-		    public string softwareUsed;
+            public string softwareUsed;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
-		    public string dateTime;
+            public string dateTime;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
-		    public string artist;
+            public string artist;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_EXIF_SIZE)]
-		    public string userComment;
+            public string userComment;
         }
 
         // Она же структура TImageInfo в dll.
@@ -475,172 +480,201 @@ namespace AntiDupl.NET.Core
             public string path;
             public int enableSubFolder;
         }
-    
-        //-------------------API functions:------------------------------------
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adVersionGet_fn(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize);
-        [DynamicModuleApi]
-        public adVersionGet_fn adVersionGet = null;
+        #region API functions new
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate IntPtr adCreate_fn(string userPath);
-        [DynamicModuleApi]
-        public adCreate_fn adCreateW = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adVersionGet(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adRelease_fn(IntPtr handle);
-        [DynamicModuleApi]
-        public adRelease_fn adRelease = null;
+        public Error AdVersionGet(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize) =>
+            adVersionGet(versionType, pVersion, pVersionSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adStop_fn(IntPtr handle);
-        [DynamicModuleApi]
-        public adStop_fn adStop = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern IntPtr adCreateW(string userPath);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adSearch_fn(IntPtr handle);
-        [DynamicModuleApi]
-        public adSearch_fn adSearch = null;
+        public IntPtr AdCreateW(string userPath) => adCreateW(userPath);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adLoadW_fn(IntPtr handle, FileType fileType, string fileName, int check);
-        [DynamicModuleApi]
-        public adLoadW_fn adLoadW = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adRelease(IntPtr handle);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adSaveW_fn(IntPtr handle, FileType fileType, string fileName);
-        [DynamicModuleApi]
-        public adSaveW_fn adSaveW = null;
+        public Error AdRelease(IntPtr handle) => adRelease(handle);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adClear_fn(IntPtr handle, FileType fileType);
-        [DynamicModuleApi]
-        public adClear_fn adClear = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adStop(IntPtr handle);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adOptionsGet_fn(IntPtr handle, OptionsType optionsType, IntPtr pOptions);
-        [DynamicModuleApi]
-        public adOptionsGet_fn adOptionsGet = null;
+        public Error AdStop(IntPtr handle) => adStop(handle);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adOptionsSet_fn(IntPtr handle, OptionsType optionsType, IntPtr pOptions);
-        [DynamicModuleApi]
-        public adOptionsSet_fn adOptionsSet = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adSearch(IntPtr handle);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adPathWithSubFolderSetW_fn(IntPtr handle, PathType pathType, IntPtr pPaths, IntPtr pathSize);
-        [DynamicModuleApi]
-        public adPathWithSubFolderSetW_fn adPathWithSubFolderSetW = null;
+        public Error AdSearch(IntPtr handle) => adSearch(handle);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adPathGetW_fn(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pPathSize);
-        [DynamicModuleApi]
-        public adPathGetW_fn adPathGetW = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adLoadW(IntPtr handle, FileType fileType, string fileName, int check);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adPathSetW_fn(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pathSize);
-        [DynamicModuleApi]
-        public adPathSetW_fn adPathSetW = null;
+        public Error AdLoadW(IntPtr handle, FileType fileType, string fileName, int check) =>
+            adLoadW(handle, fileType, fileName, check);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adStatisticGet_fn(IntPtr handle, IntPtr pStatistic);
-        [DynamicModuleApi]
-        public adStatisticGet_fn adStatisticGet = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adSaveW(IntPtr handle, FileType fileType, string fileName);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adStatusGetW_fn(IntPtr handle, ThreadType threadType, IntPtr threadId, IntPtr pStatusW);
-        [DynamicModuleApi]
-        public adStatusGetW_fn adStatusGetW = null;
+        public Error AdSaveW(IntPtr handle, FileType fileType, string fileName) =>
+            adSaveW(handle, fileType, fileName);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adResultSort_fn(IntPtr handle, SortType sortType, int increasing);
-        [DynamicModuleApi]
-        public adResultSort_fn adResultSort = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adClear(IntPtr handle, FileType fileType);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adResultApply_fn(IntPtr handle, GlobalActionType globalActionType);
-        [DynamicModuleApi]
-        public adResultApply_fn adResultApply = null;
+        public Error AdClear(IntPtr handle, FileType fileType) => adClear(handle, fileType);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adResultApplyTo_fn(IntPtr handle, LocalActionType localActionType, TargetType targetType);
-        [DynamicModuleApi]
-        public adResultApplyTo_fn adResultApplyTo = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adOptionsGet(IntPtr handle, OptionsType optionsType, IntPtr pOptions);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adCanApply_fn(IntPtr handle, ActionEnableType actionEnableType, IntPtr pEnable);
-        [DynamicModuleApi]
-        public adCanApply_fn adCanApply = null;
+        public Error AdOptionsGet(IntPtr handle, OptionsType optionsType, IntPtr pOptions) =>
+            adOptionsGet(handle, optionsType, pOptions);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adRenameCurrentW_fn(IntPtr handle, RenameCurrentType renameCurrentType, string newFileName);
-        [DynamicModuleApi]
-        public adRenameCurrentW_fn adRenameCurrentW = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adOptionsSet(IntPtr handle, OptionsType optionsType, IntPtr pOptions);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adMoveCurrentGroupW_fn(IntPtr handle, string directory);
-        [DynamicModuleApi]
-        public adMoveCurrentGroupW_fn adMoveCurrentGroupW = null;
+        public Error AdOptionsSet(IntPtr handle, OptionsType optionsType, IntPtr pOptions) =>
+            adOptionsSet(handle, optionsType, pOptions);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adRenameCurrentGroupAsW_fn(IntPtr handle, string fileName);
-        [DynamicModuleApi]
-        public adRenameCurrentGroupAsW_fn adRenameCurrentGroupAsW = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adPathWithSubFolderSetW(IntPtr handle, PathType pathType, IntPtr pPaths, IntPtr pathSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adResultGetW_fn(IntPtr handle, IntPtr pStartFrom, IntPtr pResult, IntPtr pResultSize);
-        [DynamicModuleApi]
-        public adResultGetW_fn adResultGetW = null;
+        public Error AdPathWithSubFolderSetW(IntPtr handle, PathType pathType, IntPtr pPaths, IntPtr pathSize) =>
+            adPathWithSubFolderSetW(handle, pathType, pPaths, pathSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adSelectionSet_fn(IntPtr handle, IntPtr pStartFrom, UIntPtr size, int value);
-        [DynamicModuleApi]
-        public adSelectionSet_fn adSelectionSet = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adPathGetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pPathSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adSelectionGet_fn(IntPtr handle, IntPtr pStartFrom, IntPtr pSelection, IntPtr pSelectionSize);
-        [DynamicModuleApi]
-        public adSelectionGet_fn adSelectionGet = null;
+        public Error AdPathGetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pPathSize) =>
+            adPathGetW(handle, pathType, pPath, pPathSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adCurrentSet_fn(IntPtr handle, IntPtr index);
-        [DynamicModuleApi]
-        public adCurrentSet_fn adCurrentSet = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adPathSetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pathSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adCurrentGet_fn(IntPtr handle, IntPtr pIndex);
-        [DynamicModuleApi]
-        public adCurrentGet_fn adCurrentGet = null;
+        public Error AdPathSetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pathSize) =>
+            adPathSetW(handle, pathType, pPath, pathSize);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adGroupGet_fn(IntPtr handle, IntPtr pStartFrom, IntPtr pGroup, IntPtr pGroupSize);
-        [DynamicModuleApi]
-        public adGroupGet_fn adGroupGet = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adStatisticGet(IntPtr handle, IntPtr pStatistic);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adImageInfoGetW_fn(IntPtr handle, IntPtr groupId, IntPtr pStartFrom, IntPtr pImageInfo, IntPtr pImageInfoSize);
-        [DynamicModuleApi]
-        public adImageInfoGetW_fn adImageInfoGetW = null;
+        public Error AdStatisticGet(IntPtr handle, IntPtr pStatistic) => adStatisticGet(handle, pStatistic);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adImageInfoSelectionSet_fn(IntPtr handle, IntPtr groupId, IntPtr index, SelectionType selectionType);
-        [DynamicModuleApi]
-        public adImageInfoSelectionSet_fn adImageInfoSelectionSet = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adStatusGetW(IntPtr handle, ThreadType threadType, IntPtr threadId, IntPtr pStatusW);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adImageInfoSelectionGet_fn(IntPtr handle, IntPtr groupId, IntPtr pStartFrom, IntPtr pSelection, IntPtr pSelectionSize);
-        [DynamicModuleApi]
-        public adImageInfoSelectionGet_fn adImageInfoSelectionGet = null;
+        public Error AdStatusGetW(IntPtr handle, ThreadType threadType, IntPtr threadId, IntPtr pStatusW) =>
+            adStatusGetW(handle, threadType, threadId, pStatusW);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adImageInfoRenameW_fn(IntPtr handle, IntPtr groupId, IntPtr index, string newFileName);
-        [DynamicModuleApi]
-        public adImageInfoRenameW_fn adImageInfoRenameW = null;
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adResultSort(IntPtr handle, SortType sortType, int increasing);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public delegate Error adLoadBitmapW_fn(IntPtr handle, string fileName, IntPtr pBitmap);
-        [DynamicModuleApi]
-        public adLoadBitmapW_fn adLoadBitmapW = null;
+        public Error AdResultSort(IntPtr handle, SortType sortType, int increasing) =>
+            adResultSort(handle, sortType, increasing);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adResultApply(IntPtr handle, GlobalActionType globalActionType);
+
+        public Error AdResultApply(IntPtr handle, GlobalActionType globalActionType) =>
+            adResultApply(handle, globalActionType);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adResultApplyTo(IntPtr handle, LocalActionType localActionType, TargetType targetType);
+
+        public Error AdResultApplyTo(IntPtr handle, LocalActionType localActionType, TargetType targetType) =>
+            adResultApplyTo(handle, localActionType, targetType);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adCanApply(IntPtr handle, ActionEnableType actionEnableType, IntPtr pEnable);
+
+        public Error AdCanApply(IntPtr handle, ActionEnableType actionEnableType, IntPtr pEnable) =>
+            adCanApply(handle, actionEnableType, pEnable);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adRenameCurrentW(IntPtr handle, RenameCurrentType renameCurrentType, string newFileName);
+
+        public Error AdRenameCurrentW(IntPtr handle, RenameCurrentType renameCurrentType, string newFileName) =>
+            adRenameCurrentW(handle, renameCurrentType, newFileName);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adMoveCurrentGroupW(IntPtr handle, string directory);
+
+        public Error AdMoveCurrentGroupW(IntPtr handle, string directory) => adMoveCurrentGroupW(handle, directory);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adRenameCurrentGroupAsW(IntPtr handle, string fileName);
+
+        public Error AdRenameCurrentGroupAsW(IntPtr handle, string fileName) =>
+            adRenameCurrentGroupAsW(handle, fileName);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adResultGetW(IntPtr handle, IntPtr pStartFrom, IntPtr pResult, IntPtr pResultSize);
+
+        public Error AdResultGetW(IntPtr handle, IntPtr pStartFrom, IntPtr pResult, IntPtr pResultSize) =>
+            adResultGetW(handle, pStartFrom, pResult, pResultSize);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adSelectionSet(IntPtr handle, IntPtr pStartFrom, UIntPtr size, int value);
+
+        public Error AdSelectionSet(IntPtr handle, IntPtr pStartFrom, UIntPtr size, int value) =>
+            adSelectionSet(handle, pStartFrom, size, value);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adSelectionGet(IntPtr handle, IntPtr pStartFrom, IntPtr pSelection, IntPtr pSelectionSize);
+
+        public Error AdSelectionGet(IntPtr handle, IntPtr pStartFrom, IntPtr pSelection, IntPtr pSelectionSize) =>
+            adSelectionGet(handle, pStartFrom, pSelection, pSelectionSize);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adCurrentSet(IntPtr handle, IntPtr index);
+
+        public Error AdCurrentSet(IntPtr handle, IntPtr index) => adCurrentSet(handle, index);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adCurrentGet(IntPtr handle, IntPtr pIndex);
+
+        public Error AdCurrentGet(IntPtr handle, IntPtr pIndex) => adCurrentGet(handle, pIndex);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adGroupGet(IntPtr handle, IntPtr pStartFrom, IntPtr pGroup, IntPtr pGroupSize);
+
+        public Error AdGroupGet(IntPtr handle, IntPtr pStartFrom, IntPtr pGroup, IntPtr pGroupSize) =>
+            adGroupGet(handle, pStartFrom, pGroup, pGroupSize);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adImageInfoGetW(IntPtr handle, IntPtr groupId, IntPtr pStartFrom, IntPtr pImageInfo, IntPtr pImageInfoSize);
+
+        public Error AdImageInfoGetW(IntPtr handle, IntPtr groupId, IntPtr pStartFrom, IntPtr pImageInfo,
+                                     IntPtr pImageInfoSize) =>
+            adImageInfoGetW(handle, groupId, pStartFrom, pImageInfo, pImageInfoSize);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adImageInfoSelectionSet(IntPtr handle, IntPtr groupId, IntPtr index, SelectionType selectionType);
+
+        public Error
+            AdImageInfoSelectionSet(IntPtr handle, IntPtr groupId, IntPtr index, SelectionType selectionType) =>
+            adImageInfoSelectionSet(handle, groupId, index, selectionType);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adImageInfoSelectionGet(IntPtr handle, IntPtr groupId, IntPtr pStartFrom, IntPtr pSelection, IntPtr pSelectionSize);
+
+        public Error AdImageInfoSelectionGet(IntPtr handle, IntPtr groupId, IntPtr pStartFrom, IntPtr pSelection,
+                                             IntPtr pSelectionSize) =>
+            adImageInfoSelectionGet(handle, groupId, pStartFrom, pSelection, pSelectionSize);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adImageInfoRenameW(IntPtr handle, IntPtr groupId, IntPtr index, string newFileName);
+
+        public Error AdImageInfoRenameW(IntPtr handle, IntPtr groupId, IntPtr index, string newFileName) =>
+            adImageInfoRenameW(handle, groupId, index, newFileName);
+
+        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        private static extern Error adLoadBitmapW(IntPtr handle, string fileName, IntPtr pBitmap);
+
+        public Error AdLoadBitmapW(IntPtr handle, string fileName, IntPtr pBitmap) =>
+            adLoadBitmapW(handle, fileName, pBitmap);
+
+        #endregion
     }
 }
