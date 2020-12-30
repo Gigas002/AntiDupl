@@ -5,8 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <VersionPrefix>2.4.0</VersionPrefix>
     <VersionSuffix>preview</VersionSuffix>
-    <AssemblyVersion>2.4.0.11</AssemblyVersion>
-    <FileVersion>2.4.0.11</FileVersion>
+    <AssemblyVersion>2.4.0.12</AssemblyVersion>
+    <FileVersion>2.4.0.12</FileVersion>
     <Platforms>x64</Platforms>
     <Configurations>Debug;Release</Configurations>
     <Authors>ErmIg;Gigas002</Authors>
@@ -45,10 +45,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Pack>True</Pack>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
