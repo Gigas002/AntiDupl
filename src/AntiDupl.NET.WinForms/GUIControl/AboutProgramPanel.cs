@@ -25,6 +25,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -63,7 +65,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private Label GetCoopyrightLabel(int index)
         {
             string text = null;
-            switch(index)
+            switch (index)
             {
                 case 0: text = Resources.Strings.Current.AboutProgramPanel_CopyrightLabel0_Text; break;
                 case 1: text = Resources.Strings.Current.AboutProgramPanel_CopyrightLabel1_Text; break;
@@ -106,25 +108,25 @@ namespace AntiDupl.NET.WinForms.GUIControl
             table.Dock = DockStyle.Top;
             table.AutoSize = true;
 
-            table.Controls.Add(CreateLabel(Resources.Strings.Current.AboutProgramPanel_ComponentLabel_Text, 
+            table.Controls.Add(CreateLabel(Resources.Strings.Current.AboutProgramPanel_ComponentLabel_Text,
                 new Font(font, FontStyle.Bold)), 0, 0);
-            table.Controls.Add(CreateLabel(Resources.Strings.Current.AboutProgramPanel_VersionLabel_Text, 
+            table.Controls.Add(CreateLabel(Resources.Strings.Current.AboutProgramPanel_VersionLabel_Text,
                 new Font(font, FontStyle.Bold)), 1, 0);
 
             table.Controls.Add(CreateLinkLabel(Application.ProductName, Resources.WebLinks.GithubComAntidupl, font), 0, 1);
-            table.Controls.Add(CreateLabel(m_core.GetVersion(CoreDll.VersionType.AntiDupl).ToString(), font), 1, 1);
+            table.Controls.Add(CreateLabel(m_core.GetVersion(VersionType.AntiDupl).ToString(), font), 1, 1);
 
             table.Controls.Add(CreateLinkLabel("Simd", Resources.WebLinks.Simd, font), 0, 2);
-            table.Controls.Add(CreateLabel(m_core.GetVersion(CoreDll.VersionType.Simd).ToString(), font), 1, 2);
+            table.Controls.Add(CreateLabel(m_core.GetVersion(VersionType.Simd).ToString(), font), 1, 2);
 
             table.Controls.Add(CreateLinkLabel("OpenJPEG", Resources.WebLinks.OpenJpeg, font), 0, 3);
-            table.Controls.Add(CreateLabel(m_core.GetVersion(CoreDll.VersionType.OpenJpeg).ToString(), font), 1, 3);
+            table.Controls.Add(CreateLabel(m_core.GetVersion(VersionType.OpenJpeg).ToString(), font), 1, 3);
 
             table.Controls.Add(CreateLinkLabel("libwebp", Resources.WebLinks.LibWebp, font), 0, 4);
-            table.Controls.Add(CreateLabel(m_core.GetVersion(CoreDll.VersionType.Webp).ToString(), font), 1, 4);
+            table.Controls.Add(CreateLabel(m_core.GetVersion(VersionType.Webp).ToString(), font), 1, 4);
 
             table.Controls.Add(CreateLinkLabel("libjpeg-turbo", Resources.WebLinks.LibJpegTurbo, font), 0, 5);
-            table.Controls.Add(CreateLabel(m_core.GetVersion(CoreDll.VersionType.TurboJpeg).ToString(), font), 1, 5);
+            table.Controls.Add(CreateLabel(m_core.GetVersion(VersionType.TurboJpeg).ToString(), font), 1, 5);
 
             return table;
         }

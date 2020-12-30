@@ -22,6 +22,8 @@
 * SOFTWARE.
 */
 
+using AntiDupl.NET.Core.Original;
+
 namespace AntiDupl.NET.Core
 {
     public class CoreAdvancedOptions

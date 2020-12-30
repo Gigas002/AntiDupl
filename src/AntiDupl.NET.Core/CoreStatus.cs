@@ -22,11 +22,14 @@
 * SOFTWARE.
 */
 
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
+
 namespace AntiDupl.NET.Core
 {
     public class CoreStatus
     {
-        public CoreDll.StateType state;
+        public StateType state;
         public string path;
         public int current;
         public int total;

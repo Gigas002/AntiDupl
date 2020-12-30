@@ -24,6 +24,8 @@
 
 using System;
 using System.Text;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.Core
 {
@@ -33,7 +35,7 @@ namespace AntiDupl.NET.Core
         public string path;
         public ulong size;
         public ulong time;
-        public CoreDll.ImageType type;
+        public ImageType type;
         public uint width;
         public uint height;
         public double blockiness;
@@ -68,43 +70,43 @@ namespace AntiDupl.NET.Core
             StringBuilder builder = new StringBuilder();
             switch (type)
             {
-                case CoreDll.ImageType.None:
+                case ImageType.None:
                     builder.Append("");
                     break;
-                case CoreDll.ImageType.Bmp:
+                case ImageType.Bmp:
                     builder.Append("BMP");
                     break;
-                case CoreDll.ImageType.Gif:
+                case ImageType.Gif:
                     builder.Append("GIF");
                     break;
-                case CoreDll.ImageType.Jpeg:
+                case ImageType.Jpeg:
                     builder.Append("JPG");
                     break;
-                case CoreDll.ImageType.Png:
+                case ImageType.Png:
                     builder.Append("PNG");
                     break;
-                case CoreDll.ImageType.Tiff:
+                case ImageType.Tiff:
                     builder.Append("TIFF");
                     break;
-                case CoreDll.ImageType.Emf:
+                case ImageType.Emf:
                     builder.Append("EMF");
                     break;
-                case CoreDll.ImageType.Wmf:
+                case ImageType.Wmf:
                     builder.Append("WMF");
                     break;
-                case CoreDll.ImageType.Exif:
+                case ImageType.Exif:
                     builder.Append("EXIF");
                     break;
-                case CoreDll.ImageType.Icon:
+                case ImageType.Icon:
                     builder.Append("ICON");
                     break;
-                case CoreDll.ImageType.Jp2:
+                case ImageType.Jp2:
                     builder.Append("JP2");
                     break;
-                case CoreDll.ImageType.Psd:
+                case ImageType.Psd:
                     builder.Append("PSD");
                     break;
-                case CoreDll.ImageType.Dds:
+                case ImageType.Dds:
                     builder.Append("DDS");
                     break;
             }

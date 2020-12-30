@@ -27,6 +27,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
@@ -472,8 +474,8 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             bool hasResults = m_core.GetResultSize() > 0;
 
-            m_edit_undoMenuItem.Enabled = m_core.CanApply(CoreDll.ActionEnableType.Undo);
-            m_edit_redoMenuItem.Enabled = m_core.CanApply(CoreDll.ActionEnableType.Redo);
+            m_edit_undoMenuItem.Enabled = m_core.CanApply(ActionEnableType.Undo);
+            m_edit_redoMenuItem.Enabled = m_core.CanApply(ActionEnableType.Redo);
             m_edit_selectAllMenuItem.Enabled = hasResults;
         }
     }

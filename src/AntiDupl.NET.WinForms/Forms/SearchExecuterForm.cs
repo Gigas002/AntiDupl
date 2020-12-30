@@ -30,6 +30,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -145,27 +147,27 @@ namespace AntiDupl.NET.WinForms.Forms
             m_startDateTime = DateTime.Now;
             m_coreOptions.Set(m_core, m_options.onePath);
             m_state = State.ClearResults;
-            m_core.Clear(CoreDll.FileType.Result);
+            m_core.Clear(FileType.Result);
             m_state = State.ClearTemporary;
-            m_core.Clear(CoreDll.FileType.Temporary);
+            m_core.Clear(FileType.Temporary);
             if (m_options.useImageDataBase)
             {
                 m_state = State.LoadImages;
-                m_core.Load(CoreDll.FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath(), false);
+                m_core.Load(FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath(), false);
             }
             m_state = State.Search;
             m_core.Search();
             m_state = State.SetGroup;
-            m_core.ApplyToResult(CoreDll.GlobalActionType.SetGroup);
+            m_core.ApplyToResult(GlobalActionType.SetGroup);
             m_state = State.SetHint;
-            m_core.ApplyToResult(CoreDll.GlobalActionType.SetHint);
+            m_core.ApplyToResult(GlobalActionType.SetHint);
             if (m_options.useImageDataBase)
             {
                 m_state = State.SaveImages;
-                m_core.Save(CoreDll.FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath());
+                m_core.Save(FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath());
             }
-            m_core.Clear(CoreDll.FileType.ImageDataBase);
-            m_core.SortResult((CoreDll.SortType)m_options.resultsOptions.SortTypeDefault, m_options.resultsOptions.IncreasingDefault);
+            m_core.Clear(FileType.ImageDataBase);
+            m_core.SortResult((SortType)m_options.resultsOptions.SortTypeDefault, m_options.resultsOptions.IncreasingDefault);
             m_state = State.Finish;
             LogPerformance(DateTime.Now - m_startDateTime, m_core.GetStatistic());
         }
@@ -336,7 +338,7 @@ namespace AntiDupl.NET.WinForms.Forms
             int total = 0, currentFirst = 0, currentSecond = 0;
             string path = "";
 
-            CoreStatus mainThreadStatus = m_core.StatusGet(CoreDll.ThreadType.Main, 0);
+            CoreStatus mainThreadStatus = m_core.StatusGet(ThreadType.Main, 0);
             if (mainThreadStatus != null)
             {
                 total = mainThreadStatus.total;
@@ -346,7 +348,7 @@ namespace AntiDupl.NET.WinForms.Forms
                     {
                         for (int i = 0; ; i++)
                         {
-                            CoreStatus compareThreadStatus = m_core.StatusGet(CoreDll.ThreadType.Compare, i);
+                            CoreStatus compareThreadStatus = m_core.StatusGet(ThreadType.Compare, i);
                             if (compareThreadStatus == null)
                                 break;
                             if (i == 0)
@@ -362,7 +364,7 @@ namespace AntiDupl.NET.WinForms.Forms
                         currentFirst = mainThreadStatus.current;
                         for (int i = 0; ; i++)
                         {
-                            CoreStatus collectThreadStatus = m_core.StatusGet(CoreDll.ThreadType.Collect, i);
+                            CoreStatus collectThreadStatus = m_core.StatusGet(ThreadType.Collect, i);
                             if (collectThreadStatus == null)
                                 break;
                             if (i == 0)
@@ -392,7 +394,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private void EstimateOtherProgress()
         {
-            CoreStatus status = m_core.StatusGet(CoreDll.ThreadType.Main, 0);
+            CoreStatus status = m_core.StatusGet(ThreadType.Main, 0);
             if (status != null)
                 m_progressPanel.UpdateStatus(status.total, status.current, status.current, "");
             else

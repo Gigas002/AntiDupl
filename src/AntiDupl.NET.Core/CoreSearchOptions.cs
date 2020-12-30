@@ -23,24 +23,25 @@
 */
 
 using System.Collections;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.Core
 {
     public class CoreSearchOptions
     {
-        private static string[] s_jpegExtensions = {"JPEG", "JFIF", "JPG", "JPE", "JIFF", "JIF", "J", "JNG", "JFF"};
-        private static string[] s_tiffExtensions = {"TIF", "TIFF"};
-        private static string[] s_bmpExtensions = {"BMP", "DIB", "RLE"};
-        private static string[] s_gifExtensions = {"GIF"};
-        private static string[] s_pngExtensions = {"PNG"};
-        private static string[] s_emfExtensions = {"EMF", "EMZ"};
-        private static string[] s_wmfExtensions = {"WMF"};
-        private static string[] s_exifExtensions = {"EXIF"};
-        private static string[] s_iconExtensions = {"ICON", "ICO", "ICN"};
-        private static string[] s_jp2Extensions = {"JP2", "J2K", "J2C", "JPC", "JPF", "JPX"};
-        private static string[] s_psdExtensions = {"PSD"};
-        private static string[] s_ddsExtensions = {"DDS"};
-        private static string[] s_tgaExtensions = {"TGA", "TPIC"};
+        private static string[] s_jpegExtensions = { "JPEG", "JFIF", "JPG", "JPE", "JIFF", "JIF", "J", "JNG", "JFF" };
+        private static string[] s_tiffExtensions = { "TIF", "TIFF" };
+        private static string[] s_bmpExtensions = { "BMP", "DIB", "RLE" };
+        private static string[] s_gifExtensions = { "GIF" };
+        private static string[] s_pngExtensions = { "PNG" };
+        private static string[] s_emfExtensions = { "EMF", "EMZ" };
+        private static string[] s_wmfExtensions = { "WMF" };
+        private static string[] s_exifExtensions = { "EXIF" };
+        private static string[] s_iconExtensions = { "ICON", "ICO", "ICN" };
+        private static string[] s_jp2Extensions = { "JP2", "J2K", "J2C", "JPC", "JPF", "JPX" };
+        private static string[] s_psdExtensions = { "PSD" };
+        private static string[] s_ddsExtensions = { "DDS" };
+        private static string[] s_tgaExtensions = { "TGA", "TPIC" };
         private static string[] s_webpExtensions = { "WEBP" };
 
         public bool subFolders;
@@ -154,25 +155,25 @@ namespace AntiDupl.NET.Core
         public string[] GetActualExtensions()
         {
             ArrayList extensions = new ArrayList();
-            if(JPEG)
+            if (JPEG)
                 extensions.AddRange(s_jpegExtensions);
-            if(TIFF)
+            if (TIFF)
                 extensions.AddRange(s_tiffExtensions);
-            if(BMP)
+            if (BMP)
                 extensions.AddRange(s_bmpExtensions);
-            if(GIF)
+            if (GIF)
                 extensions.AddRange(s_gifExtensions);
-            if(PNG)
+            if (PNG)
                 extensions.AddRange(s_pngExtensions);
-            if(EMF)
+            if (EMF)
                 extensions.AddRange(s_emfExtensions);
-            if(WMF)
+            if (WMF)
                 extensions.AddRange(s_wmfExtensions);
-            if(ICON)
+            if (ICON)
                 extensions.AddRange(s_iconExtensions);
-            if(JP2)
+            if (JP2)
                 extensions.AddRange(s_jp2Extensions);
-            if(PSD)
+            if (PSD)
                 extensions.AddRange(s_psdExtensions);
             if (DDS)
                 extensions.AddRange(s_ddsExtensions);

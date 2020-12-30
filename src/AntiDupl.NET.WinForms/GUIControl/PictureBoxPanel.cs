@@ -28,6 +28,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -117,9 +119,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (currentImageInfo != null)
             {
                 StopAnimate();
-                if (m_currentImageInfo.type != CoreDll.ImageType.None)
+                if (m_currentImageInfo.type != ImageType.None)
                 {
-                    if (m_currentImageInfo.path.Length < MAX_PATH && m_currentImageInfo.type <= CoreDll.ImageType.Icon)
+                    if (m_currentImageInfo.path.Length < MAX_PATH && m_currentImageInfo.type <= ImageType.Icon)
                     {
                         try
                         {

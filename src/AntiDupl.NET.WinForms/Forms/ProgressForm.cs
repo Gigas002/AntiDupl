@@ -27,6 +27,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -58,11 +60,11 @@ namespace AntiDupl.NET.WinForms.Forms
             SaveImages,
         }
         private Type m_type;
-        
-        private CoreDll.LocalActionType m_action;
-        private CoreDll.TargetType m_target;
 
-        private CoreDll.RenameCurrentType m_renameCurrentType;
+        private LocalActionType m_action;
+        private TargetType m_target;
+
+        private RenameCurrentType m_renameCurrentType;
         private string m_newFileName;
         private string m_directoryForMove;
 
@@ -97,7 +99,7 @@ namespace AntiDupl.NET.WinForms.Forms
             Initialize(core, options, coreOptions, mainSplitContainer);
         }
 
-        public ProgressForm(CoreDll.LocalActionType action, CoreDll.TargetType target, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ProgressForm(LocalActionType action, TargetType target, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_type = Type.ApplyAction;
             m_action = action;
@@ -105,9 +107,9 @@ namespace AntiDupl.NET.WinForms.Forms
             Initialize(core, options, coreOptions, mainSplitContainer);
         }
 
-        public ProgressForm(CoreDll.RenameCurrentType renameCurrentType, string newFileName, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ProgressForm(RenameCurrentType renameCurrentType, string newFileName, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
-            m_type = Type.RenameCurrent; 
+            m_type = Type.RenameCurrent;
             m_renameCurrentType = renameCurrentType;
             m_newFileName = newFileName;
             Initialize(core, options, coreOptions, mainSplitContainer);
@@ -229,72 +231,72 @@ namespace AntiDupl.NET.WinForms.Forms
                     {
                         m_updateResults = m_core.ApplyToResult(m_action, m_target);
                         m_type = Type.ClearTemporary;
-                        m_core.Clear(CoreDll.FileType.Temporary);
+                        m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.RenameCurrent:
                     {
                         m_updateResults = m_core.RenameCurrent(m_renameCurrentType, m_newFileName);
                         m_type = Type.ClearTemporary;
-                        m_core.Clear(CoreDll.FileType.Temporary);
+                        m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.MoveCurrentGroup:
                     {
                         m_updateResults = m_core.MoveCurrentGroup(m_directoryForMove);
                         m_type = Type.ClearTemporary;
-                        m_core.Clear(CoreDll.FileType.Temporary);
+                        m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.RenameCurrentGroupAs:
                     {
                         m_updateResults = m_core.RenameCurrentGroupAs(m_newFileName);
                         m_type = Type.ClearTemporary;
-                        m_core.Clear(CoreDll.FileType.Temporary);
+                        m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.RefreshResults:
                     {
-                        m_updateResults = m_core.ApplyToResult(CoreDll.GlobalActionType.Refresh);
+                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Refresh);
                         m_type = Type.ClearTemporary;
-                        m_core.Clear(CoreDll.FileType.Temporary);
+                        m_core.Clear(FileType.Temporary);
                         break;
                     }
-               case Type.Undo:
+                case Type.Undo:
                     {
-                        m_updateResults = m_core.ApplyToResult(CoreDll.GlobalActionType.Undo);
+                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Undo);
                         break;
                     }
-               case Type.Redo:
+                case Type.Redo:
                     {
-                        m_updateResults = m_core.ApplyToResult(CoreDll.GlobalActionType.Redo);
+                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Redo);
                         break;
                     }
-               case Type.LoadResults:
+                case Type.LoadResults:
                     {
                         m_type = Type.ClearResults;
-                        m_core.Clear(CoreDll.FileType.Result);
+                        m_core.Clear(FileType.Result);
                         m_type = Type.ClearTemporary;
-                        m_core.Clear(CoreDll.FileType.Temporary);
+                        m_core.Clear(FileType.Temporary);
                         m_type = Type.LoadResults;
-                        m_core.Load(CoreDll.FileType.Result, m_options.GetResultsFileName(), m_options.checkResultsAtLoading);
+                        m_core.Load(FileType.Result, m_options.GetResultsFileName(), m_options.checkResultsAtLoading);
                         m_updateResults = true;
                         break;
                     }
-               case Type.SaveResults:
+                case Type.SaveResults:
                     {
-                        m_core.Save(CoreDll.FileType.Result, m_options.GetResultsFileName());
+                        m_core.Save(FileType.Result, m_options.GetResultsFileName());
                         m_updateResults = false;
                         break;
                     }
-               case Type.ClearDatabase:
+                case Type.ClearDatabase:
                     {
                         m_type = Type.LoadImages;
-                        m_core.Load(CoreDll.FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath(), true);
+                        m_core.Load(FileType.ImageDataBase, m_coreOptions.GetImageDataBasePath(), true);
                         m_updateResults = false;
                         break;
                     }
-               default:
+                default:
                     throw new Exception("Unknown Action!!!");
             }
             m_state = State.Finish;
@@ -346,36 +348,36 @@ namespace AntiDupl.NET.WinForms.Forms
                                 case Type.ApplyAction:
                                     switch (m_action)
                                     {
-                                        case CoreDll.LocalActionType.DeleteDefect:
+                                        case LocalActionType.DeleteDefect:
                                             builder.Append(s.ProgressForm_DeleteDefect);
                                             break;
-                                        case CoreDll.LocalActionType.DeleteFirst:
+                                        case LocalActionType.DeleteFirst:
                                             builder.Append(s.ProgressForm_DeleteFirst);
                                             break;
-                                        case CoreDll.LocalActionType.DeleteSecond:
+                                        case LocalActionType.DeleteSecond:
                                             builder.Append(s.ProgressForm_DeleteSecond);
                                             break;
-                                        case CoreDll.LocalActionType.DeleteBoth:
+                                        case LocalActionType.DeleteBoth:
                                             builder.Append(s.ProgressForm_DeleteBoth);
                                             break;
-                                        case CoreDll.LocalActionType.PerformHint:
+                                        case LocalActionType.PerformHint:
                                             builder.Append(s.ProgressForm_PerformHint);
                                             break;
-                                        case CoreDll.LocalActionType.Mistake:
+                                        case LocalActionType.Mistake:
                                             builder.Append(s.ProgressForm_Mistake);
                                             break;
-                                        case CoreDll.LocalActionType.RenameFirstToSecond:
-                                        case CoreDll.LocalActionType.RenameSecondToFirst:
+                                        case LocalActionType.RenameFirstToSecond:
+                                        case LocalActionType.RenameSecondToFirst:
                                             builder.Append(s.ProgressForm_RenameCurrent);
                                             break;
                                     }
                                     m_cancelButton.Enabled = true;
                                     break;
-                               case Type.RenameCurrent:
+                                case Type.RenameCurrent:
                                     builder.Append(s.ProgressForm_RenameCurrent);
                                     m_cancelButton.Enabled = false;
                                     break;
-                               case Type.RefreshResults:
+                                case Type.RefreshResults:
                                     builder.Append(s.ProgressForm_RefreshResults);
                                     m_cancelButton.Enabled = true;
                                     break;
@@ -417,7 +419,7 @@ namespace AntiDupl.NET.WinForms.Forms
                                     break;
                             }
 
-                            CoreStatus status = m_core.StatusGet(CoreDll.ThreadType.Main, 0);
+                            CoreStatus status = m_core.StatusGet(ThreadType.Main, 0);
                             if (status != null)
                             {
                                 double progress = status.total > 0 ? ((double)status.current) / status.total : 0;

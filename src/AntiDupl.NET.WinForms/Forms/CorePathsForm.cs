@@ -29,6 +29,8 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.Forms
 {
@@ -104,7 +106,7 @@ namespace AntiDupl.NET.WinForms.Forms
             pathTableLayoutPanel.Controls.Add(m_tabControl, 0, 0);
 
             m_searchTabPage = new TabPage();
-            m_searchTabPage.Tag = CoreDll.PathType.Search;
+            m_searchTabPage.Tag = PathType.Search;
             m_tabControl.Controls.Add(m_searchTabPage);
 
             m_toolTip = new ToolTip();
@@ -114,21 +116,21 @@ namespace AntiDupl.NET.WinForms.Forms
             m_searchTabPage.Controls.Add(m_searchCheckedList);
 
             m_ignoreTabPage = new TabPage();
-            m_ignoreTabPage.Tag = CoreDll.PathType.Ignore;
+            m_ignoreTabPage.Tag = PathType.Ignore;
             m_tabControl.Controls.Add(m_ignoreTabPage);
 
             m_ignoreListBox = InitFactory.ListBox.Create(OnSelectedIndexChanged, OnListBoxDoubleClick);
             m_ignoreTabPage.Controls.Add(m_ignoreListBox);
 
             m_validTabPage = new TabPage();
-            m_validTabPage.Tag = CoreDll.PathType.Valid;
+            m_validTabPage.Tag = PathType.Valid;
             m_tabControl.Controls.Add(m_validTabPage);
 
             m_validListBox = InitFactory.ListBox.Create(OnSelectedIndexChanged, OnListBoxDoubleClick);
             m_validTabPage.Controls.Add(m_validListBox);
 
             m_deleteTabPage = new TabPage();
-            m_deleteTabPage.Tag = CoreDll.PathType.Delete;
+            m_deleteTabPage.Tag = PathType.Delete;
             m_tabControl.Controls.Add(m_deleteTabPage);
 
             m_deleteListBox = InitFactory.ListBox.Create(OnSelectedIndexChanged, OnListBoxDoubleClick);
@@ -207,15 +209,15 @@ namespace AntiDupl.NET.WinForms.Forms
         /// </summary>
         private CorePathWithSubFolder[] GetCurrentPath()
         {
-            switch ((CoreDll.PathType)m_tabControl.SelectedTab.Tag)
+            switch ((PathType)m_tabControl.SelectedTab.Tag)
             {
-                case CoreDll.PathType.Search:
+                case PathType.Search:
                     return m_newCoreOptions.searchPath;
-                case CoreDll.PathType.Ignore:
+                case PathType.Ignore:
                     return m_newCoreOptions.ignorePath;
-                case CoreDll.PathType.Valid:
+                case PathType.Valid:
                     return m_newCoreOptions.validPath;
-                case CoreDll.PathType.Delete:
+                case PathType.Delete:
                     return m_newCoreOptions.deletePath;
                 default:
                     return null;
@@ -224,15 +226,15 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private ListBox GetCurrentListBox()
         {
-            switch ((CoreDll.PathType)m_tabControl.SelectedTab.Tag)
+            switch ((PathType)m_tabControl.SelectedTab.Tag)
             {
-                case CoreDll.PathType.Search:
+                case PathType.Search:
                     return m_searchCheckedList;
-                case CoreDll.PathType.Ignore:
+                case PathType.Ignore:
                     return m_ignoreListBox;
-                case CoreDll.PathType.Valid:
+                case PathType.Valid:
                     return m_validListBox;
-                case CoreDll.PathType.Delete:
+                case PathType.Delete:
                     return m_deleteListBox;
                 default:
                     return null;
@@ -241,9 +243,9 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private CheckedListBox GetCurrentCheckedListBox()
         {
-            switch ((CoreDll.PathType)m_tabControl.SelectedTab.Tag)
+            switch ((PathType)m_tabControl.SelectedTab.Tag)
             {
-                case CoreDll.PathType.Search:
+                case PathType.Search:
                     return m_searchCheckedList;
                 default:
                     return null;
@@ -252,18 +254,18 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private void SetCurrentPath(CorePathWithSubFolder[] path)
         {
-            switch ((CoreDll.PathType)m_tabControl.SelectedTab.Tag)
+            switch ((PathType)m_tabControl.SelectedTab.Tag)
             {
-                case CoreDll.PathType.Search:
+                case PathType.Search:
                     m_newCoreOptions.searchPath = path;
                     break;
-                case CoreDll.PathType.Ignore:
+                case PathType.Ignore:
                     m_newCoreOptions.ignorePath = path;
                     break;
-                case CoreDll.PathType.Valid:
+                case PathType.Valid:
                     m_newCoreOptions.validPath = path;
                     break;
-                case CoreDll.PathType.Delete:
+                case PathType.Delete:
                     m_newCoreOptions.deletePath = path;
                     break;
                 default:
@@ -375,7 +377,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private void UpdatePath()
         {
-            UpdatePath(m_newCoreOptions.searchPath, m_searchCheckedList); 
+            UpdatePath(m_newCoreOptions.searchPath, m_searchCheckedList);
             UpdatePath(m_newCoreOptions.ignorePath, m_ignoreListBox);
             UpdatePath(m_newCoreOptions.validPath, m_validListBox);
             UpdatePath(m_newCoreOptions.deletePath, m_deleteListBox);
@@ -468,7 +470,7 @@ namespace AntiDupl.NET.WinForms.Forms
             if (m_tabControl.SelectedTab == null)
                 m_tabControl.SelectedIndex = 0;
 
-            CoreDll.PathType pathType = (CoreDll.PathType)m_tabControl.SelectedTab.Tag;
+            PathType pathType = (PathType)m_tabControl.SelectedTab.Tag;
             CheckedListBox checkedListBox = GetCurrentCheckedListBox();
             CorePathWithSubFolder[] path = GetCurrentPath();
 
@@ -542,7 +544,7 @@ namespace AntiDupl.NET.WinForms.Forms
             if (m_tabControl.SelectedTab == null)
                 m_tabControl.SelectedIndex = 0;
 
-            CoreDll.PathType pathType = (CoreDll.PathType)m_tabControl.SelectedTab.Tag;
+            PathType pathType = (PathType)m_tabControl.SelectedTab.Tag;
             ListBox listBox = GetCurrentListBox();
             CorePathWithSubFolder[] path = GetCurrentPath();
 
@@ -675,7 +677,7 @@ namespace AntiDupl.NET.WinForms.Forms
             else if (e.KeyData == (Keys.V | Keys.Control))
             {
                 ListBox listBox = GetCurrentListBox();
-                if(listBox != null)
+                if (listBox != null)
                 {
                     if (Clipboard.ContainsFileDropList())
                     {

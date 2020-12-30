@@ -22,13 +22,15 @@
 * SOFTWARE.
 */
 
+using AntiDupl.NET.Core.Original;
+
 namespace AntiDupl.NET.Core
 {
     public class CorePathWithSubFolder
     {
         public bool enableSubFolder;
         public string path;
-         
+
         public CorePathWithSubFolder()
         {
         }

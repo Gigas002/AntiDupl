@@ -25,6 +25,8 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -50,8 +52,8 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private void InitializeComponents()
         {
             m_imagePreviewPanel = new ImagePreviewPanel(m_core, m_options, m_resultsListView, ImagePreviewPanel.Position.Top);
-            m_deleteButton = InitFactory.ToolButton.Create("DeleteDefectVerticalButton", CoreDll.LocalActionType.DeleteDefect, OnButtonClicked);
-            m_mistakeButton = InitFactory.ToolButton.Create("MistakeButton", CoreDll.LocalActionType.Mistake, OnButtonClicked);
+            m_deleteButton = InitFactory.ToolButton.Create("DeleteDefectVerticalButton", LocalActionType.DeleteDefect, OnButtonClicked);
+            m_mistakeButton = InitFactory.ToolButton.Create("MistakeButton", LocalActionType.Mistake, OnButtonClicked);
         }
 
         private void UpdateStrings()
@@ -80,8 +82,8 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private void OnButtonClicked(object sender, System.EventArgs e)
         {
             ToolStripButton item = (ToolStripButton)sender;
-            CoreDll.LocalActionType action = (CoreDll.LocalActionType)item.Tag;
-            m_resultsListView.MakeAction(action, CoreDll.TargetType.Current);
+            LocalActionType action = (LocalActionType)item.Tag;
+            m_resultsListView.MakeAction(action, TargetType.Current);
         }
 
         private void OnOptionsChanged()
@@ -94,17 +96,17 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (viewMode == ViewMode.VerticalPairTable)
             {
                 m_imagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Top);
-                
+
                 m_deleteButton.Image = Resources.Images.Get("DeleteDefectVerticalButton");
             }
             if (viewMode == ViewMode.HorizontalPairTable)
             {
                 m_imagePreviewPanel.SetPosition(ImagePreviewPanel.Position.Left);
-                
+
                 m_deleteButton.Image = Resources.Images.Get("DeleteDefectHorizontalButton");
             }
             m_imageLayout.Controls.Add(m_imagePreviewPanel, 0, 0);
-            
+
             m_toolStrip.Items.Add(m_deleteButton);
             m_toolStrip.Items.Add(new ToolStripSeparator());
             m_toolStrip.Items.Add(m_previousButton);

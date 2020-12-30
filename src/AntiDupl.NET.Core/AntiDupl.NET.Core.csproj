@@ -5,8 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <VersionPrefix>2.4.0</VersionPrefix>
     <VersionSuffix>preview</VersionSuffix>
-    <AssemblyVersion>2.4.0.7</AssemblyVersion>
-    <FileVersion>2.4.0.7</FileVersion>
+    <AssemblyVersion>2.4.0.8</AssemblyVersion>
+    <FileVersion>2.4.0.8</FileVersion>
     <Platforms>x64</Platforms>
     <Configurations>Debug;Release</Configurations>
     <Authors>ErmIg;Gigas002</Authors>
@@ -45,6 +45,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>

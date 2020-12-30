@@ -27,13 +27,15 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
     /// <summary>
     /// Панель одного изображения и информации о нем, checkbox.
     /// </summary>
-    public class ThumbnailPanel :  RaisedPanel
+    public class ThumbnailPanel : RaisedPanel
     {
         private const int IBW = 1;//Internal border width
         private const int EBW = 2;//External border width
@@ -54,7 +56,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private Label m_imageTypeLabel;
 
         private Label m_fileNameLabel;
-        
+
         public Bitmap Thumbnail
         {
             get
@@ -116,7 +118,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_pictureBox = new PictureBox();
             m_pictureBox.Location = new Point(0, 0);
             m_pictureBox.ClientSize = m_options.resultsOptions.ThumbnailSizeMax;
-            m_pictureBox.SizeMode = PictureBoxSizeMode.Zoom; 
+            m_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             m_pictureBox.BorderStyle = BorderStyle.Fixed3D;
             m_pictureBox.Image = null;
             m_pictureBox.Padding = new Padding(0);
@@ -173,14 +175,14 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_imageSizeLabel.Width = 60;
 
             m_imageTypeLabel.Width = 28;
-            
+
             m_fileNameLabel.Width = 128;
             m_fileNameLabel.Location = new Point(0, 0);
 
             Font font = m_fileSizeLabel.Font;
             int width = m_pictureBox.Width + Padding.Horizontal;
             int height = m_pictureBox.Height + (font.Height + m_fileSizeLabel.Margin.Vertical + m_fileSizeLabel.Padding.Vertical +
-                m_infoLayout.Padding.Vertical)*3 + m_mainLayout.Padding.Vertical + m_mainLayout.Margin.Vertical + Padding.Vertical + 8;
+                m_infoLayout.Padding.Vertical) * 3 + m_mainLayout.Padding.Vertical + m_mainLayout.Margin.Vertical + Padding.Vertical + 8;
             ClientSize = new Size(width, height);
         }
 
@@ -190,7 +192,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
             m_fileSizeLabel.Text = info.GetFileSizeString();
             m_imageSizeLabel.Text = string.Format("{0}×{1}", info.width, info.height);
-            m_imageTypeLabel.Text = (info.type == CoreDll.ImageType.None ? "   " : info.GetImageTypeString());
+            m_imageTypeLabel.Text = (info.type == ImageType.None ? "   " : info.GetImageTypeString());
             m_fileNameLabel.Text = Path.GetFileNameWithoutExtension(info.path);
 
             bool[] selected = m_core.GetSelection(m_group.id, (uint)m_index, 1);
@@ -201,11 +203,11 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             if (m_checkBox.Checked)
             {
-                m_core.SetSelection(m_group.id, m_index, CoreDll.SelectionType.SelectCurrent);
+                m_core.SetSelection(m_group.id, m_index, SelectionType.SelectCurrent);
             }
             else
             {
-                m_core.SetSelection(m_group.id, m_index, CoreDll.SelectionType.UnselectCurrent);
+                m_core.SetSelection(m_group.id, m_index, SelectionType.UnselectCurrent);
             }
             m_thumbnailGroupPanel.Table.ChangeCurrentThumbnail(m_group, m_index);
         }

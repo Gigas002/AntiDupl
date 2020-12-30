@@ -28,6 +28,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
@@ -89,7 +91,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private MainSplitContainer m_mainSplitContainer;
         private CoreLib m_core;
         private Options m_options;
-        public CoreOptions CoreOptions { get { return m_coreOptions; } } 
+        public CoreOptions CoreOptions { get { return m_coreOptions; } }
         private CoreOptions m_coreOptions;
         private CoreResult[] m_results;
         private ViewMode m_viewMode = ViewMode.VerticalPairTable;
@@ -141,7 +143,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_results = new CoreResult[0];
             m_resultRowSetter = new ResultRowSetter(m_options, this);
             InitializeComponents();
-            if(m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
+            if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 m_viewMode = ViewMode.HorizontalPairTable;
                 SetViewMode(ViewMode.VerticalPairTable);
@@ -264,7 +266,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             return selectedResultsCount;
         }
 
-        public void MakeAction(CoreDll.LocalActionType action, CoreDll.TargetType target)
+        public void MakeAction(LocalActionType action, TargetType target)
         {
             m_makeAction = true;
             ProgressForm progressForm = new ProgressForm(action, target, m_core, m_options, m_coreOptions, m_mainSplitContainer);
@@ -283,7 +285,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// </summary>
         /// <param name="renameCurrentType"></param>
         /// <param name="newFileName">Новый путь</param>
-        public void RenameCurrent(CoreDll.RenameCurrentType renameCurrentType, string newFileName)
+        public void RenameCurrent(RenameCurrentType renameCurrentType, string newFileName)
         {
             m_makeAction = true;
             ProgressForm progressForm = new ProgressForm(renameCurrentType, newFileName, m_core, m_options, m_coreOptions, m_mainSplitContainer);
@@ -317,14 +319,14 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// <param name="hotKey"></param>
         private void MakeAction(Keys hotKey)
         {
-            if (hotKey == (Keys.Z | Keys.Control) && m_core.CanApply(CoreDll.ActionEnableType.Undo))
+            if (hotKey == (Keys.Z | Keys.Control) && m_core.CanApply(ActionEnableType.Undo))
             {
                 ProgressForm progressForm = new ProgressForm(ProgressForm.Type.Undo, m_core, m_options, m_coreOptions, m_mainSplitContainer);
                 progressForm.Execute();
                 return;
             }
 
-            if (hotKey == (Keys.Y | Keys.Control) && m_core.CanApply(CoreDll.ActionEnableType.Redo))
+            if (hotKey == (Keys.Y | Keys.Control) && m_core.CanApply(ActionEnableType.Redo))
             {
                 ProgressForm progressForm = new ProgressForm(ProgressForm.Type.Redo, m_core, m_options, m_coreOptions, m_mainSplitContainer);
                 progressForm.Execute();
@@ -333,28 +335,28 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
             if (m_currentRowIndex >= 0 && m_currentRowIndex < m_results.Length)
             {
-                if (m_results[m_currentRowIndex].type == CoreDll.ResultType.DefectImage)
+                if (m_results[m_currentRowIndex].type == ResultType.DefectImage)
                 {
                     if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDefectDelete])
-                        MakeAction(CoreDll.LocalActionType.DeleteDefect, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.DeleteDefect, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentMistake])
-                        MakeAction(CoreDll.LocalActionType.Mistake, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.Mistake, TargetType.Current);
                     return;
                 }
-                if (m_results[m_currentRowIndex].type == CoreDll.ResultType.DuplImagePair)
+                if (m_results[m_currentRowIndex].type == ResultType.DuplImagePair)
                 {
                     if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDuplPairDeleteFirst])
-                        MakeAction(CoreDll.LocalActionType.DeleteFirst, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.DeleteFirst, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDuplPairDeleteSecond])
-                        MakeAction(CoreDll.LocalActionType.DeleteSecond, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.DeleteSecond, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDuplPairDeleteBoth])
-                        MakeAction(CoreDll.LocalActionType.DeleteBoth, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.DeleteBoth, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDuplPairRenameFirstToSecond])
-                        MakeAction(CoreDll.LocalActionType.RenameFirstToSecond, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.RenameFirstToSecond, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDuplPairRenameSecondToFirst])
-                        MakeAction(CoreDll.LocalActionType.RenameSecondToFirst, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.RenameSecondToFirst, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentMistake])
-                        MakeAction(CoreDll.LocalActionType.Mistake, CoreDll.TargetType.Current);
+                        MakeAction(LocalActionType.Mistake, TargetType.Current);
                     else if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.ShowNeighbours])
                         m_options.resultsOptions.ShowNeighboursImages = !m_options.resultsOptions.ShowNeighboursImages;
                     return;
@@ -441,55 +443,55 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             DataGridViewColumn dataGridViewColumn = Columns[e.ColumnIndex];
 
-            CoreDll.SortType sortType = CoreDll.SortType.ByType;
+            SortType sortType = SortType.ByType;
             if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
             {
                 switch ((ColumnsTypeVertical)e.ColumnIndex)
                 {
                     case ColumnsTypeVertical.Type:
-                        sortType = CoreDll.SortType.ByType;
+                        sortType = SortType.ByType;
                         break;
                     case ColumnsTypeVertical.Group:
-                        sortType = CoreDll.SortType.ByGroup;
+                        sortType = SortType.ByGroup;
                         break;
                     case ColumnsTypeVertical.GroupSize:
-                        sortType = CoreDll.SortType.ByGroupSize;
+                        sortType = SortType.ByGroupSize;
                         break;
                     case ColumnsTypeVertical.Difference:
-                        sortType = CoreDll.SortType.ByDifference;
+                        sortType = SortType.ByDifference;
                         break;
                     case ColumnsTypeVertical.Defect:
-                        sortType = CoreDll.SortType.ByDefect;
+                        sortType = SortType.ByDefect;
                         break;
                     case ColumnsTypeVertical.Transform:
-                        sortType = CoreDll.SortType.ByTransform;
+                        sortType = SortType.ByTransform;
                         break;
                     case ColumnsTypeVertical.Hint:
-                        sortType = CoreDll.SortType.ByHint;
+                        sortType = SortType.ByHint;
                         break;
                     case ColumnsTypeVertical.FileName:
-                        sortType = CoreDll.SortType.BySortedName;
+                        sortType = SortType.BySortedName;
                         break;
                     case ColumnsTypeVertical.FileDirectory:
-                        sortType = CoreDll.SortType.BySortedDirectory;
+                        sortType = SortType.BySortedDirectory;
                         break;
                     case ColumnsTypeVertical.ImageSize:
-                        sortType = CoreDll.SortType.BySortedArea;
+                        sortType = SortType.BySortedArea;
                         break;
                     case ColumnsTypeVertical.ImageType:
-                        sortType = CoreDll.SortType.BySortedType;
+                        sortType = SortType.BySortedType;
                         break;
                     case ColumnsTypeVertical.Blockiness:
-                        sortType = CoreDll.SortType.BySortedBlockiness;
+                        sortType = SortType.BySortedBlockiness;
                         break;
                     case ColumnsTypeVertical.Blurring:
-                        sortType = CoreDll.SortType.BySortedBlurring;
+                        sortType = SortType.BySortedBlurring;
                         break;
                     case ColumnsTypeVertical.FileSize:
-                        sortType = CoreDll.SortType.BySortedSize;
+                        sortType = SortType.BySortedSize;
                         break;
                     case ColumnsTypeVertical.FileTime:
-                        sortType = CoreDll.SortType.BySortedTime;
+                        sortType = SortType.BySortedTime;
                         break;
                 }
             }
@@ -498,73 +500,73 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 switch ((ColumnsTypeHorizontal)e.ColumnIndex)
                 {
                     case ColumnsTypeHorizontal.Type:
-                        sortType = CoreDll.SortType.ByType;
+                        sortType = SortType.ByType;
                         break;
                     case ColumnsTypeHorizontal.Group:
-                        sortType = CoreDll.SortType.ByGroup;
+                        sortType = SortType.ByGroup;
                         break;
                     case ColumnsTypeHorizontal.GroupSize:
-                        sortType = CoreDll.SortType.ByGroupSize;
+                        sortType = SortType.ByGroupSize;
                         break;
                     case ColumnsTypeHorizontal.Difference:
-                        sortType = CoreDll.SortType.ByDifference;
+                        sortType = SortType.ByDifference;
                         break;
                     case ColumnsTypeHorizontal.Defect:
-                        sortType = CoreDll.SortType.ByDefect;
+                        sortType = SortType.ByDefect;
                         break;
                     case ColumnsTypeHorizontal.Transform:
-                        sortType = CoreDll.SortType.ByTransform;
+                        sortType = SortType.ByTransform;
                         break;
                     case ColumnsTypeHorizontal.Hint:
-                        sortType = CoreDll.SortType.ByHint;
+                        sortType = SortType.ByHint;
                         break;
                     case ColumnsTypeHorizontal.FirstFileName:
-                        sortType = CoreDll.SortType.ByFirstName;
+                        sortType = SortType.ByFirstName;
                         break;
                     case ColumnsTypeHorizontal.FirstFileDirectory:
-                        sortType = CoreDll.SortType.ByFirstDirectory;
+                        sortType = SortType.ByFirstDirectory;
                         break;
                     case ColumnsTypeHorizontal.FirstImageSize:
-                        sortType = CoreDll.SortType.ByFirstArea;
+                        sortType = SortType.ByFirstArea;
                         break;
                     case ColumnsTypeHorizontal.FirstImageType:
-                        sortType = CoreDll.SortType.ByFirstType;
+                        sortType = SortType.ByFirstType;
                         break;
                     case ColumnsTypeHorizontal.FirstFileSize:
-                        sortType = CoreDll.SortType.ByFirstSize;
+                        sortType = SortType.ByFirstSize;
                         break;
                     case ColumnsTypeHorizontal.FirstBlockiness:
-                        sortType = CoreDll.SortType.ByFirstBlockiness;
+                        sortType = SortType.ByFirstBlockiness;
                         break;
                     case ColumnsTypeHorizontal.FirstBlurring:
-                        sortType = CoreDll.SortType.ByFirstBlurring;
+                        sortType = SortType.ByFirstBlurring;
                         break;
                     case ColumnsTypeHorizontal.FirstFileTime:
-                        sortType = CoreDll.SortType.ByFirstTime;
+                        sortType = SortType.ByFirstTime;
                         break;
                     case ColumnsTypeHorizontal.SecondFileName:
-                        sortType = CoreDll.SortType.BySecondName;
+                        sortType = SortType.BySecondName;
                         break;
                     case ColumnsTypeHorizontal.SecondFileDirectory:
-                        sortType = CoreDll.SortType.BySecondDirectory;
+                        sortType = SortType.BySecondDirectory;
                         break;
                     case ColumnsTypeHorizontal.SecondImageSize:
-                        sortType = CoreDll.SortType.BySecondArea;
+                        sortType = SortType.BySecondArea;
                         break;
                     case ColumnsTypeHorizontal.SecondImageType:
-                        sortType = CoreDll.SortType.BySecondType;
+                        sortType = SortType.BySecondType;
                         break;
                     case ColumnsTypeHorizontal.SecondFileSize:
-                        sortType = CoreDll.SortType.BySecondSize;
+                        sortType = SortType.BySecondSize;
                         break;
                     case ColumnsTypeHorizontal.SecondBlockiness:
-                        sortType = CoreDll.SortType.BySecondBlockiness;
+                        sortType = SortType.BySecondBlockiness;
                         break;
                     case ColumnsTypeHorizontal.SecondBlurring:
-                        sortType = CoreDll.SortType.BySecondBlurring;
+                        sortType = SortType.BySecondBlurring;
                         break;
                     case ColumnsTypeHorizontal.SecondFileTime:
-                        sortType = CoreDll.SortType.BySecondTime;
+                        sortType = SortType.BySecondTime;
                         break;
                 }
             }
@@ -694,7 +696,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                         SetRowSelection(false);
                         Invalidate();
                     }
-                    ContextMenuStrip = m_core.CanApply(CoreDll.ActionEnableType.Any) ? m_contextMenuStrip : null;
+                    ContextMenuStrip = m_core.CanApply(ActionEnableType.Any) ? m_contextMenuStrip : null;
                 }
             }
             else

@@ -25,6 +25,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -59,7 +61,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_resultsPreviewDuplPair.Location = new Point(0, 0);
             m_resultsPreviewDuplPair.Dock = DockStyle.Fill;
 
-            m_mainSplitContainer.OnCurrentResultChanged += 
+            m_mainSplitContainer.OnCurrentResultChanged +=
                 new MainSplitContainer.CurrentResultChangedHandler(CurrentResultChanged);
         }
 
@@ -71,10 +73,10 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 switch (result.type)
                 {
-                    case CoreDll.ResultType.DefectImage:
+                    case ResultType.DefectImage:
                         state = State.Defect;
                         break;
-                    case CoreDll.ResultType.DuplImagePair:
+                    case ResultType.DuplImagePair:
                         state = State.DuplPair;
                         break;
                 }
@@ -92,7 +94,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                     break;
             }
 
-            if(state != m_state)
+            if (state != m_state)
             {
                 m_state = state;
 

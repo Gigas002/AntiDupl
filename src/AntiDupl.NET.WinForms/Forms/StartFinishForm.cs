@@ -28,6 +28,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -107,10 +109,10 @@ namespace AntiDupl.NET.WinForms.Forms
             DateTime startTime = DateTime.Now;
 
             m_state = State.LoadMistakes;
-            m_core.Load(CoreDll.FileType.MistakeDataBase, Options.GetMistakeDataBaseFileName(), m_options.checkMistakesAtLoading);
+            m_core.Load(FileType.MistakeDataBase, Options.GetMistakeDataBaseFileName(), m_options.checkMistakesAtLoading);
 
             m_state = State.LoadResults;
-            m_core.Load(CoreDll.FileType.Result, m_options.GetResultsFileName(), m_options.checkResultsAtLoading);
+            m_core.Load(FileType.Result, m_options.GetResultsFileName(), m_options.checkResultsAtLoading);
 
             TimeSpan viewTime = DateTime.Now - startTime;
             if (viewTime < VIEW_START_TIME_MIN)
@@ -125,16 +127,16 @@ namespace AntiDupl.NET.WinForms.Forms
         private void CoreFinishThreadTask()
         {
             m_state = State.SaveMistakes;
-            m_core.Save(CoreDll.FileType.MistakeDataBase, Options.GetMistakeDataBaseFileName());
+            m_core.Save(FileType.MistakeDataBase, Options.GetMistakeDataBaseFileName());
 
             m_state = State.SaveResults;
-            m_core.Save(CoreDll.FileType.Result, m_options.GetResultsFileName());
+            m_core.Save(FileType.Result, m_options.GetResultsFileName());
 
             m_state = State.ClearResults;
-            m_core.Clear(CoreDll.FileType.Result);
+            m_core.Clear(FileType.Result);
 
             m_state = State.ClearTemporary;
-            m_core.Clear(CoreDll.FileType.Temporary);
+            m_core.Clear(FileType.Temporary);
 
             m_state = State.Finish;
         }
@@ -162,7 +164,7 @@ namespace AntiDupl.NET.WinForms.Forms
             {
                 Close();
             }
-            else if(m_state == State.ViewStart)
+            else if (m_state == State.ViewStart)
             {
                 m_progressBar.Visible = false;
                 Text = Application.ProductName;
@@ -202,7 +204,7 @@ namespace AntiDupl.NET.WinForms.Forms
                 }
                 Text = builder.ToString();
 
-                CoreStatus status = m_core.StatusGet(CoreDll.ThreadType.Main, 0);
+                CoreStatus status = m_core.StatusGet(ThreadType.Main, 0);
                 if (status != null)
                 {
                     if (status.total > 0)

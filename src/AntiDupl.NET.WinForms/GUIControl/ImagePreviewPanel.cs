@@ -29,6 +29,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -45,12 +47,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
         }
         private Position m_position;
 
-        private CoreDll.RenameCurrentType m_renameCurrentType;
+        private RenameCurrentType m_renameCurrentType;
         /// <summary>
         /// Переименовывать первую или вторую картинку.
         /// </summary>
-        public CoreDll.RenameCurrentType RenameCurrentType {get{return m_renameCurrentType;}}
-        
+        public RenameCurrentType RenameCurrentType { get { return m_renameCurrentType; } }
+
         private const int IBW = 1;//Internal border width
         private const int EBW = 2;//External border width
 
@@ -63,12 +65,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// Группа дубликатов.
         /// </summary>
         public int Group { get { return m_group; } }
-        
+
         private CoreImageInfo m_currentImageInfo;
         public CoreImageInfo CurrentImageInfo { get { return m_currentImageInfo; } }
         private CoreImageInfo m_neighbourImageInfo;
         public CoreImageInfo NeighbourImageInfo { get { return m_neighbourImageInfo; } }
-        
+
         private PictureBoxPanel m_pictureBoxPanel;
         private Label m_fileSizeLabel;
         private Label m_imageSizeLabel;
@@ -87,7 +89,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             InitializeComponents();
             SetPosition(position);
         }
-        
+
         // Запускается инициализация один раз при создание формы.
         private void InitializeComponents()
         {
@@ -97,20 +99,20 @@ namespace AntiDupl.NET.WinForms.GUIControl
             Margin = new Padding(0);
             Padding = new Padding(0);
             Dock = DockStyle.Fill;
-            
+
             ColumnCount = 1;
             RowCount = 2;
 
             m_pictureBoxPanel = new PictureBoxPanel(m_core, m_options);
             m_pictureBoxPanel.ContextMenuStrip = new ImagePreviewContextMenu(m_core, m_options, m_resultsListView.CoreOptions, this, m_resultsListView);
-            
+
             m_fileSizeLabel = new Label();
             m_fileSizeLabel.Dock = DockStyle.Fill;
             m_fileSizeLabel.BorderStyle = BorderStyle.Fixed3D;
             m_fileSizeLabel.Padding = new Padding(1, 3, 1, 0);
             m_fileSizeLabel.TextAlign = ContentAlignment.TopCenter;
             m_fileSizeLabel.AutoSize = true;
-            
+
             m_imageSizeLabel = new Label();
             m_imageSizeLabel.Dock = DockStyle.Fill;
             m_imageSizeLabel.BorderStyle = BorderStyle.Fixed3D;
@@ -206,7 +208,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 m_imageSizeLabel.Text = m_currentImageInfo.GetImageSizeString();
                 m_imageBlocknessLabel.Text = m_currentImageInfo.GetBlockinessString();
                 m_imageBlurringLabel.Text = m_currentImageInfo.GetBlurringString();
-                m_imageTypeLabel.Text = m_currentImageInfo.type == CoreDll.ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
+                m_imageTypeLabel.Text = m_currentImageInfo.type == ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
                 if (currentImageInfo.exifInfo.isEmpty == CoreDll.FALSE)
                 {
                     m_imageExifLabel.Visible = true;
@@ -250,7 +252,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (updateCurrent || updateNeighbour)
             {
                 Size neighbourSizeMax = new Size(0, 0);
-                if(m_neighbourImageInfo != null)
+                if (m_neighbourImageInfo != null)
                     neighbourSizeMax = new Size((int)m_neighbourImageInfo.width, (int)m_neighbourImageInfo.height);
                 m_pictureBoxPanel.UpdateImagePadding(neighbourSizeMax);
                 Refresh();
@@ -262,9 +264,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// </summary>
         static private bool UpdateImageInfo(ref CoreImageInfo oldImageInfo, CoreImageInfo newImageInfo)
         {
-            if (oldImageInfo == null || 
+            if (oldImageInfo == null ||
                 oldImageInfo.path.CompareTo(newImageInfo.path) != 0 ||
-                oldImageInfo.size != newImageInfo.size || 
+                oldImageInfo.size != newImageInfo.size ||
                 oldImageInfo.time != newImageInfo.time)
             {
                 oldImageInfo = newImageInfo;
@@ -275,31 +277,31 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         public void SetResult(CoreResult result)
         {
-            if(result.type == CoreDll.ResultType.None)
+            if (result.type == ResultType.None)
                 throw new Exception("Bad result type!");
 
             m_group = result.group;
 
-            switch(m_position)
+            switch (m_position)
             {
-            case Position.Left:
-            case Position.Top:
-                if (result.type == CoreDll.ResultType.DuplImagePair)
-                    SetImageInfo(result.first, result.second);
-                else
-                    SetImageInfo(result.first, null);
+                case Position.Left:
+                case Position.Top:
+                    if (result.type == ResultType.DuplImagePair)
+                        SetImageInfo(result.first, result.second);
+                    else
+                        SetImageInfo(result.first, null);
 
-                break;
-            case Position.Right:
-            case Position.Bottom:
-                if (result.type == CoreDll.ResultType.DuplImagePair)
-                    SetImageInfo(result.second, result.first);
-                else
-                    SetImageInfo(result.second, null);
-                break;
+                    break;
+                case Position.Right:
+                case Position.Bottom:
+                    if (result.type == ResultType.DuplImagePair)
+                        SetImageInfo(result.second, result.first);
+                    else
+                        SetImageInfo(result.second, null);
+                    break;
             }
         }
-        
+
         /// <summary>
         /// Adding controls in panel
         /// Добавление контролеров на панель
@@ -311,22 +313,22 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 case Position.Left:
                 case Position.Top:
-                    m_renameCurrentType = CoreDll.RenameCurrentType.First;
+                    m_renameCurrentType = RenameCurrentType.First;
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    m_renameCurrentType = CoreDll.RenameCurrentType.Second;
+                    m_renameCurrentType = RenameCurrentType.Second;
                     break;
             }
 
             m_pictureBoxPanel.Position = m_position;
-            
+
             TableLayoutPanel infoLayout = InitFactory.Layout.Create(7, 1); //number of controls in panel
             infoLayout.Height = m_imageSizeLabel.Height;
             if (m_position != Position.Left)
             {
                 m_pathLabel.TextAlign = ContentAlignment.TopLeft;
-            
+
                 m_fileSizeLabel.Margin = new Padding(EBW, 0, 0, 0);
                 m_pathLabel.Margin = new Padding(IBW, 0, EBW, 0);
 
@@ -349,7 +351,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             else
             {
                 m_pathLabel.TextAlign = ContentAlignment.TopRight;
-                
+
                 m_pathLabel.Margin = new Padding(EBW, 0, 0, 0);
                 m_fileSizeLabel.Margin = new Padding(IBW, 0, EBW, 0);
 
@@ -364,7 +366,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 infoLayout.Controls.Add(m_pathLabel, 0, 0);
                 infoLayout.Controls.Add(m_imageTypeLabel, 1, 0);
                 infoLayout.Controls.Add(m_imageBlurringLabel, 2, 0);
-                infoLayout.Controls.Add(m_imageBlocknessLabel, 3, 0); 
+                infoLayout.Controls.Add(m_imageBlocknessLabel, 3, 0);
                 infoLayout.Controls.Add(m_imageSizeLabel, 4, 0);
                 infoLayout.Controls.Add(m_imageExifLabel, 5, 0);
                 infoLayout.Controls.Add(m_fileSizeLabel, 6, 0);
@@ -372,11 +374,11 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
             Controls.Clear();
             RowStyles.Clear();
-            if(m_position == Position.Bottom)
+            if (m_position == Position.Bottom)
             {
                 m_pictureBoxPanel.Margin = new Padding(EBW, IBW, EBW, EBW);
                 infoLayout.Margin = new Padding(0, EBW, 0, 0);
-                
+
                 RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
                 Controls.Add(infoLayout, 0, 0);
@@ -386,7 +388,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 m_pictureBoxPanel.Margin = new Padding(EBW, EBW, EBW, IBW);
                 infoLayout.Margin = new Padding(0, 0, 0, EBW);
-                
+
                 RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
                 RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 Controls.Add(m_pictureBoxPanel, 0, 0);
@@ -425,7 +427,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
             else if (newFileInfo.Extension != oldFileInfo.Extension && newFileInfo.Extension.Length > 0)
             {
-                e.Cancel = MessageBox.Show(Resources.Strings.Current.WarningMessage_ChangeFileExtension, 
+                e.Cancel = MessageBox.Show(Resources.Strings.Current.WarningMessage_ChangeFileExtension,
                     dialog.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel;
             }
         }
@@ -479,7 +481,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// <param name="result"></param>
         public void UpdateExifTooltip(CoreResult result)
         {
-            if (result.type == CoreDll.ResultType.None)
+            if (result.type == ResultType.None)
                 throw new Exception("Bad result type!");
 
             switch (m_position)

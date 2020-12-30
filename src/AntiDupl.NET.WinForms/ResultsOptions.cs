@@ -24,6 +24,8 @@
 
 using System.Drawing;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms
@@ -238,7 +240,7 @@ namespace AntiDupl.NET.WinForms
 
         private void SetDefault()
         {
-            SortTypeDefault = (int)CoreDll.SortType.ByDifference;
+            SortTypeDefault = (int)SortType.ByDifference;
             IncreasingDefault = true;
 
             SplitterDistanceVerticalMaximized = MainSplitContainer.VIEW_MIN_WIDTH;

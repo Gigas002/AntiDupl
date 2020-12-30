@@ -23,6 +23,7 @@
 */
 
 using System;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.Core
 {
@@ -40,7 +41,7 @@ namespace AntiDupl.NET.Core
         public uint renamedImageNumber;
         public uint deletedImageNumber;
         public UInt64 deletedImageSize;
-        
+
         public CoreStatistic(ref CoreDll.adStatistic statistic)
         {
             scanedFolderNumber = statistic.scanedFolderNumber.ToUInt32();

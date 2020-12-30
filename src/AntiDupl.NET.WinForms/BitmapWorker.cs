@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms
 {
@@ -38,11 +40,11 @@ namespace AntiDupl.NET.WinForms
             pBitmap[0].width = (uint)bitmapData.Width;
             pBitmap[0].height = (uint)bitmapData.Height;
             pBitmap[0].stride = bitmapData.Stride;
-            pBitmap[0].format = CoreDll.PixelFormatType.Argb32;
+            pBitmap[0].format = PixelFormatType.Argb32;
             pBitmap[0].data = bitmapData.Scan0;
-            CoreDll.Error error = coreLib.LoadBitmap(path, pBitmap);
+            Error error = coreLib.LoadBitmap(path, pBitmap);
             bitmap.UnlockBits(bitmapData);
-            return error == CoreDll.Error.Ok ? bitmap : null;
+            return error == Error.Ok ? bitmap : null;
         }
 
         /// <summary>

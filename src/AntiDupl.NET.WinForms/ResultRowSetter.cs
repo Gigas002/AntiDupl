@@ -27,6 +27,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms
@@ -203,10 +205,10 @@ namespace AntiDupl.NET.WinForms
         {
             switch (result.type)
             {
-                case CoreDll.ResultType.DefectImage:
+                case ResultType.DefectImage:
                     SetDefectToRow(row.Cells, result);
                     break;
-                case CoreDll.ResultType.DuplImagePair:
+                case ResultType.DuplImagePair:
                     SetDuplPairToRow(row.Cells, result);
                     break;
             }
@@ -214,7 +216,7 @@ namespace AntiDupl.NET.WinForms
 
         private void SetDefectToRow(DataGridViewCellCollection cells, CoreResult result)
         {
-            if (result.type != CoreDll.ResultType.DefectImage)
+            if (result.type != ResultType.DefectImage)
                 throw new Exception("Bad result type!");
 
             cells[(int)ResultsListView.ColumnsTypeHorizontal.Type] = new DataGridViewImageCell
@@ -245,22 +247,22 @@ namespace AntiDupl.NET.WinForms
 
             switch (result.defect)
             {
-                case CoreDll.DefectType.None:
+                case DefectType.None:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mNullIcon;
                     break;
-                case CoreDll.DefectType.Unknown:
+                case DefectType.Unknown:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mUnknownDefectIcon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mUnknownDefectIconToolTipText;
                     break;
-                case CoreDll.DefectType.JpegEndMarkerIsAbsent:
+                case DefectType.JpegEndMarkerIsAbsent:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mJpegEndMarkerIsAbsentIcon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mJpegEndMarkerIsAbsentIconToolTipText;
                     break;
-                case CoreDll.DefectType.Blockiness:
+                case DefectType.Blockiness:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mBlockinessIcon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mBlockinessIconToolTipText;
                     break;
-                case CoreDll.DefectType.Blurring:
+                case DefectType.Blurring:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].Value = _mBlurringIcon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Defect].ToolTipText = _mBlurringIconToolTipText;
                     break;
@@ -275,7 +277,7 @@ namespace AntiDupl.NET.WinForms
 
             switch (result.hint)
             {
-                case CoreDll.HintType.DeleteFirst:
+                case HintType.DeleteFirst:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mDeleteDefectIcon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].ToolTipText = _mDeleteDefectIconToolTipText;
                     break;
@@ -352,7 +354,7 @@ namespace AntiDupl.NET.WinForms
 
         private void SetDuplPairToRow(DataGridViewCellCollection cells, CoreResult result)
         {
-            if (result.type != CoreDll.ResultType.DuplImagePair)
+            if (result.type != ResultType.DuplImagePair)
                 throw new Exception("Bad result type!");
 
             cells[(int)ResultsListView.ColumnsTypeHorizontal.Type] = new DataGridViewImageCell
@@ -394,35 +396,35 @@ namespace AntiDupl.NET.WinForms
 
             switch (result.transform)
             {
-                case CoreDll.TransformType.Turn_0:
+                case TransformType.Turn_0:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn0Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn0IconToolTipText;
                     break;
-                case CoreDll.TransformType.Turn_90:
+                case TransformType.Turn_90:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn90Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn90IconToolTipText;
                     break;
-                case CoreDll.TransformType.Turn_180:
+                case TransformType.Turn_180:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn180Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn180IconToolTipText;
                     break;
-                case CoreDll.TransformType.Turn_270:
+                case TransformType.Turn_270:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mTurn270Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mTurn270IconToolTipText;
                     break;
-                case CoreDll.TransformType.MirrorTurn_0:
+                case TransformType.MirrorTurn_0:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn0Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn0IconToolTipText;
                     break;
-                case CoreDll.TransformType.MirrorTurn_90:
+                case TransformType.MirrorTurn_90:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn90Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn90IconToolTipText;
                     break;
-                case CoreDll.TransformType.MirrorTurn_180:
+                case TransformType.MirrorTurn_180:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn180Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn180IconToolTipText;
                     break;
-                case CoreDll.TransformType.MirrorTurn_270:
+                case TransformType.MirrorTurn_270:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].Value = _mMirrorTurn270Icon;
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Transform].ToolTipText = _mMirrorTurn270IconToolTipText;
                     break;
@@ -435,16 +437,16 @@ namespace AntiDupl.NET.WinForms
 
             switch (result.hint)
             {
-                case CoreDll.HintType.DeleteFirst:
+                case HintType.DeleteFirst:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mDeleteFirstIconToolTipText;
                     break;
-                case CoreDll.HintType.DeleteSecond:
+                case HintType.DeleteSecond:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mDeleteSecondIconToolTipText;
                     break;
-                case CoreDll.HintType.RenameFirstToSecond:
+                case HintType.RenameFirstToSecond:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mRenameFirstToSecondIconToolTipText;
                     break;
-                case CoreDll.HintType.RenameSecondToFirst:
+                case HintType.RenameSecondToFirst:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].ToolTipText = _mRenameSecondToFirstIconToolTipText;
                     break;
                 default:
@@ -474,16 +476,16 @@ namespace AntiDupl.NET.WinForms
 
             switch (result.hint)
             {
-                case CoreDll.HintType.DeleteFirst:
+                case HintType.DeleteFirst:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mDeleteFirstVerticalIcon;
                     break;
-                case CoreDll.HintType.DeleteSecond:
+                case HintType.DeleteSecond:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mDeleteSecondVerticalIcon;
                     break;
-                case CoreDll.HintType.RenameFirstToSecond:
+                case HintType.RenameFirstToSecond:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mRenameFirstToSecondVerticalIcon;
                     break;
-                case CoreDll.HintType.RenameSecondToFirst:
+                case HintType.RenameSecondToFirst:
                     cells[(int)ResultsListView.ColumnsTypeVertical.Hint].Value = _mRenameSecondToFirstVerticalIcon;
                     break;
             }
@@ -540,16 +542,16 @@ namespace AntiDupl.NET.WinForms
 
             switch (result.hint)
             {
-                case CoreDll.HintType.DeleteFirst:
+                case HintType.DeleteFirst:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mDeleteFirstHorizontalIcon;
                     break;
-                case CoreDll.HintType.DeleteSecond:
+                case HintType.DeleteSecond:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mDeleteSecondHorizontalIcon;
                     break;
-                case CoreDll.HintType.RenameFirstToSecond:
+                case HintType.RenameFirstToSecond:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mRenameFirstToSecondHorizontalIcon;
                     break;
-                case CoreDll.HintType.RenameSecondToFirst:
+                case HintType.RenameSecondToFirst:
                     cells[(int)ResultsListView.ColumnsTypeHorizontal.Hint].Value = _mRenameSecondToFirstHorizontalIcon;
                     break;
             }

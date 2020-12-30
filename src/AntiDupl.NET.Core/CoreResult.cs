@@ -22,19 +22,22 @@
 * SOFTWARE.
 */
 
+using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
+
 namespace AntiDupl.NET.Core
 {
     public class CoreResult
     {
-        public CoreDll.ResultType type;
+        public ResultType type;
         public CoreImageInfo first;
         public CoreImageInfo second;
-        public CoreDll.DefectType defect;
+        public DefectType defect;
         public double difference;
-        public CoreDll.TransformType transform;
+        public TransformType transform;
         public int group;
         public int groupSize;
-        public CoreDll.HintType hint;
+        public HintType hint;
 
         public CoreResult(ref CoreDll.adResultW result)
         {

@@ -22,6 +22,8 @@
 * SOFTWARE.
 */
 
+using AntiDupl.NET.Core.Original;
+
 namespace AntiDupl.NET.Core
 {
     public class CoreDefectOptions
@@ -42,7 +44,7 @@ namespace AntiDupl.NET.Core
             checkOnDefect = defectOptions.checkOnDefect;
             checkOnBlockiness = defectOptions.checkOnBlockiness;
             blockinessThreshold = defectOptions.blockinessThreshold;
-			checkOnBlockinessOnlyNotJpeg = defectOptions.checkOnBlockinessOnlyNotJpeg;
+            checkOnBlockinessOnlyNotJpeg = defectOptions.checkOnBlockinessOnlyNotJpeg;
             checkOnBlurring = defectOptions.checkOnBlurring;
             blurringThreshold = defectOptions.blurringThreshold;
         }
@@ -52,7 +54,7 @@ namespace AntiDupl.NET.Core
             checkOnDefect = defectOptions.checkOnDefect != CoreDll.FALSE;
             checkOnBlockiness = defectOptions.checkOnBlockiness != CoreDll.FALSE;
             blockinessThreshold = defectOptions.blockinessThreshold;
-			checkOnBlockinessOnlyNotJpeg = defectOptions.checkOnBlockinessOnlyNotJpeg != CoreDll.FALSE;
+            checkOnBlockinessOnlyNotJpeg = defectOptions.checkOnBlockinessOnlyNotJpeg != CoreDll.FALSE;
             checkOnBlurring = defectOptions.checkOnBlurring != CoreDll.FALSE;
             blurringThreshold = defectOptions.blurringThreshold;
         }
@@ -62,7 +64,7 @@ namespace AntiDupl.NET.Core
             defectOptions.checkOnDefect = checkOnDefect ? CoreDll.TRUE : CoreDll.FALSE;
             defectOptions.checkOnBlockiness = checkOnBlockiness ? CoreDll.TRUE : CoreDll.FALSE;
             defectOptions.blockinessThreshold = blockinessThreshold;
-			defectOptions.checkOnBlockinessOnlyNotJpeg = checkOnBlockinessOnlyNotJpeg ? CoreDll.TRUE : CoreDll.FALSE;
+            defectOptions.checkOnBlockinessOnlyNotJpeg = checkOnBlockinessOnlyNotJpeg ? CoreDll.TRUE : CoreDll.FALSE;
             defectOptions.checkOnBlurring = checkOnBlurring ? CoreDll.TRUE : CoreDll.FALSE;
             defectOptions.blurringThreshold = blurringThreshold;
         }
@@ -78,7 +80,7 @@ namespace AntiDupl.NET.Core
                 checkOnDefect == defectOptions.checkOnDefect &&
                 checkOnBlockiness == defectOptions.checkOnBlockiness &&
                 blockinessThreshold == defectOptions.blockinessThreshold &&
- 				checkOnBlockinessOnlyNotJpeg == defectOptions.checkOnBlockinessOnlyNotJpeg &&
+                 checkOnBlockinessOnlyNotJpeg == defectOptions.checkOnBlockinessOnlyNotJpeg &&
                 checkOnBlurring == defectOptions.checkOnBlurring &&
                 blurringThreshold == defectOptions.blurringThreshold;
         }
