@@ -57,10 +57,10 @@ namespace AntiDupl.NET.Core
             useLibJpegTurbo = advancedOptions.useLibJpegTurbo;
         }
 
-        public CoreAdvancedOptions(ref CoreDll.adAdvancedOptions advancedOptions)
+        public CoreAdvancedOptions(ref AdAdvancedOptions advancedOptions)
         {
-            deleteToRecycleBin = advancedOptions.deleteToRecycleBin != CoreDll.FALSE;
-            mistakeDataBase = advancedOptions.mistakeDataBase != CoreDll.FALSE;
+            deleteToRecycleBin = advancedOptions.deleteToRecycleBin != Constants.FALSE;
+            mistakeDataBase = advancedOptions.mistakeDataBase != Constants.FALSE;
             ratioResolution = advancedOptions.ratioResolution;
             compareThreadCount = advancedOptions.compareThreadCount;
             collectThreadCount = advancedOptions.collectThreadCount;
@@ -68,13 +68,13 @@ namespace AntiDupl.NET.Core
             undoQueueSize = advancedOptions.undoQueueSize;
             resultCountMax = advancedOptions.resultCountMax;
             ignoreFrameWidth = advancedOptions.ignoreFrameWidth;
-            useLibJpegTurbo = advancedOptions.useLibJpegTurbo != CoreDll.FALSE;
+            useLibJpegTurbo = advancedOptions.useLibJpegTurbo != Constants.FALSE;
         }
 
-        public void ConvertTo(ref CoreDll.adAdvancedOptions advancedOptions)
+        public void ConvertTo(ref AdAdvancedOptions advancedOptions)
         {
-            advancedOptions.deleteToRecycleBin = deleteToRecycleBin ? CoreDll.TRUE : CoreDll.FALSE;
-            advancedOptions.mistakeDataBase = mistakeDataBase ? CoreDll.TRUE : CoreDll.FALSE;
+            advancedOptions.deleteToRecycleBin = deleteToRecycleBin ? Constants.TRUE : Constants.FALSE;
+            advancedOptions.mistakeDataBase = mistakeDataBase ? Constants.TRUE : Constants.FALSE;
             advancedOptions.ratioResolution = ratioResolution;
             advancedOptions.compareThreadCount = compareThreadCount;
             advancedOptions.collectThreadCount = collectThreadCount;
@@ -82,7 +82,7 @@ namespace AntiDupl.NET.Core
             advancedOptions.undoQueueSize = undoQueueSize;
             advancedOptions.resultCountMax = resultCountMax;
             advancedOptions.ignoreFrameWidth = ignoreFrameWidth;
-            advancedOptions.useLibJpegTurbo = useLibJpegTurbo ? CoreDll.TRUE : CoreDll.FALSE;
+            advancedOptions.useLibJpegTurbo = useLibJpegTurbo ? Constants.TRUE : Constants.FALSE;
         }
 
         public CoreAdvancedOptions Clone()

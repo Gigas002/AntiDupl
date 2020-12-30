@@ -34,7 +34,7 @@ namespace AntiDupl.NET.Core
         public int current;
         public int total;
 
-        public CoreStatus(ref CoreDll.adStatusW status)
+        public CoreStatus(ref AdStatusW status)
         {
             state = status.state;
             path = status.path;

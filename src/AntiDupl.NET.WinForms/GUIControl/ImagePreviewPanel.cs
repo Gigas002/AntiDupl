@@ -209,7 +209,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 m_imageBlocknessLabel.Text = m_currentImageInfo.GetBlockinessString();
                 m_imageBlurringLabel.Text = m_currentImageInfo.GetBlurringString();
                 m_imageTypeLabel.Text = m_currentImageInfo.type == ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
-                if (currentImageInfo.exifInfo.isEmpty == CoreDll.FALSE)
+                if (currentImageInfo.exifInfo.isEmpty == Constants.FALSE)
                 {
                     m_imageExifLabel.Visible = true;
                     SetExifTooltip(currentImageInfo);
@@ -488,12 +488,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 case Position.Left:
                 case Position.Top:
-                    if (result.first.exifInfo.isEmpty == CoreDll.FALSE)
+                    if (result.first.exifInfo.isEmpty == Constants.FALSE)
                         SetExifTooltip(result.first);
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    if (result.second.exifInfo.isEmpty == CoreDll.FALSE)
+                    if (result.second.exifInfo.isEmpty == Constants.FALSE)
                         SetExifTooltip(result.second);
                     break;
             }
@@ -502,7 +502,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// <summary>
         /// Проверка равны ли Exif.
         /// </summary>
-        private bool ExifEqual(CoreDll.adImageExifW imageExif1, CoreDll.adImageExifW imageExif2)
+        private bool ExifEqual(AdImageExifW imageExif1, AdImageExifW imageExif2)
         {
             if (imageExif1.isEmpty == imageExif2.isEmpty &&
                 imageExif1.artist.CompareTo(imageExif2.artist) == 0 &&

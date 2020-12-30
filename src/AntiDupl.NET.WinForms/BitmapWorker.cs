@@ -36,7 +36,7 @@ namespace AntiDupl.NET.WinForms
                 System.Drawing.Imaging.ImageLockMode.WriteOnly,
                 System.Drawing.Imaging.PixelFormat.Format32bppArgb,
                 bitmapData);
-            CoreDll.adBitmap[] pBitmap = new CoreDll.adBitmap[1];
+            AdBitmap[] pBitmap = new AdBitmap[1];
             pBitmap[0].width = (uint)bitmapData.Width;
             pBitmap[0].height = (uint)bitmapData.Height;
             pBitmap[0].stride = bitmapData.Stride;

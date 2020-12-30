@@ -49,23 +49,23 @@ namespace AntiDupl.NET.Core
             blurringThreshold = defectOptions.blurringThreshold;
         }
 
-        public CoreDefectOptions(ref CoreDll.adDefectOptions defectOptions)
+        public CoreDefectOptions(ref AdDefectOptions defectOptions)
         {
-            checkOnDefect = defectOptions.checkOnDefect != CoreDll.FALSE;
-            checkOnBlockiness = defectOptions.checkOnBlockiness != CoreDll.FALSE;
+            checkOnDefect = defectOptions.checkOnDefect != Constants.FALSE;
+            checkOnBlockiness = defectOptions.checkOnBlockiness != Constants.FALSE;
             blockinessThreshold = defectOptions.blockinessThreshold;
-            checkOnBlockinessOnlyNotJpeg = defectOptions.checkOnBlockinessOnlyNotJpeg != CoreDll.FALSE;
-            checkOnBlurring = defectOptions.checkOnBlurring != CoreDll.FALSE;
+            checkOnBlockinessOnlyNotJpeg = defectOptions.checkOnBlockinessOnlyNotJpeg != Constants.FALSE;
+            checkOnBlurring = defectOptions.checkOnBlurring != Constants.FALSE;
             blurringThreshold = defectOptions.blurringThreshold;
         }
 
-        public void ConvertTo(ref CoreDll.adDefectOptions defectOptions)
+        public void ConvertTo(ref AdDefectOptions defectOptions)
         {
-            defectOptions.checkOnDefect = checkOnDefect ? CoreDll.TRUE : CoreDll.FALSE;
-            defectOptions.checkOnBlockiness = checkOnBlockiness ? CoreDll.TRUE : CoreDll.FALSE;
+            defectOptions.checkOnDefect = checkOnDefect ? Constants.TRUE : Constants.FALSE;
+            defectOptions.checkOnBlockiness = checkOnBlockiness ? Constants.TRUE : Constants.FALSE;
             defectOptions.blockinessThreshold = blockinessThreshold;
-            defectOptions.checkOnBlockinessOnlyNotJpeg = checkOnBlockinessOnlyNotJpeg ? CoreDll.TRUE : CoreDll.FALSE;
-            defectOptions.checkOnBlurring = checkOnBlurring ? CoreDll.TRUE : CoreDll.FALSE;
+            defectOptions.checkOnBlockinessOnlyNotJpeg = checkOnBlockinessOnlyNotJpeg ? Constants.TRUE : Constants.FALSE;
+            defectOptions.checkOnBlurring = checkOnBlurring ? Constants.TRUE : Constants.FALSE;
             defectOptions.blurringThreshold = blurringThreshold;
         }
 

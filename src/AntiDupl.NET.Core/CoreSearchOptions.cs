@@ -86,44 +86,44 @@ namespace AntiDupl.NET.Core
             WEBP = searchOptions.WEBP;
         }
 
-        public CoreSearchOptions(CoreDll.adSearchOptions searchOptions)
+        public CoreSearchOptions(AdSearchOptions searchOptions)
         {
-            system = searchOptions.system != CoreDll.FALSE;
-            hidden = searchOptions.hidden != CoreDll.FALSE;
-            JPEG = searchOptions.JPEG != CoreDll.FALSE;
-            BMP = searchOptions.BMP != CoreDll.FALSE;
-            GIF = searchOptions.GIF != CoreDll.FALSE;
-            PNG = searchOptions.PNG != CoreDll.FALSE;
-            TIFF = searchOptions.TIFF != CoreDll.FALSE;
-            EMF = searchOptions.EMF != CoreDll.FALSE;
-            WMF = searchOptions.WMF != CoreDll.FALSE;
-            EXIF = searchOptions.EXIF != CoreDll.FALSE;
-            ICON = searchOptions.ICON != CoreDll.FALSE;
-            JP2 = searchOptions.JP2 != CoreDll.FALSE;
-            PSD = searchOptions.PSD != CoreDll.FALSE;
-            DDS = searchOptions.DDS != CoreDll.FALSE;
-            TGA = searchOptions.TGA != CoreDll.FALSE;
-            WEBP = searchOptions.WEBP != CoreDll.FALSE;
+            system = searchOptions.system != Constants.FALSE;
+            hidden = searchOptions.hidden != Constants.FALSE;
+            JPEG = searchOptions.JPEG != Constants.FALSE;
+            BMP = searchOptions.BMP != Constants.FALSE;
+            GIF = searchOptions.GIF != Constants.FALSE;
+            PNG = searchOptions.PNG != Constants.FALSE;
+            TIFF = searchOptions.TIFF != Constants.FALSE;
+            EMF = searchOptions.EMF != Constants.FALSE;
+            WMF = searchOptions.WMF != Constants.FALSE;
+            EXIF = searchOptions.EXIF != Constants.FALSE;
+            ICON = searchOptions.ICON != Constants.FALSE;
+            JP2 = searchOptions.JP2 != Constants.FALSE;
+            PSD = searchOptions.PSD != Constants.FALSE;
+            DDS = searchOptions.DDS != Constants.FALSE;
+            TGA = searchOptions.TGA != Constants.FALSE;
+            WEBP = searchOptions.WEBP != Constants.FALSE;
         }
 
-        public void ConvertTo(ref CoreDll.adSearchOptions searchOptions)
+        public void ConvertTo(ref AdSearchOptions searchOptions)
         {
-            searchOptions.system = system ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.hidden = hidden ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.JPEG = JPEG ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.BMP = BMP ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.GIF = GIF ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.PNG = PNG ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.TIFF = TIFF ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.EMF = EMF ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.WMF = WMF ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.EXIF = EXIF ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.ICON = ICON ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.JP2 = JP2 ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.PSD = PSD ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.DDS = DDS ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.TGA = TGA ? CoreDll.TRUE : CoreDll.FALSE;
-            searchOptions.WEBP = WEBP ? CoreDll.TRUE : CoreDll.FALSE;
+            searchOptions.system = system ? Constants.TRUE : Constants.FALSE;
+            searchOptions.hidden = hidden ? Constants.TRUE : Constants.FALSE;
+            searchOptions.JPEG = JPEG ? Constants.TRUE : Constants.FALSE;
+            searchOptions.BMP = BMP ? Constants.TRUE : Constants.FALSE;
+            searchOptions.GIF = GIF ? Constants.TRUE : Constants.FALSE;
+            searchOptions.PNG = PNG ? Constants.TRUE : Constants.FALSE;
+            searchOptions.TIFF = TIFF ? Constants.TRUE : Constants.FALSE;
+            searchOptions.EMF = EMF ? Constants.TRUE : Constants.FALSE;
+            searchOptions.WMF = WMF ? Constants.TRUE : Constants.FALSE;
+            searchOptions.EXIF = EXIF ? Constants.TRUE : Constants.FALSE;
+            searchOptions.ICON = ICON ? Constants.TRUE : Constants.FALSE;
+            searchOptions.JP2 = JP2 ? Constants.TRUE : Constants.FALSE;
+            searchOptions.PSD = PSD ? Constants.TRUE : Constants.FALSE;
+            searchOptions.DDS = DDS ? Constants.TRUE : Constants.FALSE;
+            searchOptions.TGA = TGA ? Constants.TRUE : Constants.FALSE;
+            searchOptions.WEBP = WEBP ? Constants.TRUE : Constants.FALSE;
         }
 
         public CoreSearchOptions Clone()
