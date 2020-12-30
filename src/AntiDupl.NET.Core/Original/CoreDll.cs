@@ -32,13 +32,6 @@ namespace AntiDupl.NET.Core.Original
     {
         private const string DllPath = "AntiDupl.dll";
 
-        //TODO
-        //public CoreDll() : base("runtimes/win-x64/native/AntiDupl.dll") { }
-        public CoreDll() //: base("AntiDupl.dll")
-        {
-            //
-        }
-
         #region API functions
 
         [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]

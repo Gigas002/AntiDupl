@@ -29,7 +29,6 @@ using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
-using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
