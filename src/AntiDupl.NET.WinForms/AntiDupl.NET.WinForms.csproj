@@ -3,26 +3,50 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.3.10.54</AssemblyVersion>
-    <FileVersion>2.3.10.54</FileVersion>
+    <VersionPrefix>2.4.0</VersionPrefix>
+    <VersionSuffix>preview</VersionSuffix>
+    <AssemblyVersion>2.4.0.2</AssemblyVersion>
+    <FileVersion>2.4.0.2</FileVersion>
     <Platforms>x64</Platforms>
+    <Configurations>Debug;Release</Configurations>
+    <PackageIcon>Icon.ico</PackageIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <Authors>ErmIg;Gigas002</Authors>
     <Company>ErmIg</Company>
+    <Description>WinForms application to find and remove duplicated images</Description>
     <Copyright>ErmIg © 2002-2018</Copyright>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PackageProjectUrl>https://github.com/Gigas002/AntiDupl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gigas002/AntiDupl</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/Gigas002/AntiDupl/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <LangVersion>latest</LangVersion>
+    <PackageTags>antidupl simd</PackageTags>
+    <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AntiDupl.NET.WinForms.Program</StartupObject>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
+  <PropertyGroup>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Icon.ico" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
+    <!--<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>-->
+    <!-- <PublishTrimmed>true</PublishTrimmed> -->
+    <!--<PublishReadyToRun>true</PublishReadyToRun>-->
+  </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Icon.ico" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <Resource Include="Icon.ico" Pack="true" Visible="true" PackagePath="$(PackageIcon)" />
+    <None Remove="Resources\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

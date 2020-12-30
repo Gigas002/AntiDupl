@@ -2,18 +2,28 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <VersionPrefix>2.4.0</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
-    <AssemblyVersion>2.4.0.7</AssemblyVersion>
-    <FileVersion>2.4.0.7</FileVersion>
+    <VersionSuffix>preview</VersionSuffix>
+    <AssemblyVersion>2.4.0.11</AssemblyVersion>
+    <FileVersion>2.4.0.11</FileVersion>
     <Platforms>x64</Platforms>
     <Configurations>Debug;Release</Configurations>
-    <Authors>Gigas002</Authors>
-    <Description>Todo</Description>
+    <Authors>ErmIg;Gigas002</Authors>
+    <Description>
+      AntiDupl pre-built native libraries. Built on Win10 x64 using vcpkg with:
+      libjpeg-turbo ver. 2.0.5#1;
+      libwebp ver. 1.1.0#1;
+      openjpeg ver. 2.3.1#2;
+      simd ver. 4.6.96;
+    </Description>
     <Copyright>ErmIg © 2002-2018</Copyright>
+    <PackageProjectUrl>https://github.com/Gigas002/AntiDupl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gigas002/AntiDupl</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/Gigas002/AntiDupl/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryType>git</RepositoryType>
-    <LangVersion>latest</LangVersion>
+    <PackageTags>antidupl simd</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -35,6 +45,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Pack>True</Pack>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)" />
   </ItemGroup>
 
 </Project>

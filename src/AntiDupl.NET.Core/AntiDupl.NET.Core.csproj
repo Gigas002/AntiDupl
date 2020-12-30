@@ -1,10 +1,47 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <AssemblyVersion>2.3.10.15</AssemblyVersion>
-    <FileVersion>2.3.10.15</FileVersion>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <VersionPrefix>2.4.0</VersionPrefix>
+    <VersionSuffix>preview</VersionSuffix>
+    <AssemblyVersion>2.4.0.5</AssemblyVersion>
+    <FileVersion>2.4.0.5</FileVersion>
     <Platforms>x64</Platforms>
+    <Configurations>Debug;Release</Configurations>
+    <Authors>ErmIg;Gigas002</Authors>
+    <Description>Bindings to native AntuDpl packages</Description>
+    <Copyright>ErmIg © 2002-2018</Copyright>
+    <PackageProjectUrl>https://github.com/Gigas002/AntiDupl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gigas002/AntiDupl</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/Gigas002/AntiDupl/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <LangVersion>latest</LangVersion>
+    <PackageTags>antidupl simd</PackageTags>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>AntiDupl.NET.Core.xml</DocumentationFile>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)" />
+  </ItemGroup>
 
 </Project>

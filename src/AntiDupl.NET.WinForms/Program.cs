@@ -61,6 +61,9 @@ namespace AntiDupl.NET.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // TODO: Reqires enabling high-DPI on app too, until we change actual sizes
+            //Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+
             using MainForm form = new();
             Application.Run(form);
         }
