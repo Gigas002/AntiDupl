@@ -171,7 +171,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void OnOptionsChanged()
         {
-            m_mistakeItem.Enabled = m_coreOptions.advancedOptions.mistakeDataBase;
+            m_mistakeItem.Enabled = m_coreOptions.advancedOptions.MistakeDataBase;
         }
 
         public void SetViewMode(ViewMode viewMode)

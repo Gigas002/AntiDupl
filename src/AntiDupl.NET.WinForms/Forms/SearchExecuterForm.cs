@@ -429,7 +429,7 @@ namespace AntiDupl.NET.WinForms.Forms
             writer.WriteLine(string.Format("Found {0} defects and {1} duples.", statistic.defectImageNumber, statistic.duplImagePairNumber));
             writer.WriteLine(string.Format("Used {0} load and {1} compare threads.", statistic.collectThreadCount, statistic.compareThreadCount));
             writer.WriteLine(string.Format("Use image database: {0}.", m_options.useImageDataBase));
-            writer.WriteLine(string.Format("Use libjpeg-turbo: {0}.", m_coreOptions.advancedOptions.useLibJpegTurbo));
+            writer.WriteLine(string.Format("Use libjpeg-turbo: {0}.", m_coreOptions.advancedOptions.UseLibJpegTurbo));
 
             writer.Close();
         }

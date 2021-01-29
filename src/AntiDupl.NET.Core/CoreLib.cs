@@ -624,21 +624,22 @@ namespace AntiDupl.NET.Core
             }
         }
 
-        public CoreAdvancedOptions advancedOptions
-        {
-            get
-            {
-                AdAdvancedOptions[] options = new AdAdvancedOptions[1];
-                m_dll.AdOptionsGet(m_handle, OptionsType.Advanced, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-                return new CoreAdvancedOptions(ref options[0]);
-            }
-            set
-            {
-                AdAdvancedOptions[] options = new AdAdvancedOptions[1]; //создаем массив из одного значения
-                value.ConvertTo(ref options[0]); //конвертируем переданный класс
-                m_dll.AdOptionsSet(m_handle, OptionsType.Advanced, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-            }
-        }
+        public AdAdvancedOptions advancedOptions { get; set; }
+        //{
+        //    get
+        //    {
+        //        AdAdvancedOptions[] options = new AdAdvancedOptions[1];
+        //        m_dll.AdOptionsGet(m_handle, OptionsType.Advanced, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //        return options[0];
+        //    }
+        //    set
+        //    {
+        //        AdAdvancedOptions[] options = new AdAdvancedOptions[1]; //создаем массив из одного значения
+        //        //value.ConvertTo(ref options[0]); //конвертируем переданный класс
+        //        options[0] = value;
+        //        m_dll.AdOptionsSet(m_handle, OptionsType.Advanced, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //    }
+        //}
 
         public CorePathWithSubFolder[] searchPath
         {

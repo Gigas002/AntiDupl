@@ -25,6 +25,7 @@
 using System.IO;
 using System.Xml.Serialization;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 //using System.Windows.Forms;
 
@@ -35,7 +36,7 @@ namespace AntiDupl.NET.WinForms
         public CoreSearchOptions searchOptions;
         public CoreCompareOptions compareOptions;
         public CoreDefectOptions defectOptions;
-        public CoreAdvancedOptions advancedOptions;
+        public AdAdvancedOptions advancedOptions;
 
         public CorePathWithSubFolder[] searchPath;
         public CorePathWithSubFolder[] ignorePath;
@@ -47,7 +48,7 @@ namespace AntiDupl.NET.WinForms
             searchOptions = new CoreSearchOptions();
             compareOptions = new CoreCompareOptions();
             defectOptions = new CoreDefectOptions();
-            advancedOptions = new CoreAdvancedOptions();
+            advancedOptions = new AdAdvancedOptions();
 
             searchPath = new CorePathWithSubFolder[1];
             ignorePath = new CorePathWithSubFolder[0];
@@ -58,7 +59,7 @@ namespace AntiDupl.NET.WinForms
         public CoreOptions(CoreLib core, bool onePath)
             : this()
         {
-            SetDefault(core, onePath);
+            //SetDefault(core, onePath);
         }
 
         public CoreOptions(CoreLib core)
@@ -71,7 +72,7 @@ namespace AntiDupl.NET.WinForms
             searchOptions = options.searchOptions.Clone();
             compareOptions = options.compareOptions.Clone();
             defectOptions = options.defectOptions.Clone();
-            advancedOptions = options.advancedOptions.Clone();
+            advancedOptions = options.advancedOptions;
 
             searchPath = PathClone(options.searchPath);
             ignorePath = PathClone(options.ignorePath);
@@ -97,7 +98,7 @@ namespace AntiDupl.NET.WinForms
             searchOptions = core.searchOptions.Clone();
             compareOptions = core.compareOptions.Clone();
             defectOptions = core.defectOptions.Clone();
-            advancedOptions = core.advancedOptions.Clone();
+            advancedOptions = core.advancedOptions;
             if (onePath)
             {
                 searchPath[0] = core.searchPath[0];
@@ -121,7 +122,7 @@ namespace AntiDupl.NET.WinForms
             core.searchOptions = searchOptions.Clone();
             core.compareOptions = compareOptions.Clone();
             core.defectOptions = defectOptions.Clone();
-            core.advancedOptions = advancedOptions.Clone();
+            core.advancedOptions = advancedOptions;
             if (onePath)
             {
                 CorePathWithSubFolder[] tmpSearch = new CorePathWithSubFolder[1];
@@ -161,7 +162,7 @@ namespace AntiDupl.NET.WinForms
             options.searchOptions = searchOptions.Clone();
             options.compareOptions = compareOptions.Clone();
             options.defectOptions = defectOptions.Clone();
-            options.advancedOptions = advancedOptions.Clone();
+            options.advancedOptions = advancedOptions;
 
             PathCopy(searchPath, ref options.searchPath);
             PathCopy(ignorePath, ref options.ignorePath);
@@ -274,7 +275,7 @@ namespace AntiDupl.NET.WinForms
         public string GetImageDataBasePath()
         {
             string directory =
-                $"{Resources.UserPath}\\images\\{advancedOptions.reducedImageSize}x{advancedOptions.reducedImageSize}";
+                $"{Resources.UserPath}\\images\\{advancedOptions.ReducedImageSize}x{advancedOptions.ReducedImageSize}";
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
             if (!directoryInfo.Exists)
                 directoryInfo.Create();

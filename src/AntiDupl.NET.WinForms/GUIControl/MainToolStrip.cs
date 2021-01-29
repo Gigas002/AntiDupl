@@ -207,7 +207,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// </summary>
         private void OnOptionsChanged()
         {
-            m_mistakeButton.Enabled = m_coreOptions.advancedOptions.mistakeDataBase &&
+            m_mistakeButton.Enabled = m_coreOptions.advancedOptions.MistakeDataBase &&
                  m_core.CanApply(ActionEnableType.Any);
 
             m_algorithmComparingComboBox.SelectedIndex = (int)m_coreOptions.compareOptions.algorithmComparing;
