@@ -5,12 +5,46 @@ using AntiDupl.NET.Core.Enums;
 namespace AntiDupl.NET.Core.Original
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct AdBitmap
+    public class AdBitmap
     {
-        public uint width;
-        public uint height;
-        public int stride;
-        public PixelFormatType format;
-        public IntPtr data;
+        private uint width;
+
+        public uint Width
+        {
+            get => width;
+            set => width = value;
+        }
+
+        private uint height;
+
+        public uint Height
+        {
+            get => height;
+            set => height = value;
+        }
+
+        private int stride;
+
+        public int Stride
+        {
+            get => stride;
+            set => stride = value;
+        }
+
+        private PixelFormatType format;
+
+        public PixelFormatType Format
+        {
+            get => format;
+            set => format = value;
+        }
+
+        private IntPtr data;
+
+        public IntPtr Data
+        {
+            get => data;
+            set => data = value;
+        }
     }
 }

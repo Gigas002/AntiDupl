@@ -37,11 +37,11 @@ namespace AntiDupl.NET.WinForms
                 System.Drawing.Imaging.PixelFormat.Format32bppArgb,
                 bitmapData);
             AdBitmap[] pBitmap = new AdBitmap[1];
-            pBitmap[0].width = (uint)bitmapData.Width;
-            pBitmap[0].height = (uint)bitmapData.Height;
-            pBitmap[0].stride = bitmapData.Stride;
-            pBitmap[0].format = PixelFormatType.Argb32;
-            pBitmap[0].data = bitmapData.Scan0;
+            pBitmap[0].Width = (uint)bitmapData.Width;
+            pBitmap[0].Height = (uint)bitmapData.Height;
+            pBitmap[0].Stride = bitmapData.Stride;
+            pBitmap[0].Format = PixelFormatType.Argb32;
+            pBitmap[0].Data = bitmapData.Scan0;
             Error error = coreLib.LoadBitmap(path, pBitmap);
             bitmap.UnlockBits(bitmapData);
             return error == Error.Ok ? bitmap : null;
