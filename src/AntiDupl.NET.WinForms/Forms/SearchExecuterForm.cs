@@ -31,6 +31,7 @@ using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -417,17 +418,17 @@ namespace AntiDupl.NET.WinForms.Forms
             }
         }
 
-        private void LogPerformance(TimeSpan time, CoreStatistic statistic)
+        private void LogPerformance(TimeSpan time, AdStatistic statistic)
         {
             StreamWriter writer = File.AppendText(Resources.Logs.Performance);
 
             writer.WriteLine("---------------------------------------------------------------");
             writer.WriteLine(string.Format("Search start time: {0}", m_startDateTime.ToString()));
             writer.WriteLine(string.Format("Elapsed time: {0}", time.ToString()));
-            writer.WriteLine(string.Format("Found {0} of {1} images in {2} folders.", MemoryString(statistic.searchedImageSize), statistic.searchedImageNumber, statistic.scanedFolderNumber));
-            writer.WriteLine(string.Format("Processed {0} images.", statistic.comparedImageNumber));
-            writer.WriteLine(string.Format("Found {0} defects and {1} duples.", statistic.defectImageNumber, statistic.duplImagePairNumber));
-            writer.WriteLine(string.Format("Used {0} load and {1} compare threads.", statistic.collectThreadCount, statistic.compareThreadCount));
+            writer.WriteLine(string.Format("Found {0} of {1} images in {2} folders.", MemoryString(statistic.SearchedImageSize), statistic.SearchedImageNumber, statistic.ScanedFolderNumber));
+            writer.WriteLine(string.Format("Processed {0} images.", statistic.ComparedImageNumber));
+            writer.WriteLine(string.Format("Found {0} defects and {1} duples.", statistic.DefectImageNumber, statistic.DuplImagePairNumber));
+            writer.WriteLine(string.Format("Used {0} load and {1} compare threads.", statistic.CollectThreadCount, statistic.CompareThreadCount));
             writer.WriteLine(string.Format("Use image database: {0}.", m_options.useImageDataBase));
             writer.WriteLine(string.Format("Use libjpeg-turbo: {0}.", m_coreOptions.advancedOptions.UseLibJpegTurbo));
 

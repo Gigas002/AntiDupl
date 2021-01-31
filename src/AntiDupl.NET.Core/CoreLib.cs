@@ -160,7 +160,7 @@ namespace AntiDupl.NET.Core
             return m_dll.AdOptionsSet(m_handle, OptionsType.SetDefault, IntPtr.Zero) == Error.Ok;
         }
 
-        public CoreStatistic GetStatistic()
+        public AdStatistic GetStatistic()
         {
             try
             {
@@ -173,7 +173,7 @@ namespace AntiDupl.NET.Core
                     if (m_dll.AdStatisticGet(m_handle, statisticP) == Error.Ok)
                     {
                         AdStatistic statistic = (AdStatistic)Marshal.PtrToStructure(statisticP, statisticO.GetType());
-                        return new CoreStatistic(ref statistic);
+                        return statistic;
                     }
                 }
                 finally
