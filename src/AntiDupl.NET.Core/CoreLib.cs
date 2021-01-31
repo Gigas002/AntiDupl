@@ -86,35 +86,35 @@ namespace AntiDupl.NET.Core
             GC.SuppressFinalize(this);
         }
 
-        public CoreVersion GetVersion(VersionType versionType)
-        {
-            try
-            {
-                sbyte[] versionB = new sbyte[VERSION_SIZE];
-                IntPtr[] sizeB = new IntPtr[1];
-                sizeB[0] = new IntPtr(VERSION_SIZE);
-                GCHandle versionH = GCHandle.Alloc(versionB, GCHandleType.Pinned);
-                GCHandle sizeH = GCHandle.Alloc(sizeB, GCHandleType.Pinned);
-                try
-                {
-                    IntPtr versionP = versionH.AddrOfPinnedObject();
-                    IntPtr sizeP = sizeH.AddrOfPinnedObject();
-                    if (m_dll.AdVersionGet(versionType, versionP, sizeP) == Error.Ok)
-                    {
-                        return new CoreVersion(versionB);
-                    }
-                }
-                finally
-                {
-                    versionH.Free();
-                    sizeH.Free();
-                }
-            }
-            catch (Exception)
-            {
-            }
-            return null;
-        }
+        //public CoreVersion GetVersion(VersionType versionType)
+        //{
+        //    try
+        //    {
+        //        sbyte[] versionB = new sbyte[VERSION_SIZE];
+        //        IntPtr[] sizeB = new IntPtr[1];
+        //        sizeB[0] = new IntPtr(VERSION_SIZE);
+        //        GCHandle versionH = GCHandle.Alloc(versionB, GCHandleType.Pinned);
+        //        GCHandle sizeH = GCHandle.Alloc(sizeB, GCHandleType.Pinned);
+        //        try
+        //        {
+        //            IntPtr versionP = versionH.AddrOfPinnedObject();
+        //            IntPtr sizeP = sizeH.AddrOfPinnedObject();
+        //            if (m_dll.AdVersionGet(versionType, versionP, sizeP) == Error.Ok)
+        //            {
+        //                return new CoreVersion(versionB);
+        //            }
+        //        }
+        //        finally
+        //        {
+        //            versionH.Free();
+        //            sizeH.Free();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //    }
+        //    return null;
+        //}
 
         public bool IsInited()
         {

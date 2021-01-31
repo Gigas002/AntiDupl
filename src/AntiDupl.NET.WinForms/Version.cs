@@ -100,14 +100,5 @@ namespace AntiDupl.NET.WinForms
             else
                 return v1.major - v2.major;
         }
-
-        static public bool Compatible(CoreVersion coreVersion)
-        {
-            Version version = new Version();
-            return
-                version.major == coreVersion.major &&
-                version.minor == coreVersion.minor &&
-                version.release == coreVersion.release;
-        }
     }
 }
