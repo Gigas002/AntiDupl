@@ -430,40 +430,40 @@ namespace AntiDupl.NET.Core
         /// <param name="startFrom"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public CoreImageInfo[] GetImageInfo(int groupId, uint startFrom, uint size)
+        public AdImageInfoW[] GetImageInfo(int groupId, uint startFrom, uint size)
         {
             uint imageInfoSize = GetImageInfoSize(groupId);
-            if (imageInfoSize > startFrom)
-            {
-                object imageInfoObject = new AdImageInfoW();
-                int sizeOfImageInfo = Marshal.SizeOf(imageInfoObject);
-                byte[] buffer = new byte[sizeOfImageInfo * PAGE_SIZE];
-                size = Math.Min(imageInfoSize - startFrom, size);
-                CoreImageInfo[] imageInfos = new CoreImageInfo[size];
-                uint pageCount = (uint)(size / PAGE_SIZE + (size % PAGE_SIZE > 0 ? 1 : 0));
-                for (uint page = 0; page < pageCount; ++page)
-                {
-                    UIntPtr[] pStartFrom = new UIntPtr[1];
-                    pStartFrom[0] = new UIntPtr(startFrom + page * PAGE_SIZE);
+            //if (imageInfoSize > startFrom)
+            //{
+            //    object imageInfoObject = new AdImageInfoW();
+            //    int sizeOfImageInfo = Marshal.SizeOf(imageInfoObject);
+            //    byte[] buffer = new byte[sizeOfImageInfo * PAGE_SIZE];
+            //    size = Math.Min(imageInfoSize - startFrom, size);
+            //    CoreImageInfo[] imageInfos = new CoreImageInfo[size];
+            //    uint pageCount = (uint)(size / PAGE_SIZE + (size % PAGE_SIZE > 0 ? 1 : 0));
+            //    for (uint page = 0; page < pageCount; ++page)
+            //    {
+            //        UIntPtr[] pStartFrom = new UIntPtr[1];
+            //        pStartFrom[0] = new UIntPtr(startFrom + page * PAGE_SIZE);
 
-                    UIntPtr[] pSize = new UIntPtr[1];
-                    pSize[0] = new UIntPtr(PAGE_SIZE);
+            //        UIntPtr[] pSize = new UIntPtr[1];
+            //        pSize[0] = new UIntPtr(PAGE_SIZE);
 
-                    if (m_dll.AdImageInfoGetW(m_handle, new IntPtr(groupId), Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0),
-                        Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
-                        Marshal.UnsafeAddrOfPinnedArrayElement(pSize, 0)) == Error.Ok)
-                    {
-                        for (uint i = 0; i < pSize[0].ToUInt32(); ++i)
-                        {
-                            IntPtr pImageInfo = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i * sizeOfImageInfo));
-                            AdImageInfoW imageInfo = (AdImageInfoW)Marshal.PtrToStructure(pImageInfo, imageInfoObject.GetType());
-                            imageInfos[page * PAGE_SIZE + i] = new CoreImageInfo(ref imageInfo);
-                        }
+            //        if (m_dll.AdImageInfoGetW(m_handle, new IntPtr(groupId), Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0),
+            //            Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
+            //            Marshal.UnsafeAddrOfPinnedArrayElement(pSize, 0)) == Error.Ok)
+            //        {
+            //            for (uint i = 0; i < pSize[0].ToUInt32(); ++i)
+            //            {
+            //                IntPtr pImageInfo = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i * sizeOfImageInfo));
+            //                AdImageInfoW imageInfo = (AdImageInfoW)Marshal.PtrToStructure(pImageInfo, imageInfoObject.GetType());
+            //                imageInfos[page * PAGE_SIZE + i] = new CoreImageInfo(ref imageInfo);
+            //            }
 
-                    }
-                }
-                return imageInfos;
-            }
+            //        }
+            //    }
+            //    return imageInfos;
+            //}
             return null;
         }
 

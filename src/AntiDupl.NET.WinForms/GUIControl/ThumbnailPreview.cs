@@ -42,7 +42,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         public AdGroup Group { get { return m_group; } }
         private int m_index = 0;
         public int Index { get { return m_index; } }
-        public CoreImageInfo ImageInfo { get { return m_group.Images[m_index]; } }
+        public AdImageInfoW ImageInfo { get { return m_group.Images[m_index]; } }
 
         private PictureBoxPanel m_pictureBoxPanel;
         

@@ -83,7 +83,7 @@ namespace AntiDupl.NET.WinForms
         {
             if (options[(int)TypeVertical.FileName].Visible ||
                 options[(int)TypeVertical.FileDirectory].Visible)
-                Append(result.first.path);
+                Append(result.first.Path);
             if (options[(int)TypeVertical.ImageSize].Visible)
                 Append(result.first.GetImageSizeString());
             if (options[(int)TypeVertical.ImageType].Visible)
@@ -95,7 +95,7 @@ namespace AntiDupl.NET.WinForms
 
             if (options[(int)TypeVertical.FileName].Visible ||
                 options[(int)TypeVertical.FileDirectory].Visible)
-                Append(result.second.path);
+                Append(result.second.Path);
             if (options[(int)TypeVertical.ImageSize].Visible)
                 Append(result.second.GetImageSizeString());
             if (options[(int)TypeVertical.ImageType].Visible)
@@ -110,7 +110,7 @@ namespace AntiDupl.NET.WinForms
         {
             if (options[(int)TypeHorizontal.FirstFileName].Visible ||
                 options[(int)TypeHorizontal.FirstFileDirectory].Visible)
-                Append(result.first.path);
+                Append(result.first.Path);
             if (options[(int)TypeHorizontal.FirstImageSize].Visible)
                 Append(result.first.GetImageSizeString());
             if (options[(int)TypeHorizontal.FirstImageType].Visible)
@@ -122,7 +122,7 @@ namespace AntiDupl.NET.WinForms
 
             if (options[(int)TypeHorizontal.SecondFileName].Visible ||
                 options[(int)TypeHorizontal.SecondFileDirectory].Visible)
-                Append(result.second.path);
+                Append(result.second.Path);
             if (options[(int)TypeHorizontal.SecondImageSize].Visible)
                 Append(result.second.GetImageSizeString());
             if (options[(int)TypeHorizontal.SecondImageType].Visible)

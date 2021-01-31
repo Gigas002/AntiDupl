@@ -68,9 +68,9 @@ namespace AntiDupl.NET.WinForms
         //    return LoadBitmap((int)imageInfo.width, (int)imageInfo.height, imageInfo.path);
         //}
 
-        public static Bitmap LoadBitmap(CoreLib coreLib, CoreImageInfo imageInfo)
+        public static Bitmap LoadBitmap(CoreLib coreLib, AdImageInfoW imageInfo)
         {
-            return LoadBitmap(coreLib, (int)imageInfo.width, (int)imageInfo.height, imageInfo.path);
+            return LoadBitmap(coreLib, imageInfo.Width, imageInfo.Height, imageInfo.Path);
         }
     }
 }

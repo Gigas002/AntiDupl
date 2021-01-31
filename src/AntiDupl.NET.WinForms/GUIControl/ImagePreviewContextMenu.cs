@@ -139,7 +139,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void OpenImage(object sender, EventArgs e)
         {
-            ImageOpener.OpenFile(m_imagePreviewPanel.CurrentImageInfo.path);
+            ImageOpener.OpenFile(m_imagePreviewPanel.CurrentImageInfo.Path);
         }
 
         private void OpenFolder(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (m_imagePreviewPanel.CurrentImageInfo != null)
             {
                 Array.Resize(ref m_coreOptions.ignorePath, m_coreOptions.ignorePath.Length + 1);
-                m_coreOptions.ignorePath[m_coreOptions.ignorePath.Length - 1] = new CorePathWithSubFolder(m_imagePreviewPanel.CurrentImageInfo.path, false);
+                m_coreOptions.ignorePath[m_coreOptions.ignorePath.Length - 1] = new CorePathWithSubFolder(m_imagePreviewPanel.CurrentImageInfo.Path, false);
                 m_coreOptions.Validate(m_core, m_options.onePath);
                 m_resultsListView.RefreshResults();
             }
@@ -171,12 +171,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void CopyPath(object sender, EventArgs e)
         {
-            Clipboard.SetText(m_imagePreviewPanel.CurrentImageInfo.path);
+            Clipboard.SetText(m_imagePreviewPanel.CurrentImageInfo.Path);
         }
 
         private void CopyFileName(object sender, EventArgs e)
         {
-            Clipboard.SetText(Path.GetFileNameWithoutExtension(m_imagePreviewPanel.CurrentImageInfo.path));
+            Clipboard.SetText(Path.GetFileNameWithoutExtension(m_imagePreviewPanel.CurrentImageInfo.Path));
         }
 
         /// <summary>

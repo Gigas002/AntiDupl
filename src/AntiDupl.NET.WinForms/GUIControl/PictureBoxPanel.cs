@@ -29,6 +29,7 @@ using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -38,7 +39,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private CoreLib m_core;
         private Options m_options;
-        private CoreImageInfo m_currentImageInfo;
+        private AdImageInfoW m_currentImageInfo;
         private Size m_neighbourSizeMax;
 
         private Rectangle m_bitmapRect;
@@ -107,7 +108,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             SizeChanged += new EventHandler(OnSizeChanged);
         }
 
-        public void UpdateImage(CoreImageInfo currentImageInfo)
+        public void UpdateImage(AdImageInfoW currentImageInfo)
         {
             if (m_originalBitmap != null)
             {
@@ -118,13 +119,13 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (currentImageInfo != null)
             {
                 StopAnimate();
-                if (m_currentImageInfo.type != ImageType.None)
+                if (m_currentImageInfo.Type != ImageType.None)
                 {
-                    if (m_currentImageInfo.path.Length < MAX_PATH && m_currentImageInfo.type <= ImageType.Icon)
+                    if (m_currentImageInfo.Path.Length < MAX_PATH && m_currentImageInfo.Type <= ImageType.Icon)
                     {
                         try
                         {
-                            if (LoadFileToMemoryStream(ref m_memoryStream, m_currentImageInfo.path))
+                            if (LoadFileToMemoryStream(ref m_memoryStream, m_currentImageInfo.Path))
                             {
                                 m_bitmap = new Bitmap(m_memoryStream);
                                 m_animationEnable = ImageAnimator.CanAnimate(m_bitmap);
@@ -236,7 +237,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void OnImageDoubleClicked(object sender, EventArgs e)
         {
-            ImageOpener.OpenFile(m_currentImageInfo.path);
+            ImageOpener.OpenFile(m_currentImageInfo.Path);
         }
 
         private void OnSizeChanged(object sender, EventArgs e)
@@ -263,8 +264,8 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 int horizontalPosition = 0, verticalPosition = 0;
                 int clientWidth = ClientSize.Width;
                 int clientHeight = ClientSize.Height;
-                int currentWidth = (int)m_currentImageInfo.width;
-                int currentHeight = (int)m_currentImageInfo.height;
+                int currentWidth = (int)m_currentImageInfo.Width;
+                int currentHeight = (int)m_currentImageInfo.Height;
                 int targetWidth = 100;
                 int targetHeight = 100;
                 if (currentWidth > 0 && currentHeight > 0)
@@ -474,7 +475,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 if (forceLoad)
                 {
                     CleanNeighbours();
-                    GetNeighboursFileNames(m_currentImageInfo.path, ref m_prevFile, ref m_nextFile);
+                    GetNeighboursFileNames(m_currentImageInfo.Path, ref m_prevFile, ref m_nextFile);
                 }
                 if (m_prevFile != null)
                     m_prevBitmap = GetBitmap(m_prevFile);

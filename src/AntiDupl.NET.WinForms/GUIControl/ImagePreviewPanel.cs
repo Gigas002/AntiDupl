@@ -66,10 +66,10 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// </summary>
         public int Group { get { return m_group; } }
 
-        private CoreImageInfo m_currentImageInfo;
-        public CoreImageInfo CurrentImageInfo { get { return m_currentImageInfo; } }
-        private CoreImageInfo m_neighbourImageInfo;
-        public CoreImageInfo NeighbourImageInfo { get { return m_neighbourImageInfo; } }
+        private AdImageInfoW m_currentImageInfo;
+        public AdImageInfoW CurrentImageInfo { get { return m_currentImageInfo; } }
+        private AdImageInfoW m_neighbourImageInfo;
+        public AdImageInfoW NeighbourImageInfo { get { return m_neighbourImageInfo; } }
 
         private PictureBoxPanel m_pictureBoxPanel;
         private Label m_fileSizeLabel;
@@ -185,7 +185,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// Set information in image panel.
         /// Установка информации в панели изображения.
         /// </summary>
-        private void SetImageInfo(CoreImageInfo currentImageInfo, CoreImageInfo neighbourImageInfo)
+        private void SetImageInfo(AdImageInfoW currentImageInfo, AdImageInfoW neighbourImageInfo)
         {
             /*bool updateCurrent = UpdateImageInfo(ref m_currentImageInfo, currentImageInfo);
             bool updateNeighbour = UpdateImageInfo(ref m_neighbourImageInfo, neighbourImageInfo);*/
@@ -208,52 +208,52 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 m_imageSizeLabel.Text = m_currentImageInfo.GetImageSizeString();
                 m_imageBlocknessLabel.Text = m_currentImageInfo.GetBlockinessString();
                 m_imageBlurringLabel.Text = m_currentImageInfo.GetBlurringString();
-                m_imageTypeLabel.Text = m_currentImageInfo.type == ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
-                if (currentImageInfo.exifInfo.IsEmpty == Constants.FALSE)
+                m_imageTypeLabel.Text = m_currentImageInfo.Type == ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
+                if (currentImageInfo.ExifInfo.IsEmpty == Constants.FALSE)
                 {
                     m_imageExifLabel.Visible = true;
                     SetExifTooltip(currentImageInfo);
                 }
                 else
                     m_imageExifLabel.Visible = false;
-                m_pathLabel.Text = m_currentImageInfo.path;
+                m_pathLabel.Text = m_currentImageInfo.Path;
                 if (m_neighbourImageInfo != null) //подсветка highlight
                 {
                     m_imageSizeLabel.ForeColor =
-                            m_currentImageInfo.height * m_currentImageInfo.width < m_neighbourImageInfo.height * m_neighbourImageInfo.width ?
+                            m_currentImageInfo.Height * m_currentImageInfo.Width < m_neighbourImageInfo.Height * m_neighbourImageInfo.Width ?
                             Color.Red : DefaultForeColor;
-                    m_imageTypeLabel.ForeColor = m_currentImageInfo.type != m_neighbourImageInfo.type ?
+                    m_imageTypeLabel.ForeColor = m_currentImageInfo.Type != m_neighbourImageInfo.Type ?
                             Color.Red : DefaultForeColor;
-                    m_fileSizeLabel.ForeColor = m_currentImageInfo.size < m_neighbourImageInfo.size ?
+                    m_fileSizeLabel.ForeColor = m_currentImageInfo.Size < m_neighbourImageInfo.Size ?
                             Color.Red : DefaultForeColor;
-                    m_imageBlocknessLabel.ForeColor = m_currentImageInfo.blockiness > m_neighbourImageInfo.blockiness ?
+                    m_imageBlocknessLabel.ForeColor = m_currentImageInfo.Blockiness > m_neighbourImageInfo.Blockiness ?
                             Color.Red : DefaultForeColor;
-                    m_imageBlurringLabel.ForeColor = m_currentImageInfo.blurring > m_neighbourImageInfo.blurring ?
+                    m_imageBlurringLabel.ForeColor = m_currentImageInfo.Blurring > m_neighbourImageInfo.Blurring ?
                             Color.Red : DefaultForeColor;
-                    m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
+                    m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.ExifInfo, m_neighbourImageInfo.ExifInfo) ?
                         DefaultForeColor : Color.Red;
                 }
             }
             else if (m_neighbourImageInfo != null)
             {
-                m_imageSizeLabel.ForeColor = m_currentImageInfo.height * m_currentImageInfo.width < m_neighbourImageInfo.height * m_neighbourImageInfo.width ?
+                m_imageSizeLabel.ForeColor = m_currentImageInfo.Height * m_currentImageInfo.Width < m_neighbourImageInfo.Height * m_neighbourImageInfo.Width ?
                         Color.Red : DefaultForeColor;
-                m_imageTypeLabel.ForeColor = m_currentImageInfo.type != m_neighbourImageInfo.type ?
+                m_imageTypeLabel.ForeColor = m_currentImageInfo.Type != m_neighbourImageInfo.Type ?
                         Color.Red : DefaultForeColor;
-                m_fileSizeLabel.ForeColor = m_currentImageInfo.size < m_neighbourImageInfo.size ?
+                m_fileSizeLabel.ForeColor = m_currentImageInfo.Size < m_neighbourImageInfo.Size ?
                         Color.Red : DefaultForeColor;
-                m_imageBlocknessLabel.ForeColor = m_currentImageInfo.blockiness > m_neighbourImageInfo.blockiness ?
+                m_imageBlocknessLabel.ForeColor = m_currentImageInfo.Blockiness > m_neighbourImageInfo.Blockiness ?
                         Color.Red : DefaultForeColor;
-                m_imageBlurringLabel.ForeColor = m_currentImageInfo.blurring > m_neighbourImageInfo.blurring ?
+                m_imageBlurringLabel.ForeColor = m_currentImageInfo.Blurring > m_neighbourImageInfo.Blurring ?
                         Color.Red : DefaultForeColor;
-                m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.exifInfo, m_neighbourImageInfo.exifInfo) ?
+                m_imageExifLabel.ForeColor = ExifEqual(m_currentImageInfo.ExifInfo, m_neighbourImageInfo.ExifInfo) ?
                     DefaultForeColor : Color.Red;
             }
             if (updateCurrent || updateNeighbour)
             {
                 Size neighbourSizeMax = new Size(0, 0);
                 if (m_neighbourImageInfo != null)
-                    neighbourSizeMax = new Size((int)m_neighbourImageInfo.width, (int)m_neighbourImageInfo.height);
+                    neighbourSizeMax = new Size((int)m_neighbourImageInfo.Width, (int)m_neighbourImageInfo.Height);
                 m_pictureBoxPanel.UpdateImagePadding(neighbourSizeMax);
                 Refresh();
             }
@@ -262,12 +262,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// <summary>
         /// Проверяет, нужно ли обновление текущей информации об изображении.
         /// </summary>
-        static private bool UpdateImageInfo(ref CoreImageInfo oldImageInfo, CoreImageInfo newImageInfo)
+        static private bool UpdateImageInfo(ref AdImageInfoW oldImageInfo, AdImageInfoW newImageInfo)
         {
             if (oldImageInfo == null ||
-                oldImageInfo.path.CompareTo(newImageInfo.path) != 0 ||
-                oldImageInfo.size != newImageInfo.size ||
-                oldImageInfo.time != newImageInfo.time)
+                oldImageInfo.Path.CompareTo(newImageInfo.Path) != 0 ||
+                oldImageInfo.Size != newImageInfo.Size ||
+                oldImageInfo.Time != newImageInfo.Time)
             {
                 oldImageInfo = newImageInfo;
                 return true;
@@ -398,7 +398,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         public void RenameImage(object sender, EventArgs e)
         {
-            FileInfo fileInfo = new FileInfo(m_currentImageInfo.path);
+            FileInfo fileInfo = new FileInfo(m_currentImageInfo.Path);
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = fileInfo.FullName;
             dialog.OverwritePrompt = false;
@@ -417,7 +417,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private void OnRenameImageDialogFileOk(object sender, CancelEventArgs e)
         {
             SaveFileDialog dialog = (SaveFileDialog)sender;
-            FileInfo oldFileInfo = new FileInfo(m_currentImageInfo.path);
+            FileInfo oldFileInfo = new FileInfo(m_currentImageInfo.Path);
             FileInfo newFileInfo = new FileInfo(dialog.FileName);
             if (newFileInfo.FullName != oldFileInfo.FullName && newFileInfo.Exists)
             {
@@ -432,30 +432,30 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
         }
 
-        private List<string> GetExifList(CoreImageInfo currentImageInfo, Strings s)
+        private List<string> GetExifList(AdImageInfoW currentImageInfo, Strings s)
         {
             List<string> exifList = new List<string>();
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.ImageDescription))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_ImageDescription + currentImageInfo.exifInfo.ImageDescription);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.EquipMake))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipMake + currentImageInfo.exifInfo.EquipMake);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.EquipModel))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipModel + currentImageInfo.exifInfo.EquipModel);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.SoftwareUsed))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_SoftwareUsed + currentImageInfo.exifInfo.SoftwareUsed);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.DateTime))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_DateTime + currentImageInfo.exifInfo.DateTime);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.Artist))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_Artist + currentImageInfo.exifInfo.Artist);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.UserComment))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_UserComment + currentImageInfo.exifInfo.UserComment);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.ImageDescription))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_ImageDescription + currentImageInfo.ExifInfo.ImageDescription);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.EquipMake))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipMake + currentImageInfo.ExifInfo.EquipMake);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.EquipModel))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipModel + currentImageInfo.ExifInfo.EquipModel);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.SoftwareUsed))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_SoftwareUsed + currentImageInfo.ExifInfo.SoftwareUsed);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.DateTime))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_DateTime + currentImageInfo.ExifInfo.DateTime);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.Artist))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_Artist + currentImageInfo.ExifInfo.Artist);
+            if (!String.IsNullOrEmpty(currentImageInfo.ExifInfo.UserComment))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_UserComment + currentImageInfo.ExifInfo.UserComment);
             return exifList;
         }
 
         /// <summary>
         /// Устанавливает значение подсказки tooltip для надписи EXIF.
         /// </summary>
-        private void SetExifTooltip(CoreImageInfo currentImageInfo)
+        private void SetExifTooltip(AdImageInfoW currentImageInfo)
         {
             Strings s = Resources.Strings.Current;
             string exifSting = String.Empty;
@@ -488,12 +488,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 case Position.Left:
                 case Position.Top:
-                    if (result.first.exifInfo.IsEmpty == Constants.FALSE)
+                    if (result.first.ExifInfo.IsEmpty == Constants.FALSE)
                         SetExifTooltip(result.first);
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    if (result.second.exifInfo.IsEmpty == Constants.FALSE)
+                    if (result.second.ExifInfo.IsEmpty == Constants.FALSE)
                         SetExifTooltip(result.second);
                     break;
             }

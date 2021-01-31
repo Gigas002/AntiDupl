@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms
 {
@@ -38,7 +39,7 @@ namespace AntiDupl.NET.WinForms
 
         private readonly CoreLib _mCore;
         private readonly Options _mOptions;
-        private readonly Dictionary<ulong, Bitmap> _mStorage = new Dictionary<ulong, Bitmap>();
+        private readonly Dictionary<long, Bitmap> _mStorage = new();
         private readonly Mutex _mMutex = new Mutex();
 
         #endregion
@@ -67,13 +68,13 @@ namespace AntiDupl.NET.WinForms
         /// </summary>
         /// <param name="imageInfo"></param>
         /// <returns></returns>
-        public bool Exists(CoreImageInfo imageInfo)
+        public bool Exists(AdImageInfoW imageInfo)
         {
             bool result = false;
             _mMutex.WaitOne();
-            if (_mStorage.ContainsKey(imageInfo.id))
+            if (_mStorage.ContainsKey(imageInfo.Id))
             {
-                Bitmap bitmap = _mStorage[imageInfo.id];
+                Bitmap bitmap = _mStorage[imageInfo.Id];
                 if (bitmap != null)
                 {
                     Size size = GetThumbnailSize(imageInfo);
@@ -90,30 +91,30 @@ namespace AntiDupl.NET.WinForms
         /// </summary>
         /// <param name="imageInfo"></param>
         /// <returns></returns>
-        public Bitmap Get(CoreImageInfo imageInfo)
+        public Bitmap Get(AdImageInfoW imageInfo)
         {
             Size size = GetThumbnailSize(imageInfo);
             _mMutex.WaitOne();
-            _mStorage.TryGetValue(imageInfo.id, out Bitmap bitmap);
+            _mStorage.TryGetValue(imageInfo.Id, out Bitmap bitmap);
             if (bitmap == null || bitmap.Height != size.Height || bitmap.Width != size.Width)
             {
                 _mMutex.ReleaseMutex(); // поток может работать дальше
                 //bitmap = _mCore.LoadBitmap(size, imageInfo.path);
-                bitmap = BitmapWorker.LoadBitmap(_mCore, size, imageInfo.path);
+                bitmap = BitmapWorker.LoadBitmap(_mCore, size, imageInfo.Path);
                 _mMutex.WaitOne();
-                _mStorage[imageInfo.id] = bitmap;
+                _mStorage[imageInfo.Id] = bitmap;
             }
 
             _mMutex.ReleaseMutex();
             return bitmap;
         }
 
-        private Size GetThumbnailSize(CoreImageInfo imageInfo)
+        private Size GetThumbnailSize(AdImageInfoW imageInfo)
         {
             Size sizeMax = _mOptions.resultsOptions.ThumbnailSizeMax;
-            return sizeMax.Width * imageInfo.height > sizeMax.Height * imageInfo.width
-                       ? new Size(sizeMax.Width, (int)(sizeMax.Height * imageInfo.height / imageInfo.width))
-                       : new Size((int)(sizeMax.Width * imageInfo.width / imageInfo.height), sizeMax.Height);
+            return sizeMax.Width * imageInfo.Height > sizeMax.Height * imageInfo.Width
+                       ? new Size(sizeMax.Width, (int)(sizeMax.Height * imageInfo.Height / imageInfo.Width))
+                       : new Size((int)(sizeMax.Width * imageInfo.Width / imageInfo.Height), sizeMax.Height);
         }
 
         #endregion

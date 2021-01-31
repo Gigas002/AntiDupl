@@ -373,7 +373,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             for (int i = 0; i < m_groups.Length; ++i)
             {
-                CoreImageInfo[] images = m_groups[i].Images;
+                AdImageInfoW[] images = m_groups[i].Images;
                 for (int j = 0; j < images.Length; ++j)
                 {
                     m_thumbnailStorage.Get(images[j]);

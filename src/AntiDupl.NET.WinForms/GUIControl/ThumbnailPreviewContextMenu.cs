@@ -92,7 +92,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private void OpenImage(object sender, EventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = m_thumbnailPreview.ImageInfo.path;
+            startInfo.FileName = m_thumbnailPreview.ImageInfo.Path;
             try
             {
                 Process.Start(startInfo);
@@ -110,17 +110,17 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void CopyPath(object sender, EventArgs e)
         {
-            Clipboard.SetText(m_thumbnailPreview.ImageInfo.path);
+            Clipboard.SetText(m_thumbnailPreview.ImageInfo.Path);
         }
 
         private void RenameImage(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
-            dialog.FileName = m_thumbnailPreview.ImageInfo.path;
+            dialog.FileName = m_thumbnailPreview.ImageInfo.Path;
             dialog.OverwritePrompt = false;
             dialog.AddExtension = true;
             dialog.CheckPathExists = true;
-            dialog.DefaultExt = (new FileInfo(m_thumbnailPreview.ImageInfo.path)).Extension;
+            dialog.DefaultExt = (new FileInfo(m_thumbnailPreview.ImageInfo.Path)).Extension;
             dialog.FileOk += new CancelEventHandler(OnRenameImageDialogFileOk);
             dialog.Title = Resources.Strings.Current.ImagePreviewContextMenu_RenameImageItem_Text;
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -135,7 +135,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private void OnRenameImageDialogFileOk(object sender, CancelEventArgs e)
         {
             SaveFileDialog dialog = (SaveFileDialog)sender;
-            FileInfo oldFileInfo = new FileInfo(m_thumbnailPreview.ImageInfo.path);
+            FileInfo oldFileInfo = new FileInfo(m_thumbnailPreview.ImageInfo.Path);
             FileInfo newFileInfo = new FileInfo(dialog.FileName);
             if (newFileInfo.FullName != oldFileInfo.FullName && newFileInfo.Exists)
             {

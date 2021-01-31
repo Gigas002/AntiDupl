@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 using Microsoft.Win32;
 
 namespace AntiDupl.NET.WinForms
@@ -79,7 +80,7 @@ namespace AntiDupl.NET.WinForms
             return false;
         }
 
-        static public void OpenContainingFolder(CoreImageInfo imageInfo)
+        static public void OpenContainingFolder(AdImageInfoW imageInfo)
         {
             try
             {
@@ -87,7 +88,7 @@ namespace AntiDupl.NET.WinForms
                 if (m_canOpenFolderWithExplorer)
                 {
                     startInfo.FileName = "explorer.exe";
-                    startInfo.Arguments = string.Format("/e, /select, \"{0}\"", imageInfo.path);
+                    startInfo.Arguments = string.Format("/e, /select, \"{0}\"", imageInfo.Path);
                 }
                 else
                 {

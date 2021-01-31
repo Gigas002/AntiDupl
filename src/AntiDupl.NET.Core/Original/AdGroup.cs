@@ -24,7 +24,7 @@ namespace AntiDupl.NET.Core.Original
             set => size = new IntPtr(value);
         }
 
-        public CoreImageInfo[] Images { get; set; }
+        public AdImageInfoW[] Images { get; set; }
 
         public Size MaxSize { get; set; }
 
@@ -35,10 +35,10 @@ namespace AntiDupl.NET.Core.Original
             Images = core.GetImageInfo(Id, 0, Size);
             MaxSize = new Size(0, 0);
 
-            foreach (CoreImageInfo imageInfo in Images)
+            foreach (AdImageInfoW imageInfo in Images)
             {
-                int width = Math.Max(MaxSize.Width, (int)imageInfo.width);
-                int height = Math.Max(MaxSize.Height, (int)imageInfo.height);
+                int width = Math.Max(MaxSize.Width, imageInfo.Width);
+                int height = Math.Max(MaxSize.Height, imageInfo.Height);
 
                 MaxSize = new Size(width, height);
             }

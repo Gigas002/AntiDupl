@@ -30,8 +30,8 @@ namespace AntiDupl.NET.Core
     public class CoreResult
     {
         public ResultType type;
-        public CoreImageInfo first;
-        public CoreImageInfo second;
+        public AdImageInfoW first;
+        public AdImageInfoW second;
         public DefectType defect;
         public double difference;
         public TransformType transform;
@@ -42,8 +42,8 @@ namespace AntiDupl.NET.Core
         public CoreResult(ref AdResultW result)
         {
             type = result.type;
-            first = new CoreImageInfo(ref result.first);
-            second = new CoreImageInfo(ref result.second);
+            first = result.first;
+            second = result.second;
             defect = result.defect;
             difference = result.difference;
             transform = result.transform;

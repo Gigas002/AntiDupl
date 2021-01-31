@@ -958,9 +958,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
                     DataGridViewCustomRow row = (DataGridViewCustomRow)Rows[i];
                     if (row.selected)
                     {
-                        if (String.IsNullOrEmpty(m_results[i].second.path))
+                        if (String.IsNullOrEmpty(m_results[i].second.Path))
                             return false;
-                        if (!Path.GetDirectoryName(m_results[i].first.path).Equals(Path.GetDirectoryName(m_results[i].second.path)))
+                        if (!Path.GetDirectoryName(m_results[i].first.Path).Equals(Path.GetDirectoryName(m_results[i].second.Path)))
                         {
                             moveEnable = true;
                             break;

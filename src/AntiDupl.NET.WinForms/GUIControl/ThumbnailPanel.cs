@@ -79,7 +79,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
         }
 
-        public CoreImageInfo ImageInfo { get { return m_group.Images[m_index]; } }
+        public AdImageInfoW ImageInfo { get { return m_group.Images[m_index]; } }
 
         public ThumbnailPanel(CoreLib core, Options options, AdGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
         {
@@ -188,12 +188,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void SetImageInfo()
         {
-            CoreImageInfo info = m_group.Images[m_index];
+            AdImageInfoW info = m_group.Images[m_index];
 
             m_fileSizeLabel.Text = info.GetFileSizeString();
-            m_imageSizeLabel.Text = string.Format("{0}×{1}", info.width, info.height);
-            m_imageTypeLabel.Text = (info.type == ImageType.None ? "   " : info.GetImageTypeString());
-            m_fileNameLabel.Text = Path.GetFileNameWithoutExtension(info.path);
+            m_imageSizeLabel.Text = string.Format("{0}×{1}", info.Width, info.Height);
+            m_imageTypeLabel.Text = (info.Type == ImageType.None ? "   " : info.GetImageTypeString());
+            m_fileNameLabel.Text = Path.GetFileNameWithoutExtension(info.Path);
 
             bool[] selected = m_core.GetSelection(m_group.Id, (uint)m_index, 1);
             m_checkBox.Checked = selected[0];
