@@ -5,7 +5,7 @@ using AntiDupl.NET.Core.Enums;
 namespace AntiDupl.NET.Core.Original
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct AdCompareOptions
+    public class AdCompareOptions
     {
         private int checkOnEquality;
 

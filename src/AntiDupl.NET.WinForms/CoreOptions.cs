@@ -59,7 +59,7 @@ namespace AntiDupl.NET.WinForms
         public CoreOptions(CoreLib core, bool onePath)
             : this()
         {
-            SetDefault(core, onePath);
+            //SetDefault(core, onePath);
         }
 
         public CoreOptions(CoreLib core)

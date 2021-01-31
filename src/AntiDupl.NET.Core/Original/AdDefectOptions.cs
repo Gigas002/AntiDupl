@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace AntiDupl.NET.Core.Original
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct AdDefectOptions
+    public class AdDefectOptions
     {
         private int checkOnDefect;
 
