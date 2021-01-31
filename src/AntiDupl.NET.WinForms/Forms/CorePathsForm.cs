@@ -30,6 +30,7 @@ using System.Text;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.Forms
 {
@@ -206,7 +207,7 @@ namespace AntiDupl.NET.WinForms.Forms
         /// <summary>
         /// Set new CoreOptions to passed path.
         /// </summary>
-        private CorePathWithSubFolder[] GetCurrentPath()
+        private AdPathWithSubFolderW[] GetCurrentPath()
         {
             switch ((PathType)m_tabControl.SelectedTab.Tag)
             {
@@ -251,7 +252,7 @@ namespace AntiDupl.NET.WinForms.Forms
             }
         }
 
-        private void SetCurrentPath(CorePathWithSubFolder[] path)
+        private void SetCurrentPath(AdPathWithSubFolderW[] path)
         {
             switch ((PathType)m_tabControl.SelectedTab.Tag)
             {
@@ -272,12 +273,12 @@ namespace AntiDupl.NET.WinForms.Forms
             }
         }
 
-        private static string GetInitialPath(CorePathWithSubFolder[] paths)
+        private static string GetInitialPath(AdPathWithSubFolderW[] paths)
         {
             string existedPath = null;
             for (int i = 0; i < paths.Length; ++i)
-                if (Directory.Exists(paths[i].path))
-                    existedPath = paths[i].path;
+                if (Directory.Exists(paths[i].Path))
+                    existedPath = paths[i].Path;
             if (existedPath != null)
                 return existedPath;
             else
@@ -353,22 +354,22 @@ namespace AntiDupl.NET.WinForms.Forms
                 box.SelectedIndex = selectedIndex;
         }
 
-        static private void UpdatePath(CorePathWithSubFolder[] paths, CheckedListBox box)
+        static private void UpdatePath(AdPathWithSubFolderW[] paths, CheckedListBox box)
         {
             int selectedIndex = box.SelectedIndex;
             box.Items.Clear();
             for (int i = 0; i < paths.Length; ++i)
-                box.Items.Add(paths[i].path, paths[i].enableSubFolder);
+                box.Items.Add(paths[i].Path, paths[i].EnableSubFolder);
             if (selectedIndex >= 0 && selectedIndex < paths.Length)
                 box.SelectedIndex = selectedIndex;
         }
 
-        static private void UpdatePath(CorePathWithSubFolder[] paths, ListBox box)
+        static private void UpdatePath(AdPathWithSubFolderW[] paths, ListBox box)
         {
             int selectedIndex = box.SelectedIndex;
             box.Items.Clear();
             for (int i = 0; i < paths.Length; ++i)
-                box.Items.Add(paths[i].path);
+                box.Items.Add(paths[i].Path);
             if (selectedIndex >= 0 && selectedIndex < paths.Length)
                 box.SelectedIndex = selectedIndex;
         }
@@ -395,7 +396,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private void OnAddFolderButtonClick(object sender, EventArgs e)
         {
-            CorePathWithSubFolder[] path = GetCurrentPath();
+            AdPathWithSubFolderW[] path = GetCurrentPath();
             if (path == null)
                 return;
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -404,12 +405,12 @@ namespace AntiDupl.NET.WinForms.Forms
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 Array.Resize(ref path, path.Length + 1);
-                path[path.Length - 1] = new CorePathWithSubFolder();
+                path[path.Length - 1] = new AdPathWithSubFolderW();
                 if (dialog.SelectedPath[dialog.SelectedPath.Length - 1] == Path.DirectorySeparatorChar)
-                    path[path.Length - 1].path = dialog.SelectedPath.Remove(dialog.SelectedPath.Length - 1);
+                    path[path.Length - 1].Path = dialog.SelectedPath.Remove(dialog.SelectedPath.Length - 1);
                 else
-                    path[path.Length - 1].path = dialog.SelectedPath;
-                path[path.Length - 1].enableSubFolder = true;
+                    path[path.Length - 1].Path = dialog.SelectedPath;
+                path[path.Length - 1].EnableSubFolder = true;
                 SetCurrentPath(path);
                 m_newCoreOptions.Validate(m_core, m_options.onePath);
                 UpdatePath();
@@ -419,7 +420,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private void OnAddFilesButtonClick(object sender, EventArgs e)
         {
-            CorePathWithSubFolder[] path = GetCurrentPath();
+            AdPathWithSubFolderW[] path = GetCurrentPath();
             if (path == null)
                 return;
             OpenFileDialog dialog = new OpenFileDialog();
@@ -433,9 +434,9 @@ namespace AntiDupl.NET.WinForms.Forms
                 for (int i = 0; i < dialog.FileNames.Length; ++i)
                 {
                     if (path[path.Length - 1 - i] == null)
-                        path[path.Length - 1 - i] = new CorePathWithSubFolder();
-                    path[path.Length - 1 - i].path = dialog.FileNames[dialog.FileNames.Length - 1 - i];
-                    path[path.Length - 1 - i].enableSubFolder = false;
+                        path[path.Length - 1 - i] = new AdPathWithSubFolderW();
+                    path[path.Length - 1 - i].Path = dialog.FileNames[dialog.FileNames.Length - 1 - i];
+                    path[path.Length - 1 - i].EnableSubFolder = false;
                 }
                 SetCurrentPath(path);
                 m_newCoreOptions.Validate(m_core, m_options.onePath);
@@ -471,7 +472,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
             PathType pathType = (PathType)m_tabControl.SelectedTab.Tag;
             CheckedListBox checkedListBox = GetCurrentCheckedListBox();
-            CorePathWithSubFolder[] path = GetCurrentPath();
+            AdPathWithSubFolderW[] path = GetCurrentPath();
 
             if (checkedListBox != null)
                 if (checkedListBox.SelectedIndex != -1)
@@ -479,9 +480,9 @@ namespace AntiDupl.NET.WinForms.Forms
                     if (checkedListBox == m_searchCheckedList)
                     {
                         if (e.NewValue == CheckState.Unchecked)
-                            path[checkedListBox.SelectedIndex].enableSubFolder = false;
+                            path[checkedListBox.SelectedIndex].EnableSubFolder = false;
                         else
-                            path[checkedListBox.SelectedIndex].enableSubFolder = true;
+                            path[checkedListBox.SelectedIndex].EnableSubFolder = true;
                     }
                 }
         }
@@ -499,22 +500,22 @@ namespace AntiDupl.NET.WinForms.Forms
         private void ChangePath()
         {
             ListBox listBox = GetCurrentListBox();
-            CorePathWithSubFolder[] path = GetCurrentPath();
+            AdPathWithSubFolderW[] path = GetCurrentPath();
             if (listBox == null || path == null)
                 return;
             if (listBox.SelectedIndex < 0 || listBox.SelectedIndex >= path.Length)
                 return;
-            if (Directory.Exists(path[listBox.SelectedIndex].path))
+            if (Directory.Exists(path[listBox.SelectedIndex].Path))
             {
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
                 dialog.ShowNewFolderButton = false;
-                dialog.SelectedPath = path[listBox.SelectedIndex].path;
+                dialog.SelectedPath = path[listBox.SelectedIndex].Path;
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     if (dialog.SelectedPath[dialog.SelectedPath.Length - 1] == Path.DirectorySeparatorChar)
-                        path[listBox.SelectedIndex].path = dialog.SelectedPath.Remove(dialog.SelectedPath.Length - 1);
+                        path[listBox.SelectedIndex].Path = dialog.SelectedPath.Remove(dialog.SelectedPath.Length - 1);
                     else
-                        path[listBox.SelectedIndex].path = dialog.SelectedPath;
+                        path[listBox.SelectedIndex].Path = dialog.SelectedPath;
                     SetCurrentPath(path);
                     m_newCoreOptions.Validate(m_core, m_options.onePath);
                     UpdatePath();
@@ -525,11 +526,11 @@ namespace AntiDupl.NET.WinForms.Forms
             {
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.RestoreDirectory = true;
-                dialog.FileName = path[listBox.SelectedIndex].path;
+                dialog.FileName = path[listBox.SelectedIndex].Path;
                 dialog.Filter = GetFilter();
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    path[listBox.SelectedIndex].path = dialog.FileName;
+                    path[listBox.SelectedIndex].Path = dialog.FileName;
                     SetCurrentPath(path);
                     m_newCoreOptions.Validate(m_core, m_options.onePath);
                     UpdatePath();
@@ -545,7 +546,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
             PathType pathType = (PathType)m_tabControl.SelectedTab.Tag;
             ListBox listBox = GetCurrentListBox();
-            CorePathWithSubFolder[] path = GetCurrentPath();
+            AdPathWithSubFolderW[] path = GetCurrentPath();
 
             if (listBox == null || path == null ||
               listBox.SelectedIndex < 0 || listBox.SelectedIndex >= path.Length)
@@ -565,17 +566,17 @@ namespace AntiDupl.NET.WinForms.Forms
             m_okButton.Enabled = !m_oldCoreOptions.Equals(m_newCoreOptions);
         }
 
-        private CorePathWithSubFolder[] GetActualPath(string[] path)
+        private AdPathWithSubFolderW[] GetActualPath(string[] path)
         {
-            List<CorePathWithSubFolder> actualPath = new List<CorePathWithSubFolder>();
+            List<AdPathWithSubFolderW> actualPath = new List<AdPathWithSubFolderW>();
             string[] actualExtensions = m_oldCoreOptions.searchOptions.GetActualExtensions(); //список поддерживаемых расширений
             for (int i = 0; i < path.Length; ++i)
             {
                 if (Directory.Exists(path[i]))
                 {
-                    CorePathWithSubFolder sfPath = new CorePathWithSubFolder();
-                    sfPath.path = path[i];
-                    sfPath.enableSubFolder = true;
+                    AdPathWithSubFolderW sfPath = new AdPathWithSubFolderW();
+                    sfPath.Path = path[i];
+                    sfPath.EnableSubFolder = true;
                     actualPath.Add(sfPath);
                 }
                 else
@@ -588,9 +589,9 @@ namespace AntiDupl.NET.WinForms.Forms
                         {
                             if (extension == actualExtensions[j]) //если расширение из списка поддерживаемых
                             {
-                                CorePathWithSubFolder sfPath = new CorePathWithSubFolder();
-                                sfPath.path = path[i];
-                                sfPath.enableSubFolder = false;
+                                AdPathWithSubFolderW sfPath = new AdPathWithSubFolderW();
+                                sfPath.Path = path[i];
+                                sfPath.EnableSubFolder = false;
                                 actualPath.Add(sfPath);
                                 break;
                             }
@@ -598,22 +599,22 @@ namespace AntiDupl.NET.WinForms.Forms
                     }
                 }
             }
-            return (CorePathWithSubFolder[])actualPath.ToArray();
+            return (AdPathWithSubFolderW[])actualPath.ToArray();
         }
 
         private void AddPath(string[] additional)
         {
             if (additional.Length > 0)
             {
-                List<CorePathWithSubFolder> path = new List<CorePathWithSubFolder>(GetCurrentPath());
-                CorePathWithSubFolder[] current = GetCurrentPath();
-                CorePathWithSubFolder[] actual = GetActualPath(additional);
+                List<AdPathWithSubFolderW> path = new List<AdPathWithSubFolderW>(GetCurrentPath());
+                AdPathWithSubFolderW[] current = GetCurrentPath();
+                AdPathWithSubFolderW[] actual = GetActualPath(additional);
 
                 if (current != null && actual.Length > 0)
                 {
                     path.AddRange(current);
                     path.AddRange(actual);
-                    SetCurrentPath((CorePathWithSubFolder[])path.ToArray());
+                    SetCurrentPath((AdPathWithSubFolderW[])path.ToArray());
                     m_newCoreOptions.Validate(m_core, m_options.onePath);
                     UpdatePath();
                     UpdateButtonEnabling();
@@ -624,7 +625,7 @@ namespace AntiDupl.NET.WinForms.Forms
         private void RemovePath(bool copyToClipboard)
         {
             ListBox listBox = GetCurrentListBox();
-            CorePathWithSubFolder[] path = GetCurrentPath();
+            AdPathWithSubFolderW[] path = GetCurrentPath();
 
             if (listBox == null || path == null)
                 return;
@@ -637,7 +638,7 @@ namespace AntiDupl.NET.WinForms.Forms
             {
                 Clipboard.SetDataObject(path[listBox.SelectedIndex]);
             }
-            path[listBox.SelectedIndex].path = "";
+            path[listBox.SelectedIndex].Path = "";
             SetCurrentPath(path);
             m_newCoreOptions.Validate(m_core, m_options.onePath);
             UpdatePath();
@@ -667,7 +668,7 @@ namespace AntiDupl.NET.WinForms.Forms
             if (e.KeyData == (Keys.C | Keys.Control))
             {
                 ListBox listBox = GetCurrentListBox();
-                CorePathWithSubFolder[] path = GetCurrentPath();
+                AdPathWithSubFolderW[] path = GetCurrentPath();
                 if (listBox != null && path != null && listBox.SelectedIndex >= 0 && listBox.SelectedIndex < path.Length)
                 {
                     Clipboard.SetDataObject(path[listBox.SelectedIndex]);

@@ -38,10 +38,10 @@ namespace AntiDupl.NET.WinForms
         public AdDefectOptions defectOptions;
         public AdAdvancedOptions advancedOptions;
 
-        public CorePathWithSubFolder[] searchPath;
-        public CorePathWithSubFolder[] ignorePath;
-        public CorePathWithSubFolder[] validPath;
-        public CorePathWithSubFolder[] deletePath;
+        public AdPathWithSubFolderW[] searchPath;
+        public AdPathWithSubFolderW[] ignorePath;
+        public AdPathWithSubFolderW[] validPath;
+        public AdPathWithSubFolderW[] deletePath;
 
         public CoreOptions()
         {
@@ -50,10 +50,10 @@ namespace AntiDupl.NET.WinForms
             defectOptions = new AdDefectOptions();
             advancedOptions = new AdAdvancedOptions();
 
-            searchPath = new CorePathWithSubFolder[1];
-            ignorePath = new CorePathWithSubFolder[0];
-            validPath = new CorePathWithSubFolder[0];
-            deletePath = new CorePathWithSubFolder[0];
+            searchPath = new AdPathWithSubFolderW[1];
+            ignorePath = new AdPathWithSubFolderW[0];
+            validPath = new AdPathWithSubFolderW[0];
+            deletePath = new AdPathWithSubFolderW[0];
         }
 
         public CoreOptions(CoreLib core, bool onePath)
@@ -88,9 +88,9 @@ namespace AntiDupl.NET.WinForms
             Get(core, onePath);
             old.Set(core, onePath);
 
-            ignorePath = new CorePathWithSubFolder[1];
-            ignorePath[0] = new CorePathWithSubFolder();
-            ignorePath[0].path = Resources.DataPath;
+            ignorePath = new AdPathWithSubFolderW[1];
+            ignorePath[0] = new AdPathWithSubFolderW();
+            ignorePath[0].Path = Resources.DataPath;
         }
 
         public void Get(CoreLib core, bool onePath)
@@ -125,12 +125,12 @@ namespace AntiDupl.NET.WinForms
             core.advancedOptions = advancedOptions;
             if (onePath)
             {
-                CorePathWithSubFolder[] tmpSearch = new CorePathWithSubFolder[1];
-                CorePathWithSubFolder[] tmpOther = new CorePathWithSubFolder[0];
-                if (searchPath.Length > 0 && Directory.Exists(searchPath[0].path)) tmpSearch[0] = searchPath[0];
+                AdPathWithSubFolderW[] tmpSearch = new AdPathWithSubFolderW[1];
+                AdPathWithSubFolderW[] tmpOther = new AdPathWithSubFolderW[0];
+                if (searchPath.Length > 0 && Directory.Exists(searchPath[0].Path)) tmpSearch[0] = searchPath[0];
                 else
                     //TODO
-                    tmpSearch[0].path = string.Empty;
+                    tmpSearch[0].Path = string.Empty;
                 //tmpSearch[0].path = Application.StartupPath;
                 core.searchPath = tmpSearch;
                 core.ignorePath = tmpOther;
@@ -177,9 +177,9 @@ namespace AntiDupl.NET.WinForms
                 destination[i] = (string)source[i].Clone();
         }
 
-        public static void PathCopy(CorePathWithSubFolder[] source, ref CorePathWithSubFolder[] destination)
+        public static void PathCopy(AdPathWithSubFolderW[] source, ref AdPathWithSubFolderW[] destination)
         {
-            destination = new CorePathWithSubFolder[source.GetLength(0)];
+            destination = new AdPathWithSubFolderW[source.GetLength(0)];
             for (int i = 0; i < source.GetLength(0); ++i)
                 destination[i] = source[i];
         }
@@ -191,9 +191,9 @@ namespace AntiDupl.NET.WinForms
             return clone;
         }
 
-        public static CorePathWithSubFolder[] PathClone(CorePathWithSubFolder[] path)
+        public static AdPathWithSubFolderW[] PathClone(AdPathWithSubFolderW[] path)
         {
-            CorePathWithSubFolder[] clone = new CorePathWithSubFolder[0];
+            AdPathWithSubFolderW[] clone = new AdPathWithSubFolderW[0];
             PathCopy(path, ref clone);
             return clone;
         }

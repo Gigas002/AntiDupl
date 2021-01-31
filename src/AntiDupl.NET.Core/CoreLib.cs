@@ -641,7 +641,7 @@ namespace AntiDupl.NET.Core
         //    }
         //}
 
-        public CorePathWithSubFolder[] searchPath
+        public AdPathWithSubFolderW[] searchPath
         {
             get
             {
@@ -653,7 +653,7 @@ namespace AntiDupl.NET.Core
             }
         }
 
-        public CorePathWithSubFolder[] ignorePath
+        public AdPathWithSubFolderW[] ignorePath
         {
             get
             {
@@ -665,7 +665,7 @@ namespace AntiDupl.NET.Core
             }
         }
 
-        public CorePathWithSubFolder[] validPath
+        public AdPathWithSubFolderW[] validPath
         {
             get
             {
@@ -677,7 +677,7 @@ namespace AntiDupl.NET.Core
             }
         }
 
-        public CorePathWithSubFolder[] deletePath
+        public AdPathWithSubFolderW[] deletePath
         {
             get
             {
@@ -707,9 +707,9 @@ namespace AntiDupl.NET.Core
             return new string(buffer, startIndex, i);
         }
 
-        private CorePathWithSubFolder[] GetPath(PathType pathType)
+        private AdPathWithSubFolderW[] GetPath(PathType pathType)
         {
-            CorePathWithSubFolder[] pathWSF = new CorePathWithSubFolder[0];
+            AdPathWithSubFolderW[] pathWSF = Array.Empty<AdPathWithSubFolderW>();
             IntPtr[] size = new IntPtr[1];
             string[] path = new string[0];
             if (m_dll.AdPathGetW(m_handle, pathType, new IntPtr(1), Marshal.UnsafeAddrOfPinnedArrayElement(size, 0)) ==
@@ -719,28 +719,28 @@ namespace AntiDupl.NET.Core
                 if (m_dll.AdPathGetW(m_handle, pathType, Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
                     Marshal.UnsafeAddrOfPinnedArrayElement(size, 0)) == Error.Ok)
                 {
-                    pathWSF = new CorePathWithSubFolder[size[0].ToInt32()];
+                    pathWSF = new AdPathWithSubFolderW[size[0].ToInt32()];
                     for (int i = 0; i < size[0].ToInt32(); ++i)
                     {
-                        pathWSF[i] = new CorePathWithSubFolder();
-                        pathWSF[i].path = BufferToString(buffer, i * (Constants.MAX_PATH_EX + 1), Constants.MAX_PATH_EX);
+                        pathWSF[i] = new AdPathWithSubFolderW();
+                        pathWSF[i].Path = BufferToString(buffer, i * (Constants.MAX_PATH_EX + 1), Constants.MAX_PATH_EX);
                         if (buffer[(Constants.MAX_PATH_EX + 1) * i + Constants.MAX_PATH_EX] == (char)1)
-                            pathWSF[i].enableSubFolder = true;
+                            pathWSF[i].EnableSubFolder = true;
                         else
-                            pathWSF[i].enableSubFolder = false;
+                            pathWSF[i].EnableSubFolder = false;
                     }
                 }
             }
             return pathWSF;
         }
 
-        private bool SetPath(PathType pathType, CorePathWithSubFolder[] path)
+        private bool SetPath(PathType pathType, AdPathWithSubFolderW[] path)
         {
             char[] buffer = new char[path.Length * (Constants.MAX_PATH_EX + 1)];
             for (int i = 0; i < path.Length; i++)
             {
-                path[i].path.CopyTo(0, buffer, i * (Constants.MAX_PATH_EX + 1), path[i].path.Length);
-                buffer[(Constants.MAX_PATH_EX + 1) * i + Constants.MAX_PATH_EX] = path[i].enableSubFolder ? (char)1 : (char)0;
+                path[i].Path.CopyTo(0, buffer, i * (Constants.MAX_PATH_EX + 1), path[i].Path.Length);
+                buffer[(Constants.MAX_PATH_EX + 1) * i + Constants.MAX_PATH_EX] = path[i].EnableSubFolder ? (char)1 : (char)0;
             }
 
             return m_dll.AdPathWithSubFolderSetW(m_handle,

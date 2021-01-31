@@ -399,12 +399,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
                 dialog.ShowNewFolderButton = false;
-                if (Directory.Exists(m_coreOptions.searchPath[0].path))
-                    dialog.SelectedPath = m_coreOptions.searchPath[0].path;
+                if (Directory.Exists(m_coreOptions.searchPath[0].Path))
+                    dialog.SelectedPath = m_coreOptions.searchPath[0].Path;
                 else
                     dialog.SelectedPath = Application.StartupPath;
                 dialog.ShowDialog();
-                m_coreOptions.searchPath[0].path = dialog.SelectedPath;
+                m_coreOptions.searchPath[0].Path = dialog.SelectedPath;
             }
             else
             {

@@ -28,6 +28,7 @@ using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -152,7 +153,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (m_imagePreviewPanel.CurrentImageInfo != null)
             {
                 Array.Resize(ref m_coreOptions.ignorePath, m_coreOptions.ignorePath.Length + 1);
-                m_coreOptions.ignorePath[m_coreOptions.ignorePath.Length - 1] = new CorePathWithSubFolder(m_imagePreviewPanel.CurrentImageInfo.Path, false);
+                m_coreOptions.ignorePath[m_coreOptions.ignorePath.Length - 1] = new AdPathWithSubFolderW(m_imagePreviewPanel.CurrentImageInfo.Path, false);
                 m_coreOptions.Validate(m_core, m_options.onePath);
                 m_resultsListView.RefreshResults();
             }
@@ -163,7 +164,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             if (m_imagePreviewPanel.CurrentImageInfo != null)
             {
                 Array.Resize(ref m_coreOptions.ignorePath, m_coreOptions.ignorePath.Length + 1);
-                m_coreOptions.ignorePath[m_coreOptions.ignorePath.Length - 1] = new CorePathWithSubFolder(m_imagePreviewPanel.CurrentImageInfo.GetDirectoryString(), true);
+                m_coreOptions.ignorePath[m_coreOptions.ignorePath.Length - 1] = new AdPathWithSubFolderW(m_imagePreviewPanel.CurrentImageInfo.GetDirectoryString(), true);
                 m_coreOptions.Validate(m_core, m_options.onePath);
                 m_resultsListView.RefreshResults();
             }
