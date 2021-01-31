@@ -26,7 +26,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
-using AntiDupl.NET.Core.Original;
 using Microsoft.Win32;
 
 namespace AntiDupl.NET.WinForms

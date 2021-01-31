@@ -25,7 +25,6 @@
 using System;
 using System.Drawing;
 using AntiDupl.NET.Core;
-using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {

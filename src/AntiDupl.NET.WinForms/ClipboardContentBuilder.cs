@@ -24,7 +24,6 @@
 
 using System.Text;
 using AntiDupl.NET.Core;
-using AntiDupl.NET.Core.Original;
 using TypeVertical = AntiDupl.NET.WinForms.GUIControl.ResultsListView.ColumnsTypeVertical;
 using TypeHorizontal = AntiDupl.NET.WinForms.GUIControl.ResultsListView.ColumnsTypeHorizontal;
 

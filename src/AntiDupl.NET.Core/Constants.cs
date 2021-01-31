@@ -1,4 +1,4 @@
-﻿namespace AntiDupl.NET.Core.Original
+﻿namespace AntiDupl.NET.Core
 {
     internal static class Constants
     {

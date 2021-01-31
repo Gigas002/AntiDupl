@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using AntiDupl.NET.Core;
-using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms
 {

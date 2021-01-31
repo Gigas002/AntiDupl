@@ -4,14 +4,14 @@
         <name>AntiDupl.NET.Core</name>
     </assembly>
     <members>
-        <member name="M:AntiDupl.NET.Core.Original.AntiDuplCore.Dispose">
+        <member name="M:AntiDupl.NET.Core.AntiDuplCore.Dispose">
             <inheritdoc />
         </member>
-        <member name="M:AntiDupl.NET.Core.Original.AntiDuplCore.Dispose(System.Boolean)">
-            <inheritdoc cref="M:AntiDupl.NET.Core.Original.AntiDuplCore.Dispose"/>
+        <member name="M:AntiDupl.NET.Core.AntiDuplCore.Dispose(System.Boolean)">
+            <inheritdoc cref="M:AntiDupl.NET.Core.AntiDuplCore.Dispose"/>
             <param name="disposing">Dispose static fields?</param>
         </member>
-        <member name="M:AntiDupl.NET.Core.Original.AntiDuplCore.DisposeAsync">
+        <member name="M:AntiDupl.NET.Core.AntiDuplCore.DisposeAsync">
             <inheritdoc />
         </member>
     </members>

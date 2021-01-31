@@ -9,7 +9,7 @@ using AntiDupl.NET.Core.Enums;
 // TODO: temp
 #pragma warning disable 1591
 
-namespace AntiDupl.NET.Core.Original
+namespace AntiDupl.NET.Core
 {
     public class AntiDuplCore : IAsyncDisposable, IDisposable
     {

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
-namespace AntiDupl.NET.Core.Original
+namespace AntiDupl.NET.Core
 {
     [StructLayout(LayoutKind.Sequential)]
     public class AdGroup

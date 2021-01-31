@@ -23,9 +23,7 @@
 */
 
 using System.IO;
-using System.Xml.Serialization;
 using AntiDupl.NET.Core;
-using AntiDupl.NET.Core.Original;
 
 //using System.Windows.Forms;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace AntiDupl.NET.Core.Original
+namespace AntiDupl.NET.Core
 {
     [StructLayout(LayoutKind.Sequential)]
     public class AdDefectOptions

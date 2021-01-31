@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using AntiDupl.NET.Core.Enums;
 
-namespace AntiDupl.NET.Core.Original
+namespace AntiDupl.NET.Core
 {
     [StructLayout(LayoutKind.Sequential)]
     public class AdBitmap

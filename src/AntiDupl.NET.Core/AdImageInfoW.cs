@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using AntiDupl.NET.Core.Enums;
 
-namespace AntiDupl.NET.Core.Original
+namespace AntiDupl.NET.Core
 {
     // Она же структура TImageInfo в dll.
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]

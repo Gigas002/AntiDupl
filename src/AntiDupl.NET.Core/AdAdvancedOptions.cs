@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
-namespace AntiDupl.NET.Core.Original
+namespace AntiDupl.NET.Core
 {
     [Serializable]
     [XmlRoot(ElementName = "advancedOptions")]
