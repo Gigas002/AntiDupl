@@ -89,7 +89,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         }
 
         private MainSplitContainer m_mainSplitContainer;
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         public CoreOptions CoreOptions { get { return m_coreOptions; } }
         private CoreOptions m_coreOptions;
@@ -134,7 +134,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
         }
 
-        public ResultsListView(CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ResultsListView(AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;

@@ -39,7 +39,7 @@ namespace AntiDupl.NET.WinForms.Forms
         static public int FORM_WIDTH = 450;
         static public int FORM_HEIGHT = 350;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_oldCoreOptions; //опции до изменения
         private CoreOptions m_newCoreOptions; //опции после изменения
@@ -62,7 +62,7 @@ namespace AntiDupl.NET.WinForms.Forms
         private ListBox m_deleteListBox;
         private ToolTip m_toolTip;
 
-        public CorePathsForm(CoreLib core, Options options, CoreOptions coreOptions)
+        public CorePathsForm(AntiDuplCore core, Options options, CoreOptions coreOptions)
         {
             m_core = core;
             m_options = options;

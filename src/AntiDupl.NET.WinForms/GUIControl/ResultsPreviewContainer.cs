@@ -47,7 +47,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ResultsPreviewDuplPair m_resultsPreviewDuplPair;
         private MainSplitContainer m_mainSplitContainer;
 
-        public ResultsPreviewContainer(CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ResultsPreviewContainer(AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             Location = new Point(0, 0);
             Dock = DockStyle.Fill;

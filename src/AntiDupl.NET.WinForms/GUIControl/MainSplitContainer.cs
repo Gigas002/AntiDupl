@@ -26,6 +26,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
@@ -42,7 +43,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private MainForm m_mainForm;
         private Options m_options;
-        CoreLib m_core;
+        AntiDuplCore m_core;
         private CoreOptions m_coreOptions;
 
         private ResultsListView m_resultsListView;
@@ -65,7 +66,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         public delegate void SelectedResultsChangedHandler();
         public event SelectedResultsChangedHandler OnSelectedResultsChanged;
 
-        public MainSplitContainer(CoreLib core, Options options, CoreOptions coreOptions, MainForm mainForm)
+        public MainSplitContainer(AntiDuplCore core, Options options, CoreOptions coreOptions, MainForm mainForm)
         {
             m_mainForm = mainForm;
             m_options = options;

@@ -34,7 +34,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     /// </summary>
     public class ThumbnailGroupPanel : RaisedPanel
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private AdGroup m_group;
         private Options m_options;
 
@@ -44,7 +44,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ThumbnailGroupTable m_thumbnailGroupTable;
         public ThumbnailGroupTable Table { get { return m_thumbnailGroupTable; } }
 
-        public ThumbnailGroupPanel(CoreLib core, Options options, AdGroup group, ThumbnailGroupTable thumbnailGroupTable)
+        public ThumbnailGroupPanel(AntiDuplCore core, Options options, AdGroup group, ThumbnailGroupTable thumbnailGroupTable)
         {
             m_core = core;
             m_options = options;

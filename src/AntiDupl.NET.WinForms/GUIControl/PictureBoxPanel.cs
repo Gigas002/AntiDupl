@@ -37,7 +37,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     {
         private const int MAX_PATH = 260;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private AdImageInfoW m_currentImageInfo;
         private Size m_neighbourSizeMax;
@@ -88,7 +88,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         }
 
 
-        public PictureBoxPanel(CoreLib core, Options options)
+        public PictureBoxPanel(AntiDuplCore core, Options options)
         {
             m_core = core;
             m_options = options;

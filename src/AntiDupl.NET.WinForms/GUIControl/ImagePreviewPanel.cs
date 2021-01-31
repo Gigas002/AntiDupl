@@ -56,7 +56,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private const int IBW = 1;//Internal border width
         private const int EBW = 2;//External border width
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private ResultsListView m_resultsListView;
 
@@ -81,7 +81,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private Label m_pathLabel;
         private ToolTip m_toolTip;
 
-        public ImagePreviewPanel(CoreLib core, Options options, ResultsListView resultsListView, Position position)
+        public ImagePreviewPanel(AntiDuplCore core, Options options, ResultsListView resultsListView, Position position)
         {
             m_core = core;
             m_options = options;

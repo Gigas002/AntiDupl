@@ -40,7 +40,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private const int IBW = 1;//Internal border width
         private const int EBW = 2;//External border width
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private AdGroup m_group;
         private int m_index;
         private Options m_options;
@@ -81,7 +81,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         public AdImageInfoW ImageInfo { get { return m_group.Images[m_index]; } }
 
-        public ThumbnailPanel(CoreLib core, Options options, AdGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
+        public ThumbnailPanel(AntiDuplCore core, Options options, AdGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
         {
             m_core = core;
             m_options = options;

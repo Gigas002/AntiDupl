@@ -26,6 +26,7 @@ using System;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -46,7 +47,7 @@ namespace AntiDupl.NET.WinForms.Forms
         static public int COMBO_BOX_WIDTH = 65;
         static public int COMBO_BOX_HEIGHT = 20;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_oldCoreOptions;
         private CoreOptions m_newCoreOptions;
@@ -127,7 +128,7 @@ namespace AntiDupl.NET.WinForms.Forms
         /// </summary>
         private bool m_inited = false;
 
-        public CoreOptionsForm(CoreLib core, Options options, CoreOptions coreOptions)
+        public CoreOptionsForm(AntiDuplCore core, Options options, CoreOptions coreOptions)
         {
             m_core = core;
             m_options = options;

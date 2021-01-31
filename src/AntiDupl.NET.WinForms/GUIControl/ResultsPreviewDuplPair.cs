@@ -62,7 +62,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
         }
 
-        public ResultsPreviewDuplPair(CoreLib core, Options options, CoreOptions coreOptions, ResultsListView resultsListView)
+        public ResultsPreviewDuplPair(AntiDuplCore core, Options options, CoreOptions coreOptions, ResultsListView resultsListView)
             : base(core, options, coreOptions, resultsListView)
         {
             InitializeComponents();

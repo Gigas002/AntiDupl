@@ -34,7 +34,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 {
     public class ImagePreviewContextMenu : ContextMenuStrip
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_coreOptions;
         private ImagePreviewPanel m_imagePreviewPanel;
@@ -54,7 +54,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ToolStripMenuItem m_renameGroupAsNeighbourItem;
 
 
-        public ImagePreviewContextMenu(CoreLib core, Options options, CoreOptions coreOptions, ImagePreviewPanel imagePreviewPanel, ResultsListView resultsListView)
+        public ImagePreviewContextMenu(AntiDuplCore core, Options options, CoreOptions coreOptions, ImagePreviewPanel imagePreviewPanel, ResultsListView resultsListView)
         {
             m_core = core;
             m_options = options;

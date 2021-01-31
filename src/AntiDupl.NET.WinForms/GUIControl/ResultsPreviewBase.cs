@@ -33,7 +33,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     {
         protected ResultsListView m_resultsListView;
         protected Options m_options;
-        protected CoreLib m_core;
+        protected AntiDuplCore m_core;
         protected CoreOptions m_coreOptions;
         protected AdResultW m_currentSearchResult;
 
@@ -47,7 +47,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         protected ToolStripButton m_nextButton;
         protected ToolStripButton m_previousButton;
 
-        public ResultsPreviewBase(CoreLib core, Options options, CoreOptions coreOptions, ResultsListView resultsListView)
+        public ResultsPreviewBase(AntiDuplCore core, Options options, CoreOptions coreOptions, ResultsListView resultsListView)
         {
             m_core = core;
             m_options = options;

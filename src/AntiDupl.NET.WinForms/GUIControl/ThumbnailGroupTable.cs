@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Enums;
 using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
@@ -37,7 +38,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     /// </summary>
     public class ThumbnailGroupTable : Panel
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private AdGroup[] m_groups;
         private int m_maxGroupIndex = -1;
@@ -54,7 +55,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         public delegate void CurrentThumbnailChangedHandler(AdGroup group, int index);
         public event CurrentThumbnailChangedHandler OnCurrentThumbnailChanged;
 
-        public ThumbnailGroupTable(CoreLib core, Options options, MainSplitContainer mainSplitContainer)
+        public ThumbnailGroupTable(AntiDuplCore core, Options options, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;
@@ -429,7 +430,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         public bool Rename(AdGroup group, int index, string newFileName)
         {
-            if(m_core.Rename(group.Id, index, newFileName))
+            if(m_core.Rename(group.Id, index, newFileName) == Error.Ok)
             {
                 UpdateGroups();
                 return true;

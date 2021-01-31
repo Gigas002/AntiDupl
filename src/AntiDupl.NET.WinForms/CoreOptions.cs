@@ -56,13 +56,13 @@ namespace AntiDupl.NET.WinForms
             deletePath = new AdPathWithSubFolderW[0];
         }
 
-        public CoreOptions(CoreLib core, bool onePath)
+        public CoreOptions(AntiDuplCore core, bool onePath)
             : this()
         {
             //SetDefault(core, onePath);
         }
 
-        public CoreOptions(CoreLib core)
+        public CoreOptions(AntiDuplCore core)
             : this(core, false)
         {
         }
@@ -80,7 +80,7 @@ namespace AntiDupl.NET.WinForms
             deletePath = PathClone(options.deletePath);
         }
 
-        public void SetDefault(CoreLib core, bool onePath)
+        public void SetDefault(AntiDuplCore core, bool onePath)
         {
             CoreOptions old = new CoreOptions();
             old.Get(core, onePath);
@@ -93,22 +93,22 @@ namespace AntiDupl.NET.WinForms
             ignorePath[0].Path = Resources.DataPath;
         }
 
-        public void Get(CoreLib core, bool onePath)
+        public void Get(AntiDuplCore core, bool onePath)
         {
-            searchOptions = core.searchOptions;
-            compareOptions = core.compareOptions;
-            defectOptions = core.defectOptions;
-            advancedOptions = core.advancedOptions;
+            searchOptions = core.SearchOptions;
+            compareOptions = core.CompareOptions;
+            defectOptions = core.DefectOptions;
+            advancedOptions = core.AdvancedOptions;
             if (onePath)
             {
-                searchPath[0] = core.searchPath[0];
+                searchPath[0] = core.SearchPaths[0];
             }
             else
             {
-                searchPath = core.searchPath;
-                ignorePath = core.ignorePath;
-                validPath = core.validPath;
-                deletePath = core.deletePath;
+                searchPath = core.SearchPaths;
+                ignorePath = core.IgnorePaths;
+                validPath = core.ValidPaths;
+                deletePath = core.DeletePaths;
             }
         }
 
@@ -117,12 +117,12 @@ namespace AntiDupl.NET.WinForms
         /// </summary>
         /// <param name="core"></param>
         /// <param name="onePath"></param>
-        public void Set(CoreLib core, bool onePath)
+        public void Set(AntiDuplCore core, bool onePath)
         {
-            core.searchOptions = searchOptions;
-            core.compareOptions = compareOptions;
-            core.defectOptions = defectOptions;
-            core.advancedOptions = advancedOptions;
+            core.SearchOptions = searchOptions;
+            core.CompareOptions = compareOptions;
+            core.DefectOptions = defectOptions;
+            core.AdvancedOptions = advancedOptions;
             if (onePath)
             {
                 AdPathWithSubFolderW[] tmpSearch = new AdPathWithSubFolderW[1];
@@ -132,21 +132,21 @@ namespace AntiDupl.NET.WinForms
                     //TODO
                     tmpSearch[0].Path = string.Empty;
                 //tmpSearch[0].path = Application.StartupPath;
-                core.searchPath = tmpSearch;
-                core.ignorePath = tmpOther;
-                core.validPath = tmpOther;
-                core.deletePath = tmpOther;
+                core.SearchPaths = tmpSearch;
+                core.IgnorePaths = tmpOther;
+                core.ValidPaths = tmpOther;
+                core.DeletePaths = tmpOther;
             }
             else
             {
-                core.searchPath = searchPath;
-                core.ignorePath = ignorePath;
-                core.validPath = validPath;
-                core.deletePath = deletePath;
+                core.SearchPaths = searchPath;
+                core.IgnorePaths = ignorePath;
+                core.ValidPaths = validPath;
+                core.DeletePaths = deletePath;
             }
         }
 
-        public void Validate(CoreLib core, bool onePath)
+        public void Validate(AntiDuplCore core, bool onePath)
         {
             Set(core, onePath);
             Get(core, onePath);
@@ -230,7 +230,7 @@ namespace AntiDupl.NET.WinForms
             return true;
         }
 
-        static public CoreOptions Load(string fileName, CoreLib core, bool onePath)
+        static public CoreOptions Load(string fileName, AntiDuplCore core, bool onePath)
         {
             //FileInfo fileInfo = new FileInfo(fileName);
             //if (fileInfo.Exists)

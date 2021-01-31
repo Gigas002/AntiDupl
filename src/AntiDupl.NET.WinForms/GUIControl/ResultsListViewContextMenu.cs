@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -35,7 +36,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     /// </summary>
     public class ResultsListViewContextMenu : ContextMenuStrip
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_coreOptions;
         private MainSplitContainer m_mainSplitContainer;
@@ -53,7 +54,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ToolStripMenuItem m_performHintItem;
         private ToolStripMenuItem m_mistakeItem;
 
-        public ResultsListViewContextMenu(CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ResultsListViewContextMenu(AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;

@@ -54,14 +54,14 @@ namespace AntiDupl.NET.WinForms.Forms
         }
         State m_state = State.Start;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private System.Windows.Forms.Timer m_timer;
 
         private AboutProgramPanel m_aboutProgramPanel;
         private ProgressBar m_progressBar;
 
-        public StartFinishForm(CoreLib core, Options options)
+        public StartFinishForm(AntiDuplCore core, Options options)
         {
             m_core = core;
             m_options = options;

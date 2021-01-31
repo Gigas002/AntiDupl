@@ -28,12 +28,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
     public class ThumbnailPreviewContextMenu : ContextMenuStrip
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private ThumbnailPreview m_thumbnailPreview;
         private ThumbnailGroupTable m_thumbnailGroupTable;
@@ -43,7 +44,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ToolStripMenuItem m_openFolderItem;
         private ToolStripMenuItem m_renameImageItem;
 
-        public ThumbnailPreviewContextMenu(CoreLib core, Options options, ThumbnailPreview thumbnailPreview, ThumbnailGroupTable thumbnailGroupTable)
+        public ThumbnailPreviewContextMenu(AntiDuplCore core, Options options, ThumbnailPreview thumbnailPreview, ThumbnailGroupTable thumbnailGroupTable)
         {
             m_core = core;
             m_options = options;

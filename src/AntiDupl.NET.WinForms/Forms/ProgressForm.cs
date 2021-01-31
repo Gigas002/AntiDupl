@@ -77,7 +77,7 @@ namespace AntiDupl.NET.WinForms.Forms
         }
         private State m_state = State.Start;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_coreOptions;
         private MainSplitContainer m_mainSplitContainer;
@@ -91,7 +91,7 @@ namespace AntiDupl.NET.WinForms.Forms
         private Button m_cancelButton;
         private ProgressPanel m_progressPanel;
 
-        public ProgressForm(Type type, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ProgressForm(Type type, AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             if (type == Type.ApplyAction)
                 throw new Exception("Wrong using of ProgressForm type!");
@@ -99,7 +99,7 @@ namespace AntiDupl.NET.WinForms.Forms
             Initialize(core, options, coreOptions, mainSplitContainer);
         }
 
-        public ProgressForm(LocalActionType action, TargetType target, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ProgressForm(LocalActionType action, TargetType target, AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_type = Type.ApplyAction;
             m_action = action;
@@ -107,7 +107,7 @@ namespace AntiDupl.NET.WinForms.Forms
             Initialize(core, options, coreOptions, mainSplitContainer);
         }
 
-        public ProgressForm(RenameCurrentType renameCurrentType, string newFileName, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ProgressForm(RenameCurrentType renameCurrentType, string newFileName, AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_type = Type.RenameCurrent;
             m_renameCurrentType = renameCurrentType;
@@ -115,7 +115,7 @@ namespace AntiDupl.NET.WinForms.Forms
             Initialize(core, options, coreOptions, mainSplitContainer);
         }
 
-        public ProgressForm(Type type, string path, CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        public ProgressForm(Type type, string path, AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_type = type;
             if (m_type == Type.MoveCurrentGroup)
@@ -134,7 +134,7 @@ namespace AntiDupl.NET.WinForms.Forms
         /// <param name="options"></param>
         /// <param name="coreOptions"></param>
         /// <param name="mainSplitContainer"></param>
-        private void Initialize(CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
+        private void Initialize(AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;
@@ -229,47 +229,47 @@ namespace AntiDupl.NET.WinForms.Forms
             {
                 case Type.ApplyAction:
                     {
-                        m_updateResults = m_core.ApplyToResult(m_action, m_target);
+                        m_updateResults = m_core.ApplyToResult(m_action, m_target) == Error.Ok;
                         m_type = Type.ClearTemporary;
                         m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.RenameCurrent:
                     {
-                        m_updateResults = m_core.RenameCurrent(m_renameCurrentType, m_newFileName);
+                        m_updateResults = m_core.RenameCurrent(m_renameCurrentType, m_newFileName) == Error.Ok;
                         m_type = Type.ClearTemporary;
                         m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.MoveCurrentGroup:
                     {
-                        m_updateResults = m_core.MoveCurrentGroup(m_directoryForMove);
+                        m_updateResults = m_core.MoveCurrentGroup(m_directoryForMove) == Error.Ok;
                         m_type = Type.ClearTemporary;
                         m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.RenameCurrentGroupAs:
                     {
-                        m_updateResults = m_core.RenameCurrentGroupAs(m_newFileName);
+                        m_updateResults = m_core.RenameCurrentGroupAs(m_newFileName) == Error.Ok;
                         m_type = Type.ClearTemporary;
                         m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.RefreshResults:
                     {
-                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Refresh);
+                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Refresh) == Error.Ok;
                         m_type = Type.ClearTemporary;
                         m_core.Clear(FileType.Temporary);
                         break;
                     }
                 case Type.Undo:
                     {
-                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Undo);
+                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Undo) == Error.Ok;
                         break;
                     }
                 case Type.Redo:
                     {
-                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Redo);
+                        m_updateResults = m_core.ApplyToResult(GlobalActionType.Redo) == Error.Ok;
                         break;
                     }
                 case Type.LoadResults:

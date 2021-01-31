@@ -27,6 +27,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
@@ -36,7 +37,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     /// </summary>
     public class MainToolStrip : ToolStrip
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_coreOptions;
         private MainMenu m_mainMenu;
@@ -65,7 +66,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private ToolStripButton m_helpButton;
 
-        public MainToolStrip(CoreLib core, Options options, CoreOptions coreOptions, MainMenu mainMenu, MainForm mainForm, MainSplitContainer mainSplitContainer)
+        public MainToolStrip(AntiDuplCore core, Options options, CoreOptions coreOptions, MainMenu mainMenu, MainForm mainForm, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;

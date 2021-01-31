@@ -8,7 +8,7 @@ namespace AntiDupl.NET.WinForms
 {
     public static class BitmapWorker
     {
-        public static Bitmap LoadBitmap(CoreLib coreLib, int width, int height, string path)
+        public static Bitmap LoadBitmap(AntiDuplCore coreLib, int width, int height, string path)
         {
             if (height * width == 0)
                 return null;
@@ -58,7 +58,7 @@ namespace AntiDupl.NET.WinForms
         //    return LoadBitmap(size.Width, size.Height, path);
         //}
 
-        public static Bitmap LoadBitmap(CoreLib coreLib, Size size, string path)
+        public static Bitmap LoadBitmap(AntiDuplCore coreLib, Size size, string path)
         {
             return LoadBitmap(coreLib, size.Width, size.Height, path);
         }
@@ -68,7 +68,7 @@ namespace AntiDupl.NET.WinForms
         //    return LoadBitmap((int)imageInfo.width, (int)imageInfo.height, imageInfo.path);
         //}
 
-        public static Bitmap LoadBitmap(CoreLib coreLib, AdImageInfoW imageInfo)
+        public static Bitmap LoadBitmap(AntiDuplCore coreLib, AdImageInfoW imageInfo)
         {
             return LoadBitmap(coreLib, imageInfo.Width, imageInfo.Height, imageInfo.Path);
         }

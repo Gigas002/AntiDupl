@@ -34,7 +34,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     /// </summary>
     public class ThumbnailPreview : Panel
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private MainSplitContainer m_mainSplitContainer;
         
@@ -46,7 +46,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private PictureBoxPanel m_pictureBoxPanel;
         
-        public ThumbnailPreview(CoreLib core, Options options, MainSplitContainer mainSplitContainer)
+        public ThumbnailPreview(AntiDuplCore core, Options options, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;

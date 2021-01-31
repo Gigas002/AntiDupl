@@ -39,7 +39,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ToolStripButton m_deleteButton;
         private ToolStripButton m_mistakeButton;
 
-        public ResultsPreviewDefect(CoreLib core, Options options, CoreOptions coreOptions, ResultsListView resultsListView)
+        public ResultsPreviewDefect(AntiDuplCore core, Options options, CoreOptions coreOptions, ResultsListView resultsListView)
             : base(core, options, coreOptions, resultsListView)
         {
             InitializeComponents();

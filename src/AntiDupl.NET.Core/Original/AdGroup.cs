@@ -27,21 +27,5 @@ namespace AntiDupl.NET.Core.Original
         public AdImageInfoW[] Images { get; set; }
 
         public Size MaxSize { get; set; }
-
-        public AdGroup(CoreLib core)
-        {
-            if (core == null) throw new ArgumentNullException(nameof(core));
-
-            Images = core.GetImageInfo(Id, 0, Size);
-            MaxSize = new Size(0, 0);
-
-            foreach (AdImageInfoW imageInfo in Images)
-            {
-                int width = Math.Max(MaxSize.Width, imageInfo.Width);
-                int height = Math.Max(MaxSize.Height, imageInfo.Height);
-
-                MaxSize = new Size(width, height);
-            }
-        }
     }
 }

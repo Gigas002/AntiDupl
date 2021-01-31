@@ -25,18 +25,19 @@
 using System;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
 {
     public class AboutProgramForm : Form
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
 
         private AboutProgramPanel m_aboutProgramPanel;
         private Button m_okButton;
 
-        public AboutProgramForm(CoreLib core)
+        public AboutProgramForm(AntiDuplCore core)
         {
             m_core = core;
             InitializeComponent();

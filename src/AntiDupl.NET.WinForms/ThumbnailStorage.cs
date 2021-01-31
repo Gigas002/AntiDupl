@@ -37,7 +37,7 @@ namespace AntiDupl.NET.WinForms
     {
         #region Fields
 
-        private readonly CoreLib _mCore;
+        private readonly AntiDuplCore _mCore;
         private readonly Options _mOptions;
         private readonly Dictionary<long, Bitmap> _mStorage = new();
         private readonly Mutex _mMutex = new Mutex();
@@ -46,7 +46,7 @@ namespace AntiDupl.NET.WinForms
 
         #region Constructor
 
-        public ThumbnailStorage(CoreLib core, Options options)
+        public ThumbnailStorage(AntiDuplCore core, Options options)
         {
             _mCore = core;
             _mOptions = options;

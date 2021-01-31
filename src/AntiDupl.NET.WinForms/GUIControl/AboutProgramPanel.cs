@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -34,9 +35,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
     {
         private const int LOGO_SIZE = 32;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
 
-        public AboutProgramPanel(CoreLib core)
+        public AboutProgramPanel(AntiDuplCore core)
         {
             m_core = core;
             InitializeComponent();
@@ -117,7 +118,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             table.Controls.Add(CreateLinkLabel("AntiDupl.Native", Resources.WebLinks.GithubComAntidupl, font), 0, 1);
             table.Controls.Add(CreateLabel(antiDuplNativeVersion, font), 1, 1);
 
-            string antiDuplNetCoreVersion = Assembly.GetAssembly(typeof(CoreLib))?.GetName().Version?.ToString(4);
+            string antiDuplNetCoreVersion = Assembly.GetAssembly(typeof(AntiDuplCore))?.GetName().Version?.ToString(4);
             table.Controls.Add(CreateLinkLabel("AntiDupl.NET.Core", Resources.WebLinks.GithubComAntidupl, font), 0, 2);
             table.Controls.Add(CreateLabel(antiDuplNetCoreVersion, font), 1, 2);
 

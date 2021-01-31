@@ -53,7 +53,7 @@ namespace AntiDupl.NET.WinForms.Forms
         }
         State m_state = State.Start;
 
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_coreOptions;
         private MainSplitContainer m_mainSplitContainer;
@@ -68,7 +68,7 @@ namespace AntiDupl.NET.WinForms.Forms
         private ProgressPanel m_progressPanel;
         private NotifyIcon m_notifyIcon;
 
-        public SearchExecuterForm(CoreLib core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer, MainForm mainForm)
+        public SearchExecuterForm(AntiDuplCore core, Options options, CoreOptions coreOptions, MainSplitContainer mainSplitContainer, MainForm mainForm)
         {
             m_core = core;
             m_options = options;

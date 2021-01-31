@@ -27,6 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -37,7 +38,7 @@ namespace AntiDupl.NET.WinForms.Forms
         public const int MIN_WIDTH = 790;
 
         private Options m_options;
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private CoreOptions m_coreOptions;
 
         private MainSplitContainer m_mainSplitContainer;
@@ -47,7 +48,7 @@ namespace AntiDupl.NET.WinForms.Forms
 
         public MainForm()
         {
-            m_core = new CoreLib(Resources.UserPath);
+            m_core = new AntiDuplCore(Resources.UserPath);
             m_options = Options.Load();
             //if (m_options.loadProfileOnLoading)
             //    m_coreOptions = CoreOptions.Load(m_options.coreOptionsFileName, m_core, m_options.onePath);

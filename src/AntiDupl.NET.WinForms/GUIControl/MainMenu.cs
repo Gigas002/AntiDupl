@@ -28,13 +28,14 @@ using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
     public class MainMenu : MenuStrip
     {
-        private CoreLib m_core;
+        private AntiDuplCore m_core;
         private Options m_options;
         private CoreOptions m_coreOptions;
 
@@ -82,7 +83,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private NewVersionMenuItem m_newVersionMenuItem;
 
-        public MainMenu(CoreLib core, Options options, CoreOptions coreOptions, MainForm mainForm, MainSplitContainer mainSplitContainer)
+        public MainMenu(AntiDuplCore core, Options options, CoreOptions coreOptions, MainForm mainForm, MainSplitContainer mainSplitContainer)
         {
             m_core = core;
             m_options = options;
