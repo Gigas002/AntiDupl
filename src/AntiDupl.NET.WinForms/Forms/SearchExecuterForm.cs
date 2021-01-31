@@ -343,7 +343,7 @@ namespace AntiDupl.NET.WinForms.Forms
                 total = mainThreadStatus.total;
                 if (mainThreadStatus.current > 0)
                 {
-                    if (m_coreOptions.compareOptions.checkOnEquality)
+                    if (m_coreOptions.compareOptions.CheckOnEquality)
                     {
                         for (int i = 0; ; i++)
                         {

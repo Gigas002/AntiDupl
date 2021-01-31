@@ -592,21 +592,21 @@ namespace AntiDupl.NET.Core
             }
         }
 
-        public CoreCompareOptions compareOptions
-        {
-            get
-            {
-                AdCompareOptions[] options = new AdCompareOptions[1];
-                m_dll.AdOptionsGet(m_handle, OptionsType.Compare, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-                return new CoreCompareOptions(ref options[0]);
-            }
-            set
-            {
-                AdCompareOptions[] options = new AdCompareOptions[1];
-                value.ConvertTo(ref options[0]);
-                m_dll.AdOptionsSet(m_handle, OptionsType.Compare, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-            }
-        }
+        public AdCompareOptions compareOptions { get; set; }
+        //{
+        //    get
+        //    {
+        //        AdCompareOptions[] options = new AdCompareOptions[1];
+        //        m_dll.AdOptionsGet(m_handle, OptionsType.Compare, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //        return new AdCompareOptions(ref options[0]);
+        //    }
+        //    set
+        //    {
+        //        AdCompareOptions[] options = new AdCompareOptions[1];
+        //        value.ConvertTo(ref options[0]);
+        //        m_dll.AdOptionsSet(m_handle, OptionsType.Compare, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //    }
+        //}
 
         public CoreDefectOptions defectOptions
         {

@@ -101,7 +101,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_thresholdDifferenceComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             m_thresholdDifferenceComboBox.FlatStyle = FlatStyle.Popup;
             m_thresholdDifferenceComboBox.SelectedIndexChanged += new EventHandler(OnThresholdDifferenceChanged);
-            if (m_coreOptions.compareOptions.algorithmComparing == AlgorithmComparing.SquaredSum)
+            if (m_coreOptions.compareOptions.AlgorithmComparing == AlgorithmComparing.SquaredSum)
                 for (int i = 0; i <= CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SQUARED_SUM; i++)
                     m_thresholdDifferenceComboBox.Items.Add(string.Format("{0} %", i));
             else
@@ -210,22 +210,22 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_mistakeButton.Enabled = m_coreOptions.advancedOptions.MistakeDataBase &&
                  m_core.CanApply(ActionEnableType.Any);
 
-            m_algorithmComparingComboBox.SelectedIndex = (int)m_coreOptions.compareOptions.algorithmComparing;
-            if (m_coreOptions.compareOptions.algorithmComparing == AlgorithmComparing.SquaredSum &&
+            m_algorithmComparingComboBox.SelectedIndex = (int)m_coreOptions.compareOptions.AlgorithmComparing;
+            if (m_coreOptions.compareOptions.AlgorithmComparing == AlgorithmComparing.SquaredSum &&
                 m_thresholdDifferenceComboBox.Items.Count > CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SQUARED_SUM + 1)
             {
                 m_thresholdDifferenceComboBox.Items.Clear();
                 for (int i = 0; i <= CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SQUARED_SUM; i++)
                     m_thresholdDifferenceComboBox.Items.Add(new LabeledComboBox.Value(i, string.Format("{0} %", i)));
             }
-            if (m_coreOptions.compareOptions.algorithmComparing == AlgorithmComparing.SSIM &&
+            if (m_coreOptions.compareOptions.AlgorithmComparing == AlgorithmComparing.SSIM &&
                  m_thresholdDifferenceComboBox.Items.Count < CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SSIM + 1)
             {
                 m_thresholdDifferenceComboBox.Items.Clear();
                 for (int i = 0; i <= CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SSIM; i++)
                     m_thresholdDifferenceComboBox.Items.Add(new LabeledComboBox.Value(i, string.Format("{0} %", i)));
             }
-            m_thresholdDifferenceComboBox.SelectedIndex = m_coreOptions.compareOptions.thresholdDifference;
+            m_thresholdDifferenceComboBox.SelectedIndex = m_coreOptions.compareOptions.ThresholdDifference;
         }
 
         public void SetViewMode(ViewMode viewMode)
@@ -277,13 +277,13 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void OnThresholdDifferenceChanged(object sender, EventArgs e)
         {
-            m_coreOptions.compareOptions.thresholdDifference = m_thresholdDifferenceComboBox.SelectedIndex;
+            m_coreOptions.compareOptions.ThresholdDifference = m_thresholdDifferenceComboBox.SelectedIndex;
         }
 
         private void OnAlgorithmComparingChanged(object sender, EventArgs e)
         {
-            m_coreOptions.compareOptions.algorithmComparing = (AlgorithmComparing)m_algorithmComparingComboBox.SelectedIndex;
-            if (m_coreOptions.compareOptions.algorithmComparing == AlgorithmComparing.SquaredSum &&
+            m_coreOptions.compareOptions.AlgorithmComparing = (AlgorithmComparing)m_algorithmComparingComboBox.SelectedIndex;
+            if (m_coreOptions.compareOptions.AlgorithmComparing == AlgorithmComparing.SquaredSum &&
                 m_thresholdDifferenceComboBox.Items.Count > CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SQUARED_SUM + 1)
             {
                 m_thresholdDifferenceComboBox.Items.Clear();
@@ -291,7 +291,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                     m_thresholdDifferenceComboBox.Items.Add(new LabeledComboBox.Value(i, string.Format("{0} %", i)));
                 m_thresholdDifferenceComboBox.SelectedIndex = CoreOptionsForm.THRESHOLD_DIFFERENCE_DEFAULT_SQUARED_SUM;
             }
-            if (m_coreOptions.compareOptions.algorithmComparing == AlgorithmComparing.SSIM &&
+            if (m_coreOptions.compareOptions.AlgorithmComparing == AlgorithmComparing.SSIM &&
                  m_thresholdDifferenceComboBox.Items.Count < CoreOptionsForm.THRESHOLD_DIFFERENCE_MAX_SSIM + 1)
             {
                 m_thresholdDifferenceComboBox.Items.Clear();

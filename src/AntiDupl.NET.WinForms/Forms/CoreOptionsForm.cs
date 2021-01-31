@@ -226,7 +226,7 @@ namespace AntiDupl.NET.WinForms.Forms
             checkTableLayoutPanel.Controls.Add(m_algorithmComparingLabeledComboBox, 0, 5);
 
             m_thresholdDifferenceLabeledComboBox = new LabeledComboBox(COMBO_BOX_WIDTH, COMBO_BOX_HEIGHT, OnOptionChanged);
-            if (m_newCoreOptions.compareOptions.algorithmComparing == AlgorithmComparing.SquaredSum)
+            if (m_newCoreOptions.compareOptions.AlgorithmComparing == AlgorithmComparing.SquaredSum)
                 for (int i = 0; i <= THRESHOLD_DIFFERENCE_MAX_SQUARED_SUM; i++)
                     m_thresholdDifferenceLabeledComboBox.comboBox.Items.Add(new LabeledComboBox.Value(i, string.Format("{0} %", i)));
             else
@@ -236,12 +236,12 @@ namespace AntiDupl.NET.WinForms.Forms
 
             m_minimalImageSizeLabeledIntegerEdit = new LabeledIntegerEdit(COMBO_BOX_WIDTH, COMBO_BOX_HEIGHT, OnOptionChanged);
             m_minimalImageSizeLabeledIntegerEdit.Min = 0;
-            m_minimalImageSizeLabeledIntegerEdit.Default = m_defaultCoreOptions.compareOptions.minimalImageSize;
+            m_minimalImageSizeLabeledIntegerEdit.Default = m_defaultCoreOptions.compareOptions.MinimalImageSize;
             checkTableLayoutPanel.Controls.Add(m_minimalImageSizeLabeledIntegerEdit, 0, 7);
 
             m_maximalImageSizeLabeledIntegerEdit = new LabeledIntegerEdit(COMBO_BOX_WIDTH, COMBO_BOX_HEIGHT, OnOptionChanged);
             m_maximalImageSizeLabeledIntegerEdit.Min = 0;
-            m_maximalImageSizeLabeledIntegerEdit.Default = m_defaultCoreOptions.compareOptions.maximalImageSize;
+            m_maximalImageSizeLabeledIntegerEdit.Default = m_defaultCoreOptions.compareOptions.MaximalImageSize;
             checkTableLayoutPanel.Controls.Add(m_maximalImageSizeLabeledIntegerEdit, 0, 8);
 
             m_compareInsideOneFolderCheckBox = InitFactory.CheckBox.Create(OnOptionChanged);
@@ -536,17 +536,17 @@ namespace AntiDupl.NET.WinForms.Forms
         /// </summary>
         private void GetOptions()
         {
-            m_checkOnEqualityCheckBox.Checked = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_transformedImageCheckBox.Checked = m_newCoreOptions.compareOptions.transformedImage;
-            m_sizeControlCheckBox.Checked = m_newCoreOptions.compareOptions.sizeControl;
-            m_typeControlCheckBox.Checked = m_newCoreOptions.compareOptions.typeControl;
-            m_ratioControlCheckBox.Checked = m_newCoreOptions.compareOptions.ratioControl;
-            m_algorithmComparingLabeledComboBox.SelectedValue = (int)m_newCoreOptions.compareOptions.algorithmComparing;
-            m_thresholdDifferenceLabeledComboBox.SelectedValue = m_newCoreOptions.compareOptions.thresholdDifference;
-            m_minimalImageSizeLabeledIntegerEdit.Value = m_newCoreOptions.compareOptions.minimalImageSize;
-            m_maximalImageSizeLabeledIntegerEdit.Value = m_newCoreOptions.compareOptions.maximalImageSize;
-            m_compareInsideOneFolderCheckBox.Checked = m_newCoreOptions.compareOptions.compareInsideOneFolder;
-            m_compareInsideOneSearchPathCheckBox.Checked = m_newCoreOptions.compareOptions.compareInsideOneSearchPath;
+            m_checkOnEqualityCheckBox.Checked = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_transformedImageCheckBox.Checked = m_newCoreOptions.compareOptions.TransformedImage;
+            m_sizeControlCheckBox.Checked = m_newCoreOptions.compareOptions.SizeControl;
+            m_typeControlCheckBox.Checked = m_newCoreOptions.compareOptions.TypeControl;
+            m_ratioControlCheckBox.Checked = m_newCoreOptions.compareOptions.RatioControl;
+            m_algorithmComparingLabeledComboBox.SelectedValue = (int)m_newCoreOptions.compareOptions.AlgorithmComparing;
+            m_thresholdDifferenceLabeledComboBox.SelectedValue = m_newCoreOptions.compareOptions.ThresholdDifference;
+            m_minimalImageSizeLabeledIntegerEdit.Value = m_newCoreOptions.compareOptions.MinimalImageSize;
+            m_maximalImageSizeLabeledIntegerEdit.Value = m_newCoreOptions.compareOptions.MaximalImageSize;
+            m_compareInsideOneFolderCheckBox.Checked = m_newCoreOptions.compareOptions.CompareInsideOneFolder;
+            m_compareInsideOneSearchPathCheckBox.Checked = m_newCoreOptions.compareOptions.CompareInsideOneSearchPath;
 
             m_checkOnDefectCheckBox.Checked = m_newCoreOptions.defectOptions.checkOnDefect;
             m_checkOnBlockinessCheckBox.Checked = m_newCoreOptions.defectOptions.checkOnBlockiness;
@@ -589,17 +589,17 @@ namespace AntiDupl.NET.WinForms.Forms
         /// </summary>
         private void SetOptions()
         {
-            m_newCoreOptions.compareOptions.checkOnEquality = m_checkOnEqualityCheckBox.Checked;
-            m_newCoreOptions.compareOptions.transformedImage = m_transformedImageCheckBox.Checked;
-            m_newCoreOptions.compareOptions.sizeControl = m_sizeControlCheckBox.Checked;
-            m_newCoreOptions.compareOptions.typeControl = m_typeControlCheckBox.Checked;
-            m_newCoreOptions.compareOptions.ratioControl = m_ratioControlCheckBox.Checked;
-            m_newCoreOptions.compareOptions.algorithmComparing = (AlgorithmComparing)m_algorithmComparingLabeledComboBox.SelectedValue;
-            m_newCoreOptions.compareOptions.thresholdDifference = m_thresholdDifferenceLabeledComboBox.SelectedValue;
-            m_newCoreOptions.compareOptions.minimalImageSize = m_minimalImageSizeLabeledIntegerEdit.Value;
-            m_newCoreOptions.compareOptions.maximalImageSize = m_maximalImageSizeLabeledIntegerEdit.Value;
-            m_newCoreOptions.compareOptions.compareInsideOneFolder = m_compareInsideOneFolderCheckBox.Checked;
-            m_newCoreOptions.compareOptions.compareInsideOneSearchPath = m_compareInsideOneSearchPathCheckBox.Checked;
+            m_newCoreOptions.compareOptions.CheckOnEquality = m_checkOnEqualityCheckBox.Checked;
+            m_newCoreOptions.compareOptions.TransformedImage = m_transformedImageCheckBox.Checked;
+            m_newCoreOptions.compareOptions.SizeControl = m_sizeControlCheckBox.Checked;
+            m_newCoreOptions.compareOptions.TypeControl = m_typeControlCheckBox.Checked;
+            m_newCoreOptions.compareOptions.RatioControl = m_ratioControlCheckBox.Checked;
+            m_newCoreOptions.compareOptions.AlgorithmComparing = (AlgorithmComparing)m_algorithmComparingLabeledComboBox.SelectedValue;
+            m_newCoreOptions.compareOptions.ThresholdDifference = m_thresholdDifferenceLabeledComboBox.SelectedValue;
+            m_newCoreOptions.compareOptions.MinimalImageSize = m_minimalImageSizeLabeledIntegerEdit.Value;
+            m_newCoreOptions.compareOptions.MaximalImageSize = m_maximalImageSizeLabeledIntegerEdit.Value;
+            m_newCoreOptions.compareOptions.CompareInsideOneFolder = m_compareInsideOneFolderCheckBox.Checked;
+            m_newCoreOptions.compareOptions.CompareInsideOneSearchPath = m_compareInsideOneSearchPathCheckBox.Checked;
 
             m_newCoreOptions.defectOptions.checkOnDefect = m_checkOnDefectCheckBox.Checked;
             m_newCoreOptions.defectOptions.checkOnBlockiness = m_checkOnBlockinessCheckBox.Checked;
@@ -719,11 +719,11 @@ namespace AntiDupl.NET.WinForms.Forms
         private void UpdateItemsEnabling()
         {
             // Если не проставлены галочки поиска дубликатов и дефектов, то проставляем сами
-            if (!(m_newCoreOptions.defectOptions.checkOnDefect || m_newCoreOptions.compareOptions.checkOnEquality ||
+            if (!(m_newCoreOptions.defectOptions.checkOnDefect || m_newCoreOptions.compareOptions.CheckOnEquality ||
                 m_newCoreOptions.defectOptions.checkOnBlockiness || m_newCoreOptions.defectOptions.checkOnBlurring))
             {
                 m_inited = false;
-                m_newCoreOptions.compareOptions.checkOnEquality = true;
+                m_newCoreOptions.compareOptions.CheckOnEquality = true;
                 GetOptions();
                 m_inited = true;
             }
@@ -752,20 +752,20 @@ namespace AntiDupl.NET.WinForms.Forms
             m_okButton.Enabled = !m_oldCoreOptions.Equals(m_newCoreOptions);
             m_setDefaultButton.Enabled = !m_defaultCoreOptions.Equals(m_newCoreOptions);
 
-            m_transformedImageCheckBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_sizeControlCheckBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_typeControlCheckBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_ratioControlCheckBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality &&
-              !m_newCoreOptions.compareOptions.sizeControl;
-            m_thresholdDifferenceLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_compareInsideOneFolderCheckBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_compareInsideOneSearchPathCheckBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
+            m_transformedImageCheckBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_sizeControlCheckBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_typeControlCheckBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_ratioControlCheckBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality &&
+              !m_newCoreOptions.compareOptions.SizeControl;
+            m_thresholdDifferenceLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_compareInsideOneFolderCheckBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_compareInsideOneSearchPathCheckBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
 
-            m_ratioResolutionLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality &&
-              !m_newCoreOptions.compareOptions.sizeControl && m_newCoreOptions.compareOptions.ratioControl;
-            m_compareThreadCountLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_reducedImageSizeLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
-            m_ignoreFrameWidthLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.checkOnEquality;
+            m_ratioResolutionLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality &&
+              !m_newCoreOptions.compareOptions.SizeControl && m_newCoreOptions.compareOptions.RatioControl;
+            m_compareThreadCountLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_reducedImageSizeLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
+            m_ignoreFrameWidthLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
 
             m_blockinessThresholdLabeledComboBox.Enabled = m_newCoreOptions.defectOptions.checkOnBlockiness;
             m_checkOnBlockinessOnlyNotJpegCheckBox.Enabled = m_newCoreOptions.defectOptions.checkOnBlockiness;

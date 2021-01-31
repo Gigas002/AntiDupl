@@ -34,7 +34,7 @@ namespace AntiDupl.NET.WinForms
     public class CoreOptions
     {
         public CoreSearchOptions searchOptions;
-        public CoreCompareOptions compareOptions;
+        public AdCompareOptions compareOptions;
         public CoreDefectOptions defectOptions;
         public AdAdvancedOptions advancedOptions;
 
@@ -46,7 +46,7 @@ namespace AntiDupl.NET.WinForms
         public CoreOptions()
         {
             searchOptions = new CoreSearchOptions();
-            compareOptions = new CoreCompareOptions();
+            compareOptions = new AdCompareOptions();
             defectOptions = new CoreDefectOptions();
             advancedOptions = new AdAdvancedOptions();
 
@@ -59,7 +59,7 @@ namespace AntiDupl.NET.WinForms
         public CoreOptions(CoreLib core, bool onePath)
             : this()
         {
-            //SetDefault(core, onePath);
+            SetDefault(core, onePath);
         }
 
         public CoreOptions(CoreLib core)
@@ -70,7 +70,7 @@ namespace AntiDupl.NET.WinForms
         public CoreOptions(CoreOptions options)
         {
             searchOptions = options.searchOptions.Clone();
-            compareOptions = options.compareOptions.Clone();
+            compareOptions = options.compareOptions;
             defectOptions = options.defectOptions.Clone();
             advancedOptions = options.advancedOptions;
 
@@ -96,7 +96,7 @@ namespace AntiDupl.NET.WinForms
         public void Get(CoreLib core, bool onePath)
         {
             searchOptions = core.searchOptions.Clone();
-            compareOptions = core.compareOptions.Clone();
+            compareOptions = core.compareOptions;
             defectOptions = core.defectOptions.Clone();
             advancedOptions = core.advancedOptions;
             if (onePath)
@@ -120,7 +120,7 @@ namespace AntiDupl.NET.WinForms
         public void Set(CoreLib core, bool onePath)
         {
             core.searchOptions = searchOptions.Clone();
-            core.compareOptions = compareOptions.Clone();
+            core.compareOptions = compareOptions;
             core.defectOptions = defectOptions.Clone();
             core.advancedOptions = advancedOptions;
             if (onePath)
@@ -160,7 +160,7 @@ namespace AntiDupl.NET.WinForms
         public void CopyTo(ref CoreOptions options)
         {
             options.searchOptions = searchOptions.Clone();
-            options.compareOptions = compareOptions.Clone();
+            options.compareOptions = compareOptions;
             options.defectOptions = defectOptions.Clone();
             options.advancedOptions = advancedOptions;
 
@@ -232,44 +232,44 @@ namespace AntiDupl.NET.WinForms
 
         static public CoreOptions Load(string fileName, CoreLib core, bool onePath)
         {
-            FileInfo fileInfo = new FileInfo(fileName);
-            if (fileInfo.Exists)
-            {
-                FileStream fileStream = null;
-                try
-                {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(CoreOptions));
-                    fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                    CoreOptions coreOptions = (CoreOptions)xmlSerializer.Deserialize(fileStream);
-                    fileStream.Close();
-                    coreOptions.Validate(core, onePath);
-                    return coreOptions;
-                }
-                catch
-                {
-                    if (fileStream != null)
-                        fileStream.Close();
-                    return new CoreOptions(core);
-                }
-            }
-            else
+            //FileInfo fileInfo = new FileInfo(fileName);
+            //if (fileInfo.Exists)
+            //{
+            //    FileStream fileStream = null;
+            //    try
+            //    {
+            //        XmlSerializer xmlSerializer = new XmlSerializer(typeof(CoreOptions));
+            //        fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            //        CoreOptions coreOptions = (CoreOptions)xmlSerializer.Deserialize(fileStream);
+            //        fileStream.Close();
+            //        coreOptions.Validate(core, onePath);
+            //        return coreOptions;
+            //    }
+            //    catch
+            //    {
+            //        if (fileStream != null)
+            //            fileStream.Close();
+            //        return new CoreOptions(core);
+            //    }
+            //}
+            //else
                 return new CoreOptions(core);
         }
 
         public void Save(string fileName)
         {
-            TextWriter writer = null;
-            try
-            {
-                writer = new StreamWriter(fileName);
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(CoreOptions));
-                xmlSerializer.Serialize(writer, this);
-            }
-            catch
-            {
-            }
-            if (writer != null)
-                writer.Close();
+            //TextWriter writer = null;
+            //try
+            //{
+            //    writer = new StreamWriter(fileName);
+            //    XmlSerializer xmlSerializer = new XmlSerializer(typeof(CoreOptions));
+            //    xmlSerializer.Serialize(writer, this);
+            //}
+            //catch
+            //{
+            //}
+            //if (writer != null)
+            //    writer.Close();
         }
 
         public string GetImageDataBasePath()

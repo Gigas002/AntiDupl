@@ -49,13 +49,13 @@ namespace AntiDupl.NET.WinForms.Forms
         {
             m_core = new CoreLib(Resources.UserPath);
             m_options = Options.Load();
-            if (m_options.loadProfileOnLoading)
-                m_coreOptions = CoreOptions.Load(m_options.coreOptionsFileName, m_core, m_options.onePath);
-            else
-            {
+            //if (m_options.loadProfileOnLoading)
+            //    m_coreOptions = CoreOptions.Load(m_options.coreOptionsFileName, m_core, m_options.onePath);
+            //else
+            //{
                 m_options.coreOptionsFileName = Options.GetDefaultCoreOptionsFileName();
                 m_coreOptions = new CoreOptions(m_core);
-            }
+            //}
             Resources.Strings.SetCurrent(m_options.Language);
 
             StartFinishForm startFinishForm = new StartFinishForm(m_core, m_options);
