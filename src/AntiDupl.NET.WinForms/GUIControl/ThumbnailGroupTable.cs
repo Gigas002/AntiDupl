@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -38,7 +39,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     {
         private CoreLib m_core;
         private Options m_options;
-        private CoreGroup[] m_groups;
+        private AdGroup[] m_groups;
         private int m_maxGroupIndex = -1;
         private MainSplitContainer m_mainSplitContainer;
 
@@ -50,7 +51,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private bool m_changeControls = true;
         private DateTime m_lastUpdate = DateTime.Now;
 
-        public delegate void CurrentThumbnailChangedHandler(CoreGroup group, int index);
+        public delegate void CurrentThumbnailChangedHandler(AdGroup group, int index);
         public event CurrentThumbnailChangedHandler OnCurrentThumbnailChanged;
 
         public ThumbnailGroupTable(CoreLib core, Options options, MainSplitContainer mainSplitContainer)
@@ -88,7 +89,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             UpdateThumbnailsStop();
             m_thumbnailStorage.Clear();
-            m_groups = new CoreGroup[0];
+            m_groups = Array.Empty<AdGroup>();
             m_maxGroupIndex = -1;
             Controls.Clear();
         }
@@ -101,7 +102,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             uint groupSize = m_core.GetGroupSize();
             if (groupSize == 0)
             {
-                m_groups = new CoreGroup[0];
+                m_groups = Array.Empty<AdGroup>();
                 m_maxGroupIndex = -1;
                 return;
             }
@@ -110,9 +111,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
             int groupSizeMax = 0;
             for (int i = 0; i < m_groups.Length; ++i)
             {
-                if (m_groups[i].images.Length > groupSizeMax)
+                if (m_groups[i].Images.Length > groupSizeMax)
                 {
-                    groupSizeMax = m_groups[i].images.Length;
+                    groupSizeMax = m_groups[i].Images.Length;
                     m_maxGroupIndex = i;
                 }
             }
@@ -372,7 +373,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             for (int i = 0; i < m_groups.Length; ++i)
             {
-                CoreImageInfo[] images = m_groups[i].images;
+                CoreImageInfo[] images = m_groups[i].Images;
                 for (int j = 0; j < images.Length; ++j)
                 {
                     m_thumbnailStorage.Get(images[j]);
@@ -424,15 +425,11 @@ namespace AntiDupl.NET.WinForms.GUIControl
             control.Invalidate();
         }
 
-        public void ChangeCurrentThumbnail(CoreGroup group, int index)
-        {
-            if (OnCurrentThumbnailChanged != null)
-                OnCurrentThumbnailChanged(group, index);
-        }
+        public void ChangeCurrentThumbnail(AdGroup group, int index) => OnCurrentThumbnailChanged?.Invoke(group, index);
 
-        public bool Rename(CoreGroup group, int index, string newFileName)
+        public bool Rename(AdGroup group, int index, string newFileName)
         {
-            if(m_core.Rename(group.id, index, newFileName))
+            if(m_core.Rename(group.Id, index, newFileName))
             {
                 UpdateGroups();
                 return true;

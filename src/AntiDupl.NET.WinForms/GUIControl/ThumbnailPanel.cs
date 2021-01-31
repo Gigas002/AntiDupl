@@ -28,6 +28,7 @@ using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -40,7 +41,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private const int EBW = 2;//External border width
 
         private CoreLib m_core;
-        private CoreGroup m_group;
+        private AdGroup m_group;
         private int m_index;
         private Options m_options;
         private ThumbnailGroupPanel m_thumbnailGroupPanel;
@@ -78,9 +79,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
         }
 
-        public CoreImageInfo ImageInfo { get { return m_group.images[m_index]; } }
+        public CoreImageInfo ImageInfo { get { return m_group.Images[m_index]; } }
 
-        public ThumbnailPanel(CoreLib core, Options options, CoreGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
+        public ThumbnailPanel(CoreLib core, Options options, AdGroup group, int index, ThumbnailGroupPanel thumbnailGroupPanel)
         {
             m_core = core;
             m_options = options;
@@ -187,14 +188,14 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void SetImageInfo()
         {
-            CoreImageInfo info = m_group.images[m_index];
+            CoreImageInfo info = m_group.Images[m_index];
 
             m_fileSizeLabel.Text = info.GetFileSizeString();
             m_imageSizeLabel.Text = string.Format("{0}×{1}", info.width, info.height);
             m_imageTypeLabel.Text = (info.type == ImageType.None ? "   " : info.GetImageTypeString());
             m_fileNameLabel.Text = Path.GetFileNameWithoutExtension(info.path);
 
-            bool[] selected = m_core.GetSelection(m_group.id, (uint)m_index, 1);
+            bool[] selected = m_core.GetSelection(m_group.Id, (uint)m_index, 1);
             m_checkBox.Checked = selected[0];
         }
 
@@ -202,11 +203,11 @@ namespace AntiDupl.NET.WinForms.GUIControl
         {
             if (m_checkBox.Checked)
             {
-                m_core.SetSelection(m_group.id, m_index, SelectionType.SelectCurrent);
+                m_core.SetSelection(m_group.Id, m_index, SelectionType.SelectCurrent);
             }
             else
             {
-                m_core.SetSelection(m_group.id, m_index, SelectionType.UnselectCurrent);
+                m_core.SetSelection(m_group.Id, m_index, SelectionType.UnselectCurrent);
             }
             m_thumbnailGroupPanel.Table.ChangeCurrentThumbnail(m_group, m_index);
         }

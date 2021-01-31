@@ -25,6 +25,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -37,11 +38,11 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private Options m_options;
         private MainSplitContainer m_mainSplitContainer;
         
-        private CoreGroup m_group = null;
-        public CoreGroup Group { get { return m_group; } }
+        private AdGroup m_group = null;
+        public AdGroup Group { get { return m_group; } }
         private int m_index = 0;
         public int Index { get { return m_index; } }
-        public CoreImageInfo ImageInfo { get { return m_group.images[m_index]; } }
+        public CoreImageInfo ImageInfo { get { return m_group.Images[m_index]; } }
 
         private PictureBoxPanel m_pictureBoxPanel;
         
@@ -77,12 +78,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
             Controls.Add(testButton);
         }
 
-        public void SetThumbnail(CoreGroup group, int index)
+        public void SetThumbnail(AdGroup group, int index)
         {
             m_group = group;
             m_index = index;
             m_pictureBoxPanel.UpdateImage(ImageInfo);
-            m_pictureBoxPanel.UpdateImagePadding(m_group.sizeMax);
+            m_pictureBoxPanel.UpdateImagePadding(m_group.MaxSize);
             m_pictureBoxPanel.Refresh();
         }
     }

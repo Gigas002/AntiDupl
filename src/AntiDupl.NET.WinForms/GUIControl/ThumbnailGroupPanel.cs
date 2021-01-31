@@ -25,6 +25,7 @@
 using System;
 using System.Drawing;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -34,7 +35,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
     public class ThumbnailGroupPanel : RaisedPanel
     {
         private CoreLib m_core;
-        private CoreGroup m_group;
+        private AdGroup m_group;
         private Options m_options;
 
         private ThumbnailPanel[] m_thumbnailPanels;
@@ -43,7 +44,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private ThumbnailGroupTable m_thumbnailGroupTable;
         public ThumbnailGroupTable Table { get { return m_thumbnailGroupTable; } }
 
-        public ThumbnailGroupPanel(CoreLib core, Options options, CoreGroup group, ThumbnailGroupTable thumbnailGroupTable)
+        public ThumbnailGroupPanel(CoreLib core, Options options, AdGroup group, ThumbnailGroupTable thumbnailGroupTable)
         {
             m_core = core;
             m_options = options;
@@ -59,8 +60,8 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
             int width = 0;
             int height = 0;
-            m_thumbnailPanels = new ThumbnailPanel[m_group.images.Length];
-            for (int i = 0; i < m_group.images.Length; ++i)
+            m_thumbnailPanels = new ThumbnailPanel[m_group.Images.Length];
+            for (int i = 0; i < m_group.Images.Length; ++i)
             {
                 m_thumbnailPanels[i] = new ThumbnailPanel(m_core, m_options, m_group, i, this);
                 m_thumbnailPanels[i].Location = new Point(Padding.Left + m_thumbnailPanels[i].Margin.Left + (m_thumbnailPanels[i].Width + m_thumbnailPanels[i].Margin.Horizontal)*i,

@@ -377,33 +377,33 @@ namespace AntiDupl.NET.Core
             return -1;
         }
 
-        public CoreGroup[] GetGroup(uint startFrom, uint size)
+        public AdGroup[] GetGroup(uint startFrom, uint size)
         {
             uint groupSize = GetGroupSize();
-            if (groupSize > startFrom)
-            {
-                object groupObject = new AdGroup();
-                int sizeOfGroup = Marshal.SizeOf(groupObject);
-                size = Math.Min(groupSize - startFrom, size);
-                byte[] buffer = new byte[sizeOfGroup * size];
-                CoreGroup[] groups = new CoreGroup[size];
-                UIntPtr[] pStartFrom = new UIntPtr[1];
-                pStartFrom[0] = new UIntPtr(startFrom);
-                UIntPtr[] pSize = new UIntPtr[1];
-                pSize[0] = new UIntPtr(size);
-                if (m_dll.AdGroupGet(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0),
-                    Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
-                    Marshal.UnsafeAddrOfPinnedArrayElement(pSize, 0)) == Error.Ok)
-                {
-                    for (uint i = 0; i < pSize[0].ToUInt32(); ++i)
-                    {
-                        IntPtr pGroup = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i * sizeOfGroup));
-                        AdGroup group = (AdGroup)Marshal.PtrToStructure(pGroup, groupObject.GetType());
-                        groups[i] = new CoreGroup(ref group, this);
-                    }
-                }
-                return groups;
-            }
+            //if (groupSize > startFrom)
+            //{
+            //    object groupObject = new AdGroup();
+            //    int sizeOfGroup = Marshal.SizeOf(groupObject);
+            //    size = Math.Min(groupSize - startFrom, size);
+            //    byte[] buffer = new byte[sizeOfGroup * size];
+            //    CoreGroup[] groups = new CoreGroup[size];
+            //    UIntPtr[] pStartFrom = new UIntPtr[1];
+            //    pStartFrom[0] = new UIntPtr(startFrom);
+            //    UIntPtr[] pSize = new UIntPtr[1];
+            //    pSize[0] = new UIntPtr(size);
+            //    if (m_dll.AdGroupGet(m_handle, Marshal.UnsafeAddrOfPinnedArrayElement(pStartFrom, 0),
+            //        Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0),
+            //        Marshal.UnsafeAddrOfPinnedArrayElement(pSize, 0)) == Error.Ok)
+            //    {
+            //        for (uint i = 0; i < pSize[0].ToUInt32(); ++i)
+            //        {
+            //            IntPtr pGroup = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i * sizeOfGroup));
+            //            AdGroup group = (AdGroup)Marshal.PtrToStructure(pGroup, groupObject.GetType());
+            //            groups[i] = new CoreGroup(ref group, this);
+            //        }
+            //    }
+            //    return groups;
+            //}
             return null;
         }
 
