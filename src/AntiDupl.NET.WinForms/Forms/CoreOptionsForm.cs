@@ -555,22 +555,22 @@ namespace AntiDupl.NET.WinForms.Forms
             m_checkOnBlurringCheckBox.Checked = m_newCoreOptions.defectOptions.CheckOnBlurring;
             m_blurringThresholdLabeledComboBox.SelectedValue = m_newCoreOptions.defectOptions.BlurringThreshold;
 
-            m_bmpCheckBox.Checked = m_newCoreOptions.searchOptions.BMP;
-            m_gifCheckBox.Checked = m_newCoreOptions.searchOptions.GIF;
-            m_jpegCheckBox.Checked = m_newCoreOptions.searchOptions.JPEG;
-            m_pngCheckBox.Checked = m_newCoreOptions.searchOptions.PNG;
-            m_tiffCheckBox.Checked = m_newCoreOptions.searchOptions.TIFF;
-            m_emfCheckBox.Checked = m_newCoreOptions.searchOptions.EMF;
-            m_wmfCheckBox.Checked = m_newCoreOptions.searchOptions.WMF;
-            m_exifCheckBox.Checked = m_newCoreOptions.searchOptions.EXIF;
-            m_iconCheckBox.Checked = m_newCoreOptions.searchOptions.ICON;
-            m_jp2CheckBox.Checked = m_newCoreOptions.searchOptions.JP2;
-            m_psdCheckBox.Checked = m_newCoreOptions.searchOptions.PSD;
-            m_ddsCheckBox.Checked = m_newCoreOptions.searchOptions.DDS;
-            m_tgaCheckBox.Checked = m_newCoreOptions.searchOptions.TGA;
-            m_webpCheckBox.Checked = m_newCoreOptions.searchOptions.WEBP;
-            m_searchSystemCheckBox.Checked = m_newCoreOptions.searchOptions.system;
-            m_searchHiddenCheckBox.Checked = m_newCoreOptions.searchOptions.hidden;
+            m_bmpCheckBox.Checked = m_newCoreOptions.searchOptions.Bmp;
+            m_gifCheckBox.Checked = m_newCoreOptions.searchOptions.Gif;
+            m_jpegCheckBox.Checked = m_newCoreOptions.searchOptions.Jpeg;
+            m_pngCheckBox.Checked = m_newCoreOptions.searchOptions.Png;
+            m_tiffCheckBox.Checked = m_newCoreOptions.searchOptions.Tiff;
+            m_emfCheckBox.Checked = m_newCoreOptions.searchOptions.Emf;
+            m_wmfCheckBox.Checked = m_newCoreOptions.searchOptions.Wmf;
+            m_exifCheckBox.Checked = m_newCoreOptions.searchOptions.Exif;
+            m_iconCheckBox.Checked = m_newCoreOptions.searchOptions.Icon;
+            m_jp2CheckBox.Checked = m_newCoreOptions.searchOptions.Jp2;
+            m_psdCheckBox.Checked = m_newCoreOptions.searchOptions.Psd;
+            m_ddsCheckBox.Checked = m_newCoreOptions.searchOptions.Dds;
+            m_tgaCheckBox.Checked = m_newCoreOptions.searchOptions.Tga;
+            m_webpCheckBox.Checked = m_newCoreOptions.searchOptions.Webp;
+            m_searchSystemCheckBox.Checked = m_newCoreOptions.searchOptions.System;
+            m_searchHiddenCheckBox.Checked = m_newCoreOptions.searchOptions.Hidden;
 
             m_deleteToRecycleBinCheckBox.Checked = m_newCoreOptions.advancedOptions.DeleteToRecycleBin;
             m_mistakeDataBaseCheckBox.Checked = m_newCoreOptions.advancedOptions.MistakeDataBase;
@@ -608,22 +608,22 @@ namespace AntiDupl.NET.WinForms.Forms
             m_newCoreOptions.defectOptions.CheckOnBlurring = m_checkOnBlurringCheckBox.Checked;
             m_newCoreOptions.defectOptions.BlurringThreshold = m_blurringThresholdLabeledComboBox.SelectedValue;
 
-            m_newCoreOptions.searchOptions.BMP = m_bmpCheckBox.Checked;
-            m_newCoreOptions.searchOptions.GIF = m_gifCheckBox.Checked;
-            m_newCoreOptions.searchOptions.JPEG = m_jpegCheckBox.Checked;
-            m_newCoreOptions.searchOptions.PNG = m_pngCheckBox.Checked;
-            m_newCoreOptions.searchOptions.TIFF = m_tiffCheckBox.Checked;
-            m_newCoreOptions.searchOptions.EMF = m_emfCheckBox.Checked;
-            m_newCoreOptions.searchOptions.WMF = m_wmfCheckBox.Checked;
-            m_newCoreOptions.searchOptions.EXIF = m_exifCheckBox.Checked;
-            m_newCoreOptions.searchOptions.ICON = m_iconCheckBox.Checked;
-            m_newCoreOptions.searchOptions.JP2 = m_jp2CheckBox.Checked;
-            m_newCoreOptions.searchOptions.PSD = m_psdCheckBox.Checked;
-            m_newCoreOptions.searchOptions.DDS = m_ddsCheckBox.Checked;
-            m_newCoreOptions.searchOptions.TGA = m_tgaCheckBox.Checked;
-            m_newCoreOptions.searchOptions.WEBP = m_webpCheckBox.Checked;
-            m_newCoreOptions.searchOptions.system = m_searchSystemCheckBox.Checked;
-            m_newCoreOptions.searchOptions.hidden = m_searchHiddenCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Bmp = m_bmpCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Gif = m_gifCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Jpeg = m_jpegCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Png = m_pngCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Tiff = m_tiffCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Emf = m_emfCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Wmf = m_wmfCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Exif = m_exifCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Icon = m_iconCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Jp2 = m_jp2CheckBox.Checked;
+            m_newCoreOptions.searchOptions.Psd = m_psdCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Dds = m_ddsCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Tga = m_tgaCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Webp = m_webpCheckBox.Checked;
+            m_newCoreOptions.searchOptions.System = m_searchSystemCheckBox.Checked;
+            m_newCoreOptions.searchOptions.Hidden = m_searchHiddenCheckBox.Checked;
 
             m_newCoreOptions.advancedOptions.DeleteToRecycleBin = m_deleteToRecycleBinCheckBox.Checked;
             m_newCoreOptions.advancedOptions.MistakeDataBase = m_mistakeDataBaseCheckBox.Checked;
@@ -728,23 +728,23 @@ namespace AntiDupl.NET.WinForms.Forms
                 m_inited = true;
             }
 
-            if (!(m_newCoreOptions.searchOptions.BMP ||
-              m_newCoreOptions.searchOptions.GIF ||
-              m_newCoreOptions.searchOptions.JPEG ||
-              m_newCoreOptions.searchOptions.PNG ||
-              m_newCoreOptions.searchOptions.TIFF ||
-              m_newCoreOptions.searchOptions.EMF ||
-              m_newCoreOptions.searchOptions.WMF ||
-              m_newCoreOptions.searchOptions.EXIF ||
-              m_newCoreOptions.searchOptions.ICON ||
-              m_newCoreOptions.searchOptions.JP2 ||
-              m_newCoreOptions.searchOptions.PSD ||
-              m_newCoreOptions.searchOptions.DDS ||
-              m_newCoreOptions.searchOptions.TGA ||
-              m_newCoreOptions.searchOptions.WEBP))
+            if (!(m_newCoreOptions.searchOptions.Bmp ||
+              m_newCoreOptions.searchOptions.Gif ||
+              m_newCoreOptions.searchOptions.Jpeg ||
+              m_newCoreOptions.searchOptions.Png ||
+              m_newCoreOptions.searchOptions.Tiff ||
+              m_newCoreOptions.searchOptions.Emf ||
+              m_newCoreOptions.searchOptions.Wmf ||
+              m_newCoreOptions.searchOptions.Exif ||
+              m_newCoreOptions.searchOptions.Icon ||
+              m_newCoreOptions.searchOptions.Jp2 ||
+              m_newCoreOptions.searchOptions.Psd ||
+              m_newCoreOptions.searchOptions.Dds ||
+              m_newCoreOptions.searchOptions.Tga ||
+              m_newCoreOptions.searchOptions.Webp))
             {
                 m_inited = false;
-                m_newCoreOptions.searchOptions.JPEG = true;
+                m_newCoreOptions.searchOptions.Jpeg = true;
                 GetOptions();
                 m_inited = true;
             }

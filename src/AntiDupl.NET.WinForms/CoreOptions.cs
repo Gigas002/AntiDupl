@@ -33,7 +33,7 @@ namespace AntiDupl.NET.WinForms
 {
     public class CoreOptions
     {
-        public CoreSearchOptions searchOptions;
+        public AdSearchOptions searchOptions;
         public AdCompareOptions compareOptions;
         public AdDefectOptions defectOptions;
         public AdAdvancedOptions advancedOptions;
@@ -45,7 +45,7 @@ namespace AntiDupl.NET.WinForms
 
         public CoreOptions()
         {
-            searchOptions = new CoreSearchOptions();
+            searchOptions = new AdSearchOptions();
             compareOptions = new AdCompareOptions();
             defectOptions = new AdDefectOptions();
             advancedOptions = new AdAdvancedOptions();
@@ -69,7 +69,7 @@ namespace AntiDupl.NET.WinForms
 
         public CoreOptions(CoreOptions options)
         {
-            searchOptions = options.searchOptions.Clone();
+            searchOptions = options.searchOptions;
             compareOptions = options.compareOptions;
             defectOptions = options.defectOptions;
             advancedOptions = options.advancedOptions;
@@ -95,7 +95,7 @@ namespace AntiDupl.NET.WinForms
 
         public void Get(CoreLib core, bool onePath)
         {
-            searchOptions = core.searchOptions.Clone();
+            searchOptions = core.searchOptions;
             compareOptions = core.compareOptions;
             defectOptions = core.defectOptions;
             advancedOptions = core.advancedOptions;
@@ -119,7 +119,7 @@ namespace AntiDupl.NET.WinForms
         /// <param name="onePath"></param>
         public void Set(CoreLib core, bool onePath)
         {
-            core.searchOptions = searchOptions.Clone();
+            core.searchOptions = searchOptions;
             core.compareOptions = compareOptions;
             core.defectOptions = defectOptions;
             core.advancedOptions = advancedOptions;
@@ -159,7 +159,7 @@ namespace AntiDupl.NET.WinForms
 
         public void CopyTo(ref CoreOptions options)
         {
-            options.searchOptions = searchOptions.Clone();
+            options.searchOptions = searchOptions;
             options.compareOptions = compareOptions;
             options.defectOptions = defectOptions;
             options.advancedOptions = advancedOptions;

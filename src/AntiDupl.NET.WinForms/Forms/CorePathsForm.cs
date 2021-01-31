@@ -289,52 +289,52 @@ namespace AntiDupl.NET.WinForms.Forms
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("Image files: ");
-            if (m_newCoreOptions.searchOptions.JPEG)
+            if (m_newCoreOptions.searchOptions.Jpeg)
                 builder.Append("JPEG; ");
-            if (m_newCoreOptions.searchOptions.GIF)
+            if (m_newCoreOptions.searchOptions.Gif)
                 builder.Append("GIF; ");
-            if (m_newCoreOptions.searchOptions.PNG)
+            if (m_newCoreOptions.searchOptions.Png)
                 builder.Append("PNG; ");
-            if (m_newCoreOptions.searchOptions.BMP)
+            if (m_newCoreOptions.searchOptions.Bmp)
                 builder.Append("BMP; ");
-            if (m_newCoreOptions.searchOptions.TIFF)
+            if (m_newCoreOptions.searchOptions.Tiff)
                 builder.Append("TIFF; ");
-            if (m_newCoreOptions.searchOptions.EMF)
+            if (m_newCoreOptions.searchOptions.Emf)
                 builder.Append("EMF; ");
-            if (m_newCoreOptions.searchOptions.WMF)
+            if (m_newCoreOptions.searchOptions.Wmf)
                 builder.Append("WMF; ");
-            if (m_newCoreOptions.searchOptions.EXIF)
+            if (m_newCoreOptions.searchOptions.Exif)
                 builder.Append("EXIF; ");
-            if (m_newCoreOptions.searchOptions.ICON)
+            if (m_newCoreOptions.searchOptions.Icon)
                 builder.Append("ICON; ");
-            if (m_newCoreOptions.searchOptions.JP2)
+            if (m_newCoreOptions.searchOptions.Jp2)
                 builder.Append("JP2; ");
-            if (m_newCoreOptions.searchOptions.PSD)
+            if (m_newCoreOptions.searchOptions.Psd)
                 builder.Append("PSD; ");
             builder.Append("|");
-            if (m_newCoreOptions.searchOptions.JPEG)
+            if (m_newCoreOptions.searchOptions.Jpeg)
                 builder.Append("*.jpeg;*.jfif;*.jpg;*.jpe;*.jiff;*.jif;*.j;*.jng;*.jff;");
-            if (m_newCoreOptions.searchOptions.GIF)
+            if (m_newCoreOptions.searchOptions.Gif)
                 builder.Append("*.gif;");
-            if (m_newCoreOptions.searchOptions.PNG)
+            if (m_newCoreOptions.searchOptions.Png)
                 builder.Append("*.png;");
-            if (m_newCoreOptions.searchOptions.BMP)
+            if (m_newCoreOptions.searchOptions.Bmp)
                 builder.Append("*.bmp;*.dib;*.rle;");
-            if (m_newCoreOptions.searchOptions.TIFF)
+            if (m_newCoreOptions.searchOptions.Tiff)
                 builder.Append("*.tif;*.tiff;");
-            if (m_newCoreOptions.searchOptions.EMF)
+            if (m_newCoreOptions.searchOptions.Emf)
                 builder.Append("*.emf;*.emz;");
-            if (m_newCoreOptions.searchOptions.WMF)
+            if (m_newCoreOptions.searchOptions.Wmf)
                 builder.Append("*.wmf");
-            if (m_newCoreOptions.searchOptions.EXIF)
+            if (m_newCoreOptions.searchOptions.Exif)
                 builder.Append("*.exif;");
-            if (m_newCoreOptions.searchOptions.ICON)
+            if (m_newCoreOptions.searchOptions.Icon)
                 builder.Append("*.icon;*.ico;*.icn;");
-            if (m_newCoreOptions.searchOptions.JP2)
+            if (m_newCoreOptions.searchOptions.Jp2)
                 builder.Append("*.jp2;*.j2k;*.j2c;*.jpc;*.jpf;*.jpx;");
-            if (m_newCoreOptions.searchOptions.PSD)
+            if (m_newCoreOptions.searchOptions.Psd)
                 builder.Append("*.psd;");
-            if (m_newCoreOptions.searchOptions.WEBP)
+            if (m_newCoreOptions.searchOptions.Webp)
                 builder.Append("*.webp;");
             return builder.ToString();
         }

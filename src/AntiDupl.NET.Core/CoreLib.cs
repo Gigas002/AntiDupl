@@ -576,21 +576,21 @@ namespace AntiDupl.NET.Core
 
         #region Public properties
 
-        public CoreSearchOptions searchOptions
-        {
-            get
-            {
-                AdSearchOptions[] options = new AdSearchOptions[1];
-                m_dll.AdOptionsGet(m_handle, OptionsType.Search, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-                return new CoreSearchOptions(options[0]);
-            }
-            set
-            {
-                AdSearchOptions[] options = new AdSearchOptions[1];
-                value.ConvertTo(ref options[0]);
-                m_dll.AdOptionsSet(m_handle, OptionsType.Search, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-            }
-        }
+        public AdSearchOptions searchOptions { get; set; }
+        //{
+        //    get
+        //    {
+        //        AdSearchOptions[] options = new AdSearchOptions[1];
+        //        m_dll.AdOptionsGet(m_handle, OptionsType.Search, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //        return options[0];
+        //    }
+        //    set
+        //    {
+        //        AdSearchOptions[] options = new AdSearchOptions[1];
+        //        value.ConvertTo(ref options[0]);
+        //        m_dll.AdOptionsSet(m_handle, OptionsType.Search, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //    }
+        //}
 
         public AdCompareOptions compareOptions { get; set; }
         //{
