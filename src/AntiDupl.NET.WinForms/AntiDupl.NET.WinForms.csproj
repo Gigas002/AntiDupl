@@ -5,8 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <VersionPrefix>2.4.0</VersionPrefix>
     <VersionSuffix>preview</VersionSuffix>
-    <AssemblyVersion>2.4.0.60</AssemblyVersion>
-    <FileVersion>2.4.0.60</FileVersion>
+    <AssemblyVersion>2.4.0.62</AssemblyVersion>
+    <FileVersion>2.4.0.62</FileVersion>
     <Platforms>x64</Platforms>
     <Configurations>Debug;Release</Configurations>
     <PackageIcon>Icon.ico</PackageIcon>

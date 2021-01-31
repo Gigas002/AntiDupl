@@ -84,7 +84,7 @@ namespace AntiDupl.NET.WinForms
         {
             CoreOptions old = new CoreOptions();
             old.Get(core, onePath);
-            core.SetDefaultOptions();
+            //core.SetDefaultOptions();
             Get(core, onePath);
             old.Set(core, onePath);
 

@@ -155,10 +155,10 @@ namespace AntiDupl.NET.Core
             return m_dll.AdClear(m_handle, fileType) == Error.Ok;
         }
 
-        public bool SetDefaultOptions()
-        {
-            return m_dll.AdOptionsSet(m_handle, OptionsType.SetDefault, IntPtr.Zero) == Error.Ok;
-        }
+        //public bool SetDefaultOptions()
+        //{
+        //    return m_dll.AdOptionsSet(m_handle, OptionsType.SetDefault, IntPtr.Zero) == Error.Ok;
+        //}
 
         public AdStatistic GetStatistic()
         {

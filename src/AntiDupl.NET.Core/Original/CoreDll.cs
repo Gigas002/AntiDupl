@@ -34,11 +34,10 @@ namespace AntiDupl.NET.Core.Original
 
         #region API functions
 
-        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        private static extern Error adVersionGet(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize);
+        //[DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        //private static extern Error adVersionGet(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize);
 
-        public Error AdVersionGet(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize) =>
-            adVersionGet(versionType, pVersion, pVersionSize);
+        //public Error AdVersionGet(VersionType versionType, IntPtr pVersion, IntPtr pVersionSize) => adVersionGet(versionType, pVersion, pVersionSize);
 
         [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         private static extern IntPtr adCreateW(string userPath);
@@ -78,18 +77,6 @@ namespace AntiDupl.NET.Core.Original
         public Error AdClear(IntPtr handle, FileType fileType) => adClear(handle, fileType);
 
         [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        private static extern Error adOptionsGet(IntPtr handle, OptionsType optionsType, IntPtr pOptions);
-
-        public Error AdOptionsGet(IntPtr handle, OptionsType optionsType, IntPtr pOptions) =>
-            adOptionsGet(handle, optionsType, pOptions);
-
-        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        private static extern Error adOptionsSet(IntPtr handle, OptionsType optionsType, IntPtr pOptions);
-
-        public Error AdOptionsSet(IntPtr handle, OptionsType optionsType, IntPtr pOptions) =>
-            adOptionsSet(handle, optionsType, pOptions);
-
-        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         private static extern Error adPathWithSubFolderSetW(IntPtr handle, PathType pathType, IntPtr pPaths, IntPtr pathSize);
 
         public Error AdPathWithSubFolderSetW(IntPtr handle, PathType pathType, IntPtr pPaths, IntPtr pathSize) =>
@@ -100,12 +87,6 @@ namespace AntiDupl.NET.Core.Original
 
         public Error AdPathGetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pPathSize) =>
             adPathGetW(handle, pathType, pPath, pPathSize);
-
-        [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        private static extern Error adPathSetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pathSize);
-
-        public Error AdPathSetW(IntPtr handle, PathType pathType, IntPtr pPath, IntPtr pathSize) =>
-            adPathSetW(handle, pathType, pPath, pathSize);
 
         [DllImport(DllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         private static extern Error adStatisticGet(IntPtr handle, IntPtr pStatistic);
