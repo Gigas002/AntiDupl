@@ -8,7 +8,7 @@ namespace AntiDupl.NET.Core.Original
     {
         #region Properties
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_PATH_EX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MaxPathEx)]
         private string path;
 
         public string Path

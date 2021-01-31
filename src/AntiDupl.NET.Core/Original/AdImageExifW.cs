@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace AntiDupl.NET.Core.Original
 {
@@ -6,15 +7,21 @@ namespace AntiDupl.NET.Core.Original
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public class AdImageExifW
     {
+        #region Constants
+
+        private const int MaxExifSize = 260;
+
+        #endregion
+
         private int isEmpty;
 
-        public int IsEmpty
+        public bool IsEmpty
         {
-            get => isEmpty;
-            set => isEmpty = value;
+            get => Convert.ToBoolean(isEmpty);
+            set => isEmpty = Convert.ToInt32(value);
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string imageDescription;
 
         public string ImageDescription
@@ -23,7 +30,7 @@ namespace AntiDupl.NET.Core.Original
             set => imageDescription = value;
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string equipMake;
 
         public string EquipMake
@@ -32,7 +39,7 @@ namespace AntiDupl.NET.Core.Original
             set => equipMake = value;
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string equipModel;
 
         public string EquipModel
@@ -41,7 +48,7 @@ namespace AntiDupl.NET.Core.Original
             set => equipModel = value;
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string softwareUsed;
 
         public string SoftwareUsed
@@ -50,7 +57,7 @@ namespace AntiDupl.NET.Core.Original
             set => softwareUsed = value;
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string dateTime;
 
         public string DateTime
@@ -59,7 +66,7 @@ namespace AntiDupl.NET.Core.Original
             set => dateTime = value;
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string artist;
 
         public string Artist
@@ -68,7 +75,7 @@ namespace AntiDupl.NET.Core.Original
             set => artist = value;
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxExifSize)]
         private string userComment;
 
         public string UserComment

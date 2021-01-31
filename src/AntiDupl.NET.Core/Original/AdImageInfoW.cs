@@ -20,7 +20,7 @@ namespace AntiDupl.NET.Core.Original
             set => id = new IntPtr(value);
         }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_PATH_EX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MaxPathEx)]
         private string path;
 
         public string Path

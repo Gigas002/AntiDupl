@@ -209,7 +209,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 m_imageBlocknessLabel.Text = m_currentImageInfo.GetBlockinessString();
                 m_imageBlurringLabel.Text = m_currentImageInfo.GetBlurringString();
                 m_imageTypeLabel.Text = m_currentImageInfo.Type == ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
-                if (currentImageInfo.ExifInfo.IsEmpty == Constants.FALSE)
+                if (currentImageInfo.ExifInfo.IsEmpty)
                 {
                     m_imageExifLabel.Visible = true;
                     SetExifTooltip(currentImageInfo);
@@ -488,12 +488,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 case Position.Left:
                 case Position.Top:
-                    if (result.First.ExifInfo.IsEmpty == Constants.FALSE)
+                    if (result.First.ExifInfo.IsEmpty)
                         SetExifTooltip(result.First);
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    if (result.Second.ExifInfo.IsEmpty == Constants.FALSE)
+                    if (result.Second.ExifInfo.IsEmpty)
                         SetExifTooltip(result.Second);
                     break;
             }

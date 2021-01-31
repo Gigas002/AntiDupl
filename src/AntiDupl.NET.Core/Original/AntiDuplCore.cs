@@ -301,12 +301,12 @@ namespace AntiDupl.NET.Core.Original
 
         public Error SetPath(PathType pathType, AdPathWithSubFolderW[] path)
         {
-            char[] buffer = new char[path.Length * (Constants.MAX_PATH_EX + 1)];
+            char[] buffer = new char[path.Length * (Constants.MaxPathEx + 1)];
 
             for (int i = 0; i < path.Length; i++)
             {
-                path[i].Path.CopyTo(0, buffer, i * (Constants.MAX_PATH_EX + 1), path[i].Path.Length);
-                buffer[(Constants.MAX_PATH_EX + 1) * i + Constants.MAX_PATH_EX] = path[i].EnableSubFolder ? '1' : '0';
+                path[i].Path.CopyTo(0, buffer, i * (Constants.MaxPathEx + 1), path[i].Path.Length);
+                buffer[(Constants.MaxPathEx + 1) * i + Constants.MaxPathEx] = path[i].EnableSubFolder ? '1' : '0';
             }
 
             return adPathWithSubFolderSetW(Handle, pathType, Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0), new IntPtr(path.Length));
@@ -334,7 +334,7 @@ namespace AntiDupl.NET.Core.Original
             if (adPathGetW(Handle, pathType, new IntPtr(1), Marshal.UnsafeAddrOfPinnedArrayElement(size, 0)) != Error.OutputBufferIsTooSmall)
                 return pathWsf;
 
-            char[] buffer = new char[(Constants.MAX_PATH_EX + 1) * size[0].ToInt32()];
+            char[] buffer = new char[(Constants.MaxPathEx + 1) * size[0].ToInt32()];
 
             if (adPathGetW(Handle, pathType, Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0), Marshal.UnsafeAddrOfPinnedArrayElement(size, 0)) != Error.Ok)
                 return pathWsf;
@@ -345,8 +345,8 @@ namespace AntiDupl.NET.Core.Original
             {
                 pathWsf[i] = new AdPathWithSubFolderW
                 {
-                    Path = BufferToString(buffer, i * (Constants.MAX_PATH_EX + 1), Constants.MAX_PATH_EX),
-                    EnableSubFolder = buffer[(Constants.MAX_PATH_EX + 1) * i + Constants.MAX_PATH_EX] == '1'
+                    Path = BufferToString(buffer, i * (Constants.MaxPathEx + 1), Constants.MaxPathEx),
+                    EnableSubFolder = buffer[(Constants.MaxPathEx + 1) * i + Constants.MaxPathEx] == '1'
                 };
             }
 
