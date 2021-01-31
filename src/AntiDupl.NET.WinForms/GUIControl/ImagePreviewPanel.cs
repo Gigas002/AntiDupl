@@ -209,7 +209,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                 m_imageBlocknessLabel.Text = m_currentImageInfo.GetBlockinessString();
                 m_imageBlurringLabel.Text = m_currentImageInfo.GetBlurringString();
                 m_imageTypeLabel.Text = m_currentImageInfo.type == ImageType.None ? "   " : m_currentImageInfo.GetImageTypeString();
-                if (currentImageInfo.exifInfo.isEmpty == Constants.FALSE)
+                if (currentImageInfo.exifInfo.IsEmpty == Constants.FALSE)
                 {
                     m_imageExifLabel.Visible = true;
                     SetExifTooltip(currentImageInfo);
@@ -435,20 +435,20 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private List<string> GetExifList(CoreImageInfo currentImageInfo, Strings s)
         {
             List<string> exifList = new List<string>();
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.imageDescription))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_ImageDescription + currentImageInfo.exifInfo.imageDescription);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.equipMake))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipMake + currentImageInfo.exifInfo.equipMake);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.equipModel))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipModel + currentImageInfo.exifInfo.equipModel);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.softwareUsed))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_SoftwareUsed + currentImageInfo.exifInfo.softwareUsed);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.dateTime))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_DateTime + currentImageInfo.exifInfo.dateTime);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.artist))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_Artist + currentImageInfo.exifInfo.artist);
-            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.userComment))
-                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_UserComment + currentImageInfo.exifInfo.userComment);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.ImageDescription))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_ImageDescription + currentImageInfo.exifInfo.ImageDescription);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.EquipMake))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipMake + currentImageInfo.exifInfo.EquipMake);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.EquipModel))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_EquipModel + currentImageInfo.exifInfo.EquipModel);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.SoftwareUsed))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_SoftwareUsed + currentImageInfo.exifInfo.SoftwareUsed);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.DateTime))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_DateTime + currentImageInfo.exifInfo.DateTime);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.Artist))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_Artist + currentImageInfo.exifInfo.Artist);
+            if (!String.IsNullOrEmpty(currentImageInfo.exifInfo.UserComment))
+                exifList.Add(s.ImagePreviewPanel_EXIF_Tooltip_UserComment + currentImageInfo.exifInfo.UserComment);
             return exifList;
         }
 
@@ -488,12 +488,12 @@ namespace AntiDupl.NET.WinForms.GUIControl
             {
                 case Position.Left:
                 case Position.Top:
-                    if (result.first.exifInfo.isEmpty == Constants.FALSE)
+                    if (result.first.exifInfo.IsEmpty == Constants.FALSE)
                         SetExifTooltip(result.first);
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    if (result.second.exifInfo.isEmpty == Constants.FALSE)
+                    if (result.second.exifInfo.IsEmpty == Constants.FALSE)
                         SetExifTooltip(result.second);
                     break;
             }
@@ -504,14 +504,14 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// </summary>
         private bool ExifEqual(AdImageExifW imageExif1, AdImageExifW imageExif2)
         {
-            if (imageExif1.isEmpty == imageExif2.isEmpty &&
-                imageExif1.artist.CompareTo(imageExif2.artist) == 0 &&
-                imageExif1.dateTime.CompareTo(imageExif2.dateTime) == 0 &&
-                imageExif1.equipMake.CompareTo(imageExif2.equipMake) == 0 &&
-                imageExif1.equipModel.CompareTo(imageExif2.equipModel) == 0 &&
-                imageExif1.imageDescription.CompareTo(imageExif2.imageDescription) == 0 &&
-                imageExif1.softwareUsed.CompareTo(imageExif2.softwareUsed) == 0 &&
-                imageExif1.userComment.CompareTo(imageExif2.userComment) == 0)
+            if (imageExif1.IsEmpty == imageExif2.IsEmpty &&
+                imageExif1.Artist.CompareTo(imageExif2.Artist) == 0 &&
+                imageExif1.DateTime.CompareTo(imageExif2.DateTime) == 0 &&
+                imageExif1.EquipMake.CompareTo(imageExif2.EquipMake) == 0 &&
+                imageExif1.EquipModel.CompareTo(imageExif2.EquipModel) == 0 &&
+                imageExif1.ImageDescription.CompareTo(imageExif2.ImageDescription) == 0 &&
+                imageExif1.SoftwareUsed.CompareTo(imageExif2.SoftwareUsed) == 0 &&
+                imageExif1.UserComment.CompareTo(imageExif2.UserComment) == 0)
                 return true;
 
             return false;

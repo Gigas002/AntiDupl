@@ -4,22 +4,77 @@ namespace AntiDupl.NET.Core.Original
 {
     // Она же class TImageExif decimal в dll
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    public struct AdImageExifW
+    public class AdImageExifW
     {
-        public int isEmpty;
+        private int isEmpty;
+
+        public int IsEmpty
+        {
+            get => isEmpty;
+            set => isEmpty = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string imageDescription;
+        private string imageDescription;
+
+        public string ImageDescription
+        {
+            get => imageDescription;
+            set => imageDescription = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string equipMake;
+        private string equipMake;
+
+        public string EquipMake
+        {
+            get => equipMake;
+            set => equipMake = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string equipModel;
+        private string equipModel;
+
+        public string EquipModel
+        {
+            get => equipModel;
+            set => equipModel = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string softwareUsed;
+        private string softwareUsed;
+
+        public string SoftwareUsed
+        {
+            get => softwareUsed;
+            set => softwareUsed = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string dateTime;
+        private string dateTime;
+
+        public string DateTime
+        {
+            get => dateTime;
+            set => dateTime = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string artist;
+        private string artist;
+
+        public string Artist
+        {
+            get => artist;
+            set => artist = value;
+        }
+
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.MAX_EXIF_SIZE)]
-        public string userComment;
+        private string userComment;
+
+        public string UserComment
+        {
+            get => userComment;
+            set => userComment = value;
+        }
     }
 }
