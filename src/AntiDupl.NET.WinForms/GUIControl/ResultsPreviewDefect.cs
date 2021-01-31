@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -63,7 +64,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_mistakeButton.ToolTipText = GetToolTip(s.ResultsPreviewDefect_MistakeButton_ToolTip_Text, HotKeyOptions.Action.CurrentMistake);
         }
 
-        public void SetCurrentSearchResult(CoreResult currentSearchResult)
+        public void SetCurrentSearchResult(AdResultW currentSearchResult)
         {
             m_currentSearchResult = currentSearchResult;
             m_imagePreviewPanel.SetResult(m_currentSearchResult);

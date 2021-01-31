@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -66,11 +67,11 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         private void CurrentResultChanged()
         {
-            CoreResult result = m_mainSplitContainer.resultsListView.GetCurrentResult();
+            AdResultW result = m_mainSplitContainer.resultsListView.GetCurrentResult();
             State state = State.Empty;
             if (result != null)
             {
-                switch (result.type)
+                switch (result.Type)
                 {
                     case ResultType.DefectImage:
                         state = State.Defect;

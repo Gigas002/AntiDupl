@@ -275,29 +275,29 @@ namespace AntiDupl.NET.WinForms.GUIControl
             return false;
         }
 
-        public void SetResult(CoreResult result)
+        public void SetResult(AdResultW result)
         {
-            if (result.type == ResultType.None)
+            if (result.Type == ResultType.None)
                 throw new Exception("Bad result type!");
 
-            m_group = result.group;
+            m_group = result.Group;
 
             switch (m_position)
             {
                 case Position.Left:
                 case Position.Top:
-                    if (result.type == ResultType.DuplImagePair)
-                        SetImageInfo(result.first, result.second);
+                    if (result.Type == ResultType.DuplImagePair)
+                        SetImageInfo(result.First, result.Second);
                     else
-                        SetImageInfo(result.first, null);
+                        SetImageInfo(result.First, null);
 
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    if (result.type == ResultType.DuplImagePair)
-                        SetImageInfo(result.second, result.first);
+                    if (result.Type == ResultType.DuplImagePair)
+                        SetImageInfo(result.Second, result.First);
                     else
-                        SetImageInfo(result.second, null);
+                        SetImageInfo(result.Second, null);
                     break;
             }
         }
@@ -479,22 +479,22 @@ namespace AntiDupl.NET.WinForms.GUIControl
         /// Изменение подсказки EXIF при смене языка.
         /// </summary>
         /// <param name="result"></param>
-        public void UpdateExifTooltip(CoreResult result)
+        public void UpdateExifTooltip(AdResultW result)
         {
-            if (result.type == ResultType.None)
+            if (result.Type == ResultType.None)
                 throw new Exception("Bad result type!");
 
             switch (m_position)
             {
                 case Position.Left:
                 case Position.Top:
-                    if (result.first.ExifInfo.IsEmpty == Constants.FALSE)
-                        SetExifTooltip(result.first);
+                    if (result.First.ExifInfo.IsEmpty == Constants.FALSE)
+                        SetExifTooltip(result.First);
                     break;
                 case Position.Right:
                 case Position.Bottom:
-                    if (result.second.ExifInfo.IsEmpty == Constants.FALSE)
-                        SetExifTooltip(result.second);
+                    if (result.Second.ExifInfo.IsEmpty == Constants.FALSE)
+                        SetExifTooltip(result.Second);
                     break;
             }
         }

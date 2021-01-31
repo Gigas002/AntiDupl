@@ -25,6 +25,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -34,7 +35,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         protected Options m_options;
         protected CoreLib m_core;
         protected CoreOptions m_coreOptions;
-        protected CoreResult m_currentSearchResult;
+        protected AdResultW m_currentSearchResult;
 
         protected TableLayoutPanel m_mainLayout;
         protected TableLayoutPanel m_imageLayout;

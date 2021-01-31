@@ -30,6 +30,7 @@ using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 
 namespace AntiDupl.NET.WinForms.GUIControl
 {
@@ -136,13 +137,13 @@ namespace AntiDupl.NET.WinForms.GUIControl
             }
         }
 
-        public void SetCurrentSearchResult(CoreResult currentSearchResult)
+        public void SetCurrentSearchResult(AdResultW currentSearchResult)
         {
             m_currentSearchResult = currentSearchResult;
             m_firstImagePreviewPanel.SetResult(m_currentSearchResult);
             m_secondImagePreviewPanel.SetResult(m_currentSearchResult);
             SetDifference();
-            SetHint(m_currentSearchResult.hint);
+            SetHint(m_currentSearchResult.Hint);
             UpdateNextAndPreviousButtonEnabling();
         }
 

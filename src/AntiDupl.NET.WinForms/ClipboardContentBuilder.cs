@@ -24,6 +24,7 @@
 
 using System.Text;
 using AntiDupl.NET.Core;
+using AntiDupl.NET.Core.Original;
 using TypeVertical = AntiDupl.NET.WinForms.GUIControl.ResultsListView.ColumnsTypeVertical;
 using TypeHorizontal = AntiDupl.NET.WinForms.GUIControl.ResultsListView.ColumnsTypeHorizontal;
 
@@ -41,7 +42,7 @@ namespace AntiDupl.NET.WinForms
             m_builder = new StringBuilder();
         }
 
-        public void Add(CoreResult result)
+        public void Add(AdResultW result)
         {
             m_insertTab = false;
             switch (m_options.ViewMode)
@@ -63,74 +64,74 @@ namespace AntiDupl.NET.WinForms
             return m_builder.ToString();
         }
 
-        private void AddCommon(CoreResult result, ColumnOptions[] options)
+        private void AddCommon(AdResultW result, ColumnOptions[] options)
         {
             if (options[(int)TypeVertical.Type].Visible)
-                Append(result.type);
+                Append(result.Type);
             if (options[(int)TypeVertical.Group].Visible)
-                Append(result.group);
+                Append(result.Group);
             if (options[(int)TypeVertical.Difference].Visible)
-                Append(result.difference.ToString("F2"));
+                Append(result.Difference.ToString("F2"));
             if (options[(int)TypeVertical.Defect].Visible)
-                Append(result.defect);
+                Append(result.Defect);
             if (options[(int)TypeVertical.Transform].Visible)
-                Append(result.transform);
+                Append(result.Transform);
             if (options[(int)TypeVertical.Hint].Visible)
-                Append(result.hint);
+                Append(result.Hint);
         }
 
-        private void AddVertical(CoreResult result, ColumnOptions[] options)
+        private void AddVertical(AdResultW result, ColumnOptions[] options)
         {
             if (options[(int)TypeVertical.FileName].Visible ||
                 options[(int)TypeVertical.FileDirectory].Visible)
-                Append(result.first.Path);
+                Append(result.First.Path);
             if (options[(int)TypeVertical.ImageSize].Visible)
-                Append(result.first.GetImageSizeString());
+                Append(result.First.GetImageSizeString());
             if (options[(int)TypeVertical.ImageType].Visible)
-                Append(result.first.GetImageTypeString());
+                Append(result.First.GetImageTypeString());
             if (options[(int)TypeVertical.FileSize].Visible)
-                Append(result.first.GetFileSizeString());
+                Append(result.First.GetFileSizeString());
             if (options[(int)TypeVertical.FileTime].Visible)
-                Append(result.first.GetFileTimeString());
+                Append(result.First.GetFileTimeString());
 
             if (options[(int)TypeVertical.FileName].Visible ||
                 options[(int)TypeVertical.FileDirectory].Visible)
-                Append(result.second.Path);
+                Append(result.Second.Path);
             if (options[(int)TypeVertical.ImageSize].Visible)
-                Append(result.second.GetImageSizeString());
+                Append(result.Second.GetImageSizeString());
             if (options[(int)TypeVertical.ImageType].Visible)
-                Append(result.second.GetImageTypeString());
+                Append(result.Second.GetImageTypeString());
             if (options[(int)TypeVertical.FileSize].Visible)
-                Append(result.second.GetFileSizeString());
+                Append(result.Second.GetFileSizeString());
             if (options[(int)TypeVertical.FileTime].Visible)
-                Append(result.second.GetFileTimeString());
+                Append(result.Second.GetFileTimeString());
         }
 
-        private void AddHorizontal(CoreResult result, ColumnOptions[] options)
+        private void AddHorizontal(AdResultW result, ColumnOptions[] options)
         {
             if (options[(int)TypeHorizontal.FirstFileName].Visible ||
                 options[(int)TypeHorizontal.FirstFileDirectory].Visible)
-                Append(result.first.Path);
+                Append(result.First.Path);
             if (options[(int)TypeHorizontal.FirstImageSize].Visible)
-                Append(result.first.GetImageSizeString());
+                Append(result.First.GetImageSizeString());
             if (options[(int)TypeHorizontal.FirstImageType].Visible)
-                Append(result.first.GetImageTypeString());
+                Append(result.First.GetImageTypeString());
             if (options[(int)TypeHorizontal.FirstFileSize].Visible)
-                Append(result.first.GetFileSizeString());
+                Append(result.First.GetFileSizeString());
             if (options[(int)TypeHorizontal.FirstFileTime].Visible)
-                Append(result.first.GetFileTimeString());
+                Append(result.First.GetFileTimeString());
 
             if (options[(int)TypeHorizontal.SecondFileName].Visible ||
                 options[(int)TypeHorizontal.SecondFileDirectory].Visible)
-                Append(result.second.Path);
+                Append(result.Second.Path);
             if (options[(int)TypeHorizontal.SecondImageSize].Visible)
-                Append(result.second.GetImageSizeString());
+                Append(result.Second.GetImageSizeString());
             if (options[(int)TypeHorizontal.SecondImageType].Visible)
-                Append(result.second.GetImageTypeString());
+                Append(result.Second.GetImageTypeString());
             if (options[(int)TypeHorizontal.SecondFileSize].Visible)
-                Append(result.second.GetFileSizeString());
+                Append(result.Second.GetFileSizeString());
             if (options[(int)TypeHorizontal.SecondFileTime].Visible)
-                Append(result.second.GetFileTimeString());
+                Append(result.Second.GetFileTimeString());
         }
 
         private void Append(object value)

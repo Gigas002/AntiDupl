@@ -29,6 +29,7 @@ using System.IO;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.Forms;
 
 namespace AntiDupl.NET.WinForms.GUIControl
@@ -92,7 +93,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
         private Options m_options;
         public CoreOptions CoreOptions { get { return m_coreOptions; } }
         private CoreOptions m_coreOptions;
-        private CoreResult[] m_results;
+        private AdResultW[] m_results;
         private ViewMode m_viewMode = ViewMode.VerticalPairTable;
 
         private int m_firstSelectedRowIndex = -1;
@@ -139,7 +140,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             m_options = options;
             m_coreOptions = coreOptions;
             m_mainSplitContainer = mainSplitContainer;
-            m_results = new CoreResult[0];
+            m_results = new AdResultW[0];
             m_resultRowSetter = new ResultRowSetter(m_options, this);
             InitializeComponents();
             if (m_options.resultsOptions.ViewMode == ViewMode.VerticalPairTable)
@@ -334,7 +335,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
             if (m_currentRowIndex >= 0 && m_currentRowIndex < m_results.Length)
             {
-                if (m_results[m_currentRowIndex].type == ResultType.DefectImage)
+                if (m_results[m_currentRowIndex].Type == ResultType.DefectImage)
                 {
                     if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDefectDelete])
                         MakeAction(LocalActionType.DeleteDefect, TargetType.Current);
@@ -342,7 +343,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
                         MakeAction(LocalActionType.Mistake, TargetType.Current);
                     return;
                 }
-                if (m_results[m_currentRowIndex].type == ResultType.DuplImagePair)
+                if (m_results[m_currentRowIndex].Type == ResultType.DuplImagePair)
                 {
                     if (hotKey == m_options.hotKeyOptions.keys[(int)HotKeyOptions.Action.CurrentDuplPairDeleteFirst])
                         MakeAction(LocalActionType.DeleteFirst, TargetType.Current);
@@ -372,7 +373,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
 
         public void ClearResults()
         {
-            m_results = new CoreResult[0];
+            m_results = new AdResultW[0];
             Rows.Clear();
             RowCount = 1;
             m_currentRowIndex = 0;
@@ -383,7 +384,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             uint resultSize = m_core.GetResultSize();
             if (resultSize == 0)
             {
-                m_results = new CoreResult[0];
+                m_results = new AdResultW[0];
                 return;
             }
             m_results = m_core.GetResult(0, resultSize);
@@ -941,7 +942,7 @@ namespace AntiDupl.NET.WinForms.GUIControl
             return dataObject;
         }
 
-        public CoreResult GetCurrentResult()
+        public AdResultW GetCurrentResult()
         {
             if (m_currentRowIndex < m_results.Length && m_currentRowIndex >= 0)
                 return m_results[m_currentRowIndex];
@@ -958,9 +959,9 @@ namespace AntiDupl.NET.WinForms.GUIControl
                     DataGridViewCustomRow row = (DataGridViewCustomRow)Rows[i];
                     if (row.selected)
                     {
-                        if (String.IsNullOrEmpty(m_results[i].second.Path))
+                        if (String.IsNullOrEmpty(m_results[i].Second.Path))
                             return false;
-                        if (!Path.GetDirectoryName(m_results[i].first.Path).Equals(Path.GetDirectoryName(m_results[i].second.Path)))
+                        if (!Path.GetDirectoryName(m_results[i].First.Path).Equals(Path.GetDirectoryName(m_results[i].Second.Path)))
                         {
                             moveEnable = true;
                             break;

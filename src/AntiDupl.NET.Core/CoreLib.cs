@@ -269,7 +269,7 @@ namespace AntiDupl.NET.Core
             return m_dll.AdRenameCurrentGroupAsW(m_handle, fileName) == Error.Ok;
         }
 
-        public CoreResult[] GetResult(uint startFrom, uint size)
+        public AdResultW[] GetResult(uint startFrom, uint size)
         {
             uint resultSize = GetResultSize();
             if (resultSize > startFrom)
@@ -278,7 +278,7 @@ namespace AntiDupl.NET.Core
                 int sizeOfResult = Marshal.SizeOf(resultObject);
                 byte[] buffer = new byte[sizeOfResult * PAGE_SIZE];
                 size = Math.Min(resultSize - startFrom, size);
-                CoreResult[] results = new CoreResult[size];
+                AdResultW[] results = new AdResultW[size];
                 uint pageCount = (uint)(size / PAGE_SIZE + (size % PAGE_SIZE > 0 ? 1 : 0));
                 for (uint page = 0; page < pageCount; ++page)
                 {
@@ -296,7 +296,7 @@ namespace AntiDupl.NET.Core
                         {
                             IntPtr pResult = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, (int)(i * sizeOfResult));
                             AdResultW result = (AdResultW)Marshal.PtrToStructure(pResult, resultObject.GetType());
-                            results[page * PAGE_SIZE + i] = new CoreResult(ref result);
+                            results[page * PAGE_SIZE + i] = result;
                         }
 
                     }
