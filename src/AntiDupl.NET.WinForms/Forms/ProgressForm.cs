@@ -28,6 +28,7 @@ using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -418,12 +419,12 @@ namespace AntiDupl.NET.WinForms.Forms
                                     break;
                             }
 
-                            CoreStatus status = m_core.StatusGet(ThreadType.Main, 0);
+                            AdStatusW status = m_core.StatusGet(ThreadType.Main, 0);
                             if (status != null)
                             {
-                                double progress = status.total > 0 ? ((double)status.current) / status.total : 0;
+                                double progress = status.Total > 0 ? ((double)status.Current) / status.Total : 0;
                                 builder.AppendFormat(" ({0})...", ProgressUtils.GetProgressString(progress, m_startDateTime));
-                                m_progressPanel.UpdateStatus(status.total, status.current, status.current, status.path);
+                                m_progressPanel.UpdateStatus(status.Total, status.Current, status.Current, status.Path);
                             }
                             else
                             {

@@ -29,6 +29,7 @@ using System.Threading;
 using System.Windows.Forms;
 using AntiDupl.NET.Core;
 using AntiDupl.NET.Core.Enums;
+using AntiDupl.NET.Core.Original;
 using AntiDupl.NET.WinForms.GUIControl;
 
 namespace AntiDupl.NET.WinForms.Forms
@@ -203,12 +204,12 @@ namespace AntiDupl.NET.WinForms.Forms
                 }
                 Text = builder.ToString();
 
-                CoreStatus status = m_core.StatusGet(ThreadType.Main, 0);
+                AdStatusW status = m_core.StatusGet(ThreadType.Main, 0);
                 if (status != null)
                 {
-                    if (status.total > 0)
+                    if (status.Total > 0)
                     {
-                        m_progressBar.Value = status.current * m_progressBar.Maximum / status.total;
+                        m_progressBar.Value = status.Current * m_progressBar.Maximum / status.Total;
                     }
                     else
                     {

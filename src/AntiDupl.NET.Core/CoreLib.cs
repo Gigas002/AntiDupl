@@ -123,9 +123,9 @@ namespace AntiDupl.NET.Core
 
         public bool IsWork()
         {
-            CoreStatus status = StatusGet(ThreadType.Main, 0);
+            AdStatusW status = StatusGet(ThreadType.Main, 0);
             if (status != null)
-                return status.state != StateType.None;
+                return status.State != StateType.None;
             else
                 return false;
         }
@@ -187,7 +187,7 @@ namespace AntiDupl.NET.Core
             return null;
         }
 
-        public CoreStatus StatusGet(ThreadType threadType, int threadId)
+        public AdStatusW StatusGet(ThreadType threadType, int threadId)
         {
             try
             {
@@ -200,7 +200,7 @@ namespace AntiDupl.NET.Core
                     if (m_dll.AdStatusGetW(m_handle, threadType, new IntPtr(threadId), statusP) == Error.Ok)
                     {
                         AdStatusW statusW = (AdStatusW)Marshal.PtrToStructure(statusP, statusO.GetType());
-                        return new CoreStatus(ref statusW);
+                        return statusW;
                     }
                 }
                 finally

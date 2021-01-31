@@ -338,47 +338,47 @@ namespace AntiDupl.NET.WinForms.Forms
             int total = 0, currentFirst = 0, currentSecond = 0;
             string path = "";
 
-            CoreStatus mainThreadStatus = m_core.StatusGet(ThreadType.Main, 0);
+            AdStatusW mainThreadStatus = m_core.StatusGet(ThreadType.Main, 0);
             if (mainThreadStatus != null)
             {
-                total = mainThreadStatus.total;
-                if (mainThreadStatus.current > 0)
+                total = mainThreadStatus.Total;
+                if (mainThreadStatus.Current > 0)
                 {
                     if (m_coreOptions.compareOptions.CheckOnEquality)
                     {
                         for (int i = 0; ; i++)
                         {
-                            CoreStatus compareThreadStatus = m_core.StatusGet(ThreadType.Compare, i);
+                            AdStatusW compareThreadStatus = m_core.StatusGet(ThreadType.Compare, i);
                             if (compareThreadStatus == null)
                                 break;
                             if (i == 0)
                             {
-                                path = compareThreadStatus.path;
+                                path = compareThreadStatus.Path;
                             }
-                            currentFirst += compareThreadStatus.current;
-                            currentSecond += compareThreadStatus.total;
+                            currentFirst += compareThreadStatus.Current;
+                            currentSecond += compareThreadStatus.Total;
                         }
                     }
                     else
                     {
-                        currentFirst = mainThreadStatus.current;
+                        currentFirst = mainThreadStatus.Current;
                         for (int i = 0; ; i++)
                         {
-                            CoreStatus collectThreadStatus = m_core.StatusGet(ThreadType.Collect, i);
+                            AdStatusW collectThreadStatus = m_core.StatusGet(ThreadType.Collect, i);
                             if (collectThreadStatus == null)
                                 break;
                             if (i == 0)
                             {
-                                path = collectThreadStatus.path;
+                                path = collectThreadStatus.Path;
                             }
-                            currentFirst += collectThreadStatus.current;
-                            currentFirst -= collectThreadStatus.total;
+                            currentFirst += collectThreadStatus.Current;
+                            currentFirst -= collectThreadStatus.Total;
                         }
                     }
                 }
                 else
                 {
-                    path = mainThreadStatus.path;
+                    path = mainThreadStatus.Path;
                 }
             }
 
@@ -394,9 +394,9 @@ namespace AntiDupl.NET.WinForms.Forms
 
         private void EstimateOtherProgress()
         {
-            CoreStatus status = m_core.StatusGet(ThreadType.Main, 0);
+            AdStatusW status = m_core.StatusGet(ThreadType.Main, 0);
             if (status != null)
-                m_progressPanel.UpdateStatus(status.total, status.current, status.current, "");
+                m_progressPanel.UpdateStatus(status.Total, status.Current, status.Current, "");
             else
                 m_progressPanel.UpdateStatus(0, 0, 0, "");
         }
