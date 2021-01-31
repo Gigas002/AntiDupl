@@ -548,12 +548,12 @@ namespace AntiDupl.NET.WinForms.Forms
             m_compareInsideOneFolderCheckBox.Checked = m_newCoreOptions.compareOptions.CompareInsideOneFolder;
             m_compareInsideOneSearchPathCheckBox.Checked = m_newCoreOptions.compareOptions.CompareInsideOneSearchPath;
 
-            m_checkOnDefectCheckBox.Checked = m_newCoreOptions.defectOptions.checkOnDefect;
-            m_checkOnBlockinessCheckBox.Checked = m_newCoreOptions.defectOptions.checkOnBlockiness;
-            m_blockinessThresholdLabeledComboBox.SelectedValue = m_newCoreOptions.defectOptions.blockinessThreshold;
-            m_checkOnBlockinessOnlyNotJpegCheckBox.Checked = m_newCoreOptions.defectOptions.checkOnBlockinessOnlyNotJpeg;
-            m_checkOnBlurringCheckBox.Checked = m_newCoreOptions.defectOptions.checkOnBlurring;
-            m_blurringThresholdLabeledComboBox.SelectedValue = m_newCoreOptions.defectOptions.blurringThreshold;
+            m_checkOnDefectCheckBox.Checked = m_newCoreOptions.defectOptions.CheckOnDefect;
+            m_checkOnBlockinessCheckBox.Checked = m_newCoreOptions.defectOptions.CheckOnBlockiness;
+            m_blockinessThresholdLabeledComboBox.SelectedValue = m_newCoreOptions.defectOptions.BlockinessThreshold;
+            m_checkOnBlockinessOnlyNotJpegCheckBox.Checked = m_newCoreOptions.defectOptions.CheckOnBlockinessOnlyNotJpeg;
+            m_checkOnBlurringCheckBox.Checked = m_newCoreOptions.defectOptions.CheckOnBlurring;
+            m_blurringThresholdLabeledComboBox.SelectedValue = m_newCoreOptions.defectOptions.BlurringThreshold;
 
             m_bmpCheckBox.Checked = m_newCoreOptions.searchOptions.BMP;
             m_gifCheckBox.Checked = m_newCoreOptions.searchOptions.GIF;
@@ -601,12 +601,12 @@ namespace AntiDupl.NET.WinForms.Forms
             m_newCoreOptions.compareOptions.CompareInsideOneFolder = m_compareInsideOneFolderCheckBox.Checked;
             m_newCoreOptions.compareOptions.CompareInsideOneSearchPath = m_compareInsideOneSearchPathCheckBox.Checked;
 
-            m_newCoreOptions.defectOptions.checkOnDefect = m_checkOnDefectCheckBox.Checked;
-            m_newCoreOptions.defectOptions.checkOnBlockiness = m_checkOnBlockinessCheckBox.Checked;
-            m_newCoreOptions.defectOptions.blockinessThreshold = m_blockinessThresholdLabeledComboBox.SelectedValue;
-            m_newCoreOptions.defectOptions.checkOnBlockinessOnlyNotJpeg = m_checkOnBlockinessOnlyNotJpegCheckBox.Checked;
-            m_newCoreOptions.defectOptions.checkOnBlurring = m_checkOnBlurringCheckBox.Checked;
-            m_newCoreOptions.defectOptions.blurringThreshold = m_blurringThresholdLabeledComboBox.SelectedValue;
+            m_newCoreOptions.defectOptions.CheckOnDefect = m_checkOnDefectCheckBox.Checked;
+            m_newCoreOptions.defectOptions.CheckOnBlockiness = m_checkOnBlockinessCheckBox.Checked;
+            m_newCoreOptions.defectOptions.BlockinessThreshold = m_blockinessThresholdLabeledComboBox.SelectedValue;
+            m_newCoreOptions.defectOptions.CheckOnBlockinessOnlyNotJpeg = m_checkOnBlockinessOnlyNotJpegCheckBox.Checked;
+            m_newCoreOptions.defectOptions.CheckOnBlurring = m_checkOnBlurringCheckBox.Checked;
+            m_newCoreOptions.defectOptions.BlurringThreshold = m_blurringThresholdLabeledComboBox.SelectedValue;
 
             m_newCoreOptions.searchOptions.BMP = m_bmpCheckBox.Checked;
             m_newCoreOptions.searchOptions.GIF = m_gifCheckBox.Checked;
@@ -719,8 +719,8 @@ namespace AntiDupl.NET.WinForms.Forms
         private void UpdateItemsEnabling()
         {
             // Если не проставлены галочки поиска дубликатов и дефектов, то проставляем сами
-            if (!(m_newCoreOptions.defectOptions.checkOnDefect || m_newCoreOptions.compareOptions.CheckOnEquality ||
-                m_newCoreOptions.defectOptions.checkOnBlockiness || m_newCoreOptions.defectOptions.checkOnBlurring))
+            if (!(m_newCoreOptions.defectOptions.CheckOnDefect || m_newCoreOptions.compareOptions.CheckOnEquality ||
+                m_newCoreOptions.defectOptions.CheckOnBlockiness || m_newCoreOptions.defectOptions.CheckOnBlurring))
             {
                 m_inited = false;
                 m_newCoreOptions.compareOptions.CheckOnEquality = true;
@@ -767,10 +767,10 @@ namespace AntiDupl.NET.WinForms.Forms
             m_reducedImageSizeLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
             m_ignoreFrameWidthLabeledComboBox.Enabled = m_newCoreOptions.compareOptions.CheckOnEquality;
 
-            m_blockinessThresholdLabeledComboBox.Enabled = m_newCoreOptions.defectOptions.checkOnBlockiness;
-            m_checkOnBlockinessOnlyNotJpegCheckBox.Enabled = m_newCoreOptions.defectOptions.checkOnBlockiness;
+            m_blockinessThresholdLabeledComboBox.Enabled = m_newCoreOptions.defectOptions.CheckOnBlockiness;
+            m_checkOnBlockinessOnlyNotJpegCheckBox.Enabled = m_newCoreOptions.defectOptions.CheckOnBlockiness;
 
-            m_blurringThresholdLabeledComboBox.Enabled = m_newCoreOptions.defectOptions.checkOnBlurring;
+            m_blurringThresholdLabeledComboBox.Enabled = m_newCoreOptions.defectOptions.CheckOnBlurring;
 
             int step = Math.Max(1, 64 / m_newCoreOptions.advancedOptions.ReducedImageSize) * IGNORE_FRAME_WIDTH_STEP;
             if (m_ignoreFrameWidthLabeledComboBox.comboBox.Items.Count != IGNORE_FRAME_WIDTH_MAX / step + 1)

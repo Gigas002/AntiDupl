@@ -608,21 +608,21 @@ namespace AntiDupl.NET.Core
         //    }
         //}
 
-        public CoreDefectOptions defectOptions
-        {
-            get
-            {
-                AdDefectOptions[] options = new AdDefectOptions[1];
-                m_dll.AdOptionsGet(m_handle, OptionsType.Defect, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-                return new CoreDefectOptions(ref options[0]);
-            }
-            set
-            {
-                AdDefectOptions[] options = new AdDefectOptions[1];
-                value.ConvertTo(ref options[0]);
-                m_dll.AdOptionsSet(m_handle, OptionsType.Defect, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
-            }
-        }
+        public AdDefectOptions defectOptions { get; set; }
+        //{
+        //    get
+        //    {
+        //        AdDefectOptions[] options = new AdDefectOptions[1];
+        //        m_dll.AdOptionsGet(m_handle, OptionsType.Defect, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //        return new CoreDefectOptions(ref options[0]);
+        //    }
+        //    set
+        //    {
+        //        AdDefectOptions[] options = new AdDefectOptions[1];
+        //        value.ConvertTo(ref options[0]);
+        //        m_dll.AdOptionsSet(m_handle, OptionsType.Defect, Marshal.UnsafeAddrOfPinnedArrayElement(options, 0));
+        //    }
+        //}
 
         public AdAdvancedOptions advancedOptions { get; set; }
         //{

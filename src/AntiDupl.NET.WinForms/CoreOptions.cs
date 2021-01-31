@@ -35,7 +35,7 @@ namespace AntiDupl.NET.WinForms
     {
         public CoreSearchOptions searchOptions;
         public AdCompareOptions compareOptions;
-        public CoreDefectOptions defectOptions;
+        public AdDefectOptions defectOptions;
         public AdAdvancedOptions advancedOptions;
 
         public CorePathWithSubFolder[] searchPath;
@@ -47,7 +47,7 @@ namespace AntiDupl.NET.WinForms
         {
             searchOptions = new CoreSearchOptions();
             compareOptions = new AdCompareOptions();
-            defectOptions = new CoreDefectOptions();
+            defectOptions = new AdDefectOptions();
             advancedOptions = new AdAdvancedOptions();
 
             searchPath = new CorePathWithSubFolder[1];
@@ -71,7 +71,7 @@ namespace AntiDupl.NET.WinForms
         {
             searchOptions = options.searchOptions.Clone();
             compareOptions = options.compareOptions;
-            defectOptions = options.defectOptions.Clone();
+            defectOptions = options.defectOptions;
             advancedOptions = options.advancedOptions;
 
             searchPath = PathClone(options.searchPath);
@@ -97,7 +97,7 @@ namespace AntiDupl.NET.WinForms
         {
             searchOptions = core.searchOptions.Clone();
             compareOptions = core.compareOptions;
-            defectOptions = core.defectOptions.Clone();
+            defectOptions = core.defectOptions;
             advancedOptions = core.advancedOptions;
             if (onePath)
             {
@@ -121,7 +121,7 @@ namespace AntiDupl.NET.WinForms
         {
             core.searchOptions = searchOptions.Clone();
             core.compareOptions = compareOptions;
-            core.defectOptions = defectOptions.Clone();
+            core.defectOptions = defectOptions;
             core.advancedOptions = advancedOptions;
             if (onePath)
             {
@@ -161,7 +161,7 @@ namespace AntiDupl.NET.WinForms
         {
             options.searchOptions = searchOptions.Clone();
             options.compareOptions = compareOptions;
-            options.defectOptions = defectOptions.Clone();
+            options.defectOptions = defectOptions;
             options.advancedOptions = advancedOptions;
 
             PathCopy(searchPath, ref options.searchPath);

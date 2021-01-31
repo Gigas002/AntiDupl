@@ -5,8 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <VersionPrefix>2.4.0</VersionPrefix>
     <VersionSuffix>preview</VersionSuffix>
-    <AssemblyVersion>2.4.0.21</AssemblyVersion>
-    <FileVersion>2.4.0.21</FileVersion>
+    <AssemblyVersion>2.4.0.23</AssemblyVersion>
+    <FileVersion>2.4.0.23</FileVersion>
     <Platforms>x64</Platforms>
     <Configurations>Debug;Release</Configurations>
     <Authors>ErmIg;Gigas002</Authors>
